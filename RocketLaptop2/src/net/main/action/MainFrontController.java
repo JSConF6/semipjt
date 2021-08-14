@@ -9,6 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.member.action.MemberDeleteAction;
+import net.member.action.MemberInfoAction;
+import net.member.action.MemberLoginProcessAction;
+import net.member.action.MemberSearchAction;
+import net.member.action.MemberUpdateAction;
+import net.member.action.MemberUpdateProcessAction;
+
+
+
 @WebServlet("*.ma")
 public class MainFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -46,6 +55,24 @@ public class MainFrontController extends HttpServlet {
 				break;
 			case "/logout.ma":
 				action = new MainLogoutAction();
+				break;	
+			case "/loginProcess.ma":
+				action = new MemberLoginProcessAction();
+				break;
+			case "/memberUpdate.ma":
+				action = new MemberUpdateAction();
+				break;
+			case "/updateProcess.ma":
+				action = new MemberUpdateProcessAction();
+				break;
+			case "/memberDelete.ma":						//회원탈퇴
+				action = new MemberDeleteAction();
+				break;
+			case "/memberList.ma":
+				action = new MemberSearchAction();
+				break;
+			case "/memberInfo.ma":
+				action = new MemberInfoAction();
 				break;
 		} // switch end
 		
