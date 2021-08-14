@@ -33,25 +33,36 @@ public class MemberDAO {
 			System.out.println("getConnection : insert()");
 			
 			pstmt = con.prepareStatement(
-					"INSERT INTO member(user_id, user_password, user_password1 user_name, user_email , user_phone, user_address1 user_address2 user_jumin) "
-					+ "VALUES (?,?,?,?,?,?)");
+					"INSERT INTO member("
+										+ "user_id, "
+										+ "user_password, "
+										+ "user_name, "
+										+ "user_gender, "
+										+ "user_email, "
+										+ "user_phone, "
+										+ "user_address1, "
+										+ "user_address2), "
+										+ "memberfile, "
+										+ "VALUES (?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, m.getUser_id());
 			pstmt.setString(2, m.getUser_password());
-			pstmt.setString(3, m.getUser_password1());
-			pstmt.setString(4, m.getUser_name());
-			pstmt.setInt(5, m.getUser_jumin());
-			pstmt.setString(6, m.getUser_gender());
-			pstmt.setString(7, m.getUser_email());
-			pstmt.setInt(8, m.getUser_phone());
-			pstmt.setInt(9, m.getUser_address1());
-			pstmt.setString(10, m.getUser_address2());
-			result = pstmt.executeUpdate();
-			
+			//pstmt.setString(3, m.getUser_password1());
+			pstmt.setString(3, m.getUser_name());
+			//pstmt.setInt(5, m.getUser_jumin());
+			pstmt.setString(4, m.getUser_gender());
+			pstmt.setString(5, m.getUser_email());
+			pstmt.setInt(6, m.getUser_phone());
+			pstmt.setInt(7, m.getUser_address1());
+			pstmt.setString(8, m.getUser_address2());
+			result = pstmt.executeUpdate();//삽입 성공 시 result는 1
+
 		
 		//primary key 제약조건 위반했을 경우 발생하는 에러
 		} catch(java.sql.SQLIntegrityConstraintViolationException e) {
 			result = -1;
+
 			System.out.println("유저 아이디 중복 에러입니다.");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -75,20 +86,24 @@ public class MemberDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs =null;
+
 		int result=-1;
 		try {
 			con = ds.getConnection();
 			
 			String sql = "select user_id, password from member where user_id = ? ";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				if(rs.getString(2).equals(user_password)) {
+
 					result = 1;	
 				} else {
 					result = 0; 
+
 				}
 			}
 		} catch (Exception e) {
@@ -132,15 +147,18 @@ public class MemberDAO {
 				m = new Member();
 				m.setUser_id(rs.getString(1));
 				m.setUser_password(rs.getString(2));
-				m.setUser_password1(rs.getString(3));
-				m.setUser_name(rs.getString(4));
-				m.setUser_jumin(rs.getInt(5));
-				m.setUser_gender(rs.getString(6));
-				m.setUser_email(rs.getString(7));
-				m.setUser_phone(rs.getInt(8));
-				m.setUser_address1(rs.getInt(9));
-				m.setUser_address2(rs.getString(10));
+				m.setUser_name(rs.getString(3));
+				//m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(4));
+				m.setUser_email(rs.getString(5));
+				m.setUser_phone(rs.getInt(6));
+				m.setUser_address1(rs.getInt(7));
+				m.setUser_address2(rs.getString(8));
+				m.setMemberfile(rs.getString(9)); //<================추가
+				System.out.println("====================== 1-1 " + m.toString());
 			}
+			System.out.println("====================== 2 ");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -169,30 +187,36 @@ public class MemberDAO {
 	public int update(Member m) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
+
 		int result=0;
 		try {
 			con = ds.getConnection();
 			
-			String sql = "update member set user_name = ?, user_password = ?, user_password1 = ?, user_name = ?, user_jumin = ?, user_gender = ? , user_email = ? "
-					+ " user_phone = ?, user_address1 = ?, user_address2 = ? "
-					+ "	  where user_id = ?";	
+			String sql = "update member set "
+						+ "user_name = ?, "
+						+ "user_gender = ?, "
+						+ "user_email = ?, "
+						+ "user_phone = ?, "
+						+ "user_address1 = ?, "
+						+ "user_address2 = ?, "
+						+ "memberfile = ? "
+						+ "where user_id = ?";	
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, m.getUser_id());
-			pstmt.setString(2, m.getUser_password());
-			pstmt.setString(3, m.getUser_password1());
-			pstmt.setString(4, m.getUser_name());
-			pstmt.setInt(5, m.getUser_jumin());
-			pstmt.setString(6, m.getUser_gender());
-			pstmt.setString(7, m.getUser_email());
-			pstmt.setInt(8, m.getUser_phone());
-			pstmt.setInt(9, m.getUser_address1());
-			pstmt.setString(10, m.getUser_address2());
+			pstmt.setString(1, m.getUser_name());
+			//pstmt.setInt(2, m.getUser_jumin());
+			pstmt.setString(2, m.getUser_gender());
+			pstmt.setString(3, m.getUser_email());
+			pstmt.setInt(4, m.getUser_phone());
+			pstmt.setInt(5, m.getUser_address1());
+			pstmt.setString(6, m.getUser_address2());
+			pstmt.setString(7, m.getMemberfile());
+			pstmt.setString(8, m.getUser_id());
 			result = pstmt.executeUpdate();
-			
-			
+			System.out.println("====update 에러 체크 " + m.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("update() ����: " + e);
+			System.out.println("update() 에러: " + e);
+
 		} finally {
 			if (pstmt != null)
 				try {
@@ -217,7 +241,9 @@ public class MemberDAO {
 		int x = 0;
 		try {
 			con = ds.getConnection();
+
 			pstmt = con.prepareStatement("select count(*) from member where user_id != 'admin'");
+
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
@@ -225,7 +251,9 @@ public class MemberDAO {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getListCount() ����: " + ex);
+
+			System.out.println("getListCount() 에러: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -265,10 +293,11 @@ public class MemberDAO {
 					+           ")"
 					+ "   where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
+
 			int startrow = (page - 1) * limit + 1;
 			
 			int endrow = startrow + limit - 1;
-			
+
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 			rs = pstmt.executeQuery();
@@ -276,6 +305,7 @@ public class MemberDAO {
 		
 			while(rs.next()) {
 				Member m = new Member();
+
 				m.setUser_id(rs.getString("user_id"));
 				m.setUser_password(rs.getString(2));
 				m.setUser_password1(rs.getString(3));
@@ -286,11 +316,14 @@ public class MemberDAO {
 				m.setUser_phone(rs.getInt(8));
 				m.setUser_address1(rs.getInt(9));
 				m.setUser_address2(rs.getString(10));
+
 				list.add(m);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getlist() ����1: " + ex);
+
+			System.out.println("getlist() 에러1: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -333,7 +366,9 @@ public class MemberDAO {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getListCount() ����2: " + ex);
+
+			System.out.println("getListCount() 에러2: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -382,10 +417,12 @@ public class MemberDAO {
 			
 			pstmt.setInt(2, startrow);			
 			pstmt.setInt(3, endrow);			
+
 			rs = pstmt.executeQuery();
 		
 			while(rs.next()) {
 				Member m = new Member();
+
 				m.setUser_id(rs.getString("user_id"));
 				m.setUser_password(rs.getString(2));
 				m.setUser_password1(rs.getString(3));
@@ -396,11 +433,14 @@ public class MemberDAO {
 				m.setUser_phone(rs.getInt(8));
 				m.setUser_address1(rs.getInt(9));
 				m.setUser_address2(rs.getString(10));
+
 				list.add(m);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getListCount() ����3: " + ex);
+
+			System.out.println("getListCount() 에러3: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -422,11 +462,11 @@ public class MemberDAO {
 				}
 		}
 		return list;
-	}
 
 	public int delete(String user_id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
+
 		int result = 0;
 		try {
 			con = ds.getConnection();
@@ -453,25 +493,26 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int isId(String user_id) {
+	public int isId(String id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
-		int result=-1;
+		int result=-1;//DB에 해당 id가 없습니다.
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select id from member where user_id = ? ";
+			String sql = "select id from member where id = ? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, user_id); 
+			pstmt.setString(1, id); //<=========java.sql.SQLException: 인덱스에서 누락된 IN 또는 OUT 매개변수:: 1
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
-				result = 0; 
+				result = 0; //DB에 해당 id가 있습니다.
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			System.out.println("isID ����: " + ex);
+			System.out.println("isID 에러: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
