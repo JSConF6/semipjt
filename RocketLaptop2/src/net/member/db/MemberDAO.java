@@ -14,7 +14,6 @@ import javax.sql.DataSource;
 public class MemberDAO {
 	private DataSource ds;
 	
-	// 생성자에서 JNDI 리소스를 참조하여 Connection 객체를 얻어 옵니다.
 	public MemberDAO() {
 		try {
 			Context init = new InitialContext();
@@ -37,9 +36,7 @@ public class MemberDAO {
 					"INSERT INTO member("
 										+ "user_id, "
 										+ "user_password, "
-										//+ "user_password1, "			//<=========삭제가 맞는거 같은데...
 										+ "user_name, "
-										//+ "user_jumin, "
 										+ "user_gender, "
 										+ "user_email, "
 										+ "user_phone, "
@@ -58,11 +55,14 @@ public class MemberDAO {
 			pstmt.setInt(7, m.getUser_address1());
 			pstmt.setString(8, m.getUser_address2());
 			result = pstmt.executeUpdate();//삽입 성공 시 result는 1
+
 		
 		//primary key 제약조건 위반했을 경우 발생하는 에러
 		} catch(java.sql.SQLIntegrityConstraintViolationException e) {
 			result = -1;
-			System.out.println("멤버 아이디 중복 에러입니다.");
+
+			System.out.println("유저 아이디 중복 에러입니다.");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -86,20 +86,24 @@ public class MemberDAO {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs =null;
-		int result=-1;//아이디가 존재하지 않습니다.
+
+		int result=-1;
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select user_id, user_password from member where user_id = ? ";
+			String sql = "select user_id, password from member where user_id = ? ";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				if(rs.getString(2).equals(user_password)) {
-					result = 1;	//아이디와 비밀번호 일치하는 경우
+
+					result = 1;	
 				} else {
-					result = 0; //비밀번호가 일치하지 않는 경우
+					result = 0; 
+
 				}
 			}
 		} catch (Exception e) {
@@ -132,9 +136,6 @@ public class MemberDAO {
 		Connection con=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		System.out.println("====================== 1 ");
-		System.out.println("====================== user_id " + user_id);
-		user_id = "1234";	//<==========================================테스트용, 동현씨 작업 후 삭제할 것
 		try {
 			con = ds.getConnection();
 			
@@ -143,8 +144,6 @@ public class MemberDAO {
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-
-				
 				m = new Member();
 				m.setUser_id(rs.getString(1));
 				m.setUser_password(rs.getString(2));
@@ -159,6 +158,7 @@ public class MemberDAO {
 				System.out.println("====================== 1-1 " + m.toString());
 			}
 			System.out.println("====================== 2 ");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -187,14 +187,13 @@ public class MemberDAO {
 	public int update(Member m) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
-		System.out.println("====update 에러 체크 " + m.toString());
+
 		int result=0;
 		try {
 			con = ds.getConnection();
 			
 			String sql = "update member set "
 						+ "user_name = ?, "
-						//+ "user_jumin = ?, "
 						+ "user_gender = ?, "
 						+ "user_email = ?, "
 						+ "user_phone = ?, "
@@ -217,6 +216,7 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("update() 에러: " + e);
+
 		} finally {
 			if (pstmt != null)
 				try {
@@ -233,7 +233,7 @@ public class MemberDAO {
 		}
 		return result;	
 	}
-/*
+
 	public int getListCount() {
 		Connection con=null;
 		PreparedStatement pstmt = null;
@@ -241,7 +241,9 @@ public class MemberDAO {
 		int x = 0;
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement("select count(*) from member where id != 'admin'");
+
+			pstmt = con.prepareStatement("select count(*) from member where user_id != 'admin'");
+
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {
@@ -249,7 +251,9 @@ public class MemberDAO {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+
 			System.out.println("getListCount() 에러: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -284,16 +288,16 @@ public class MemberDAO {
 			String sql = "select * "
 					+ "	  from (select b.*, rownum rnum"
 					+ "	  		from(select * from member "
-					+ "				 where id != 'admin'"
+					+ "				 where user_id != 'admin'"
 					+ " 			 order by id) b	"
 					+           ")"
 					+ "   where rnum>=? and rnum<=?";
 			pstmt = con.prepareStatement(sql);
-			// 한 페이지 당 10개씩 목록인 경우 1페이지, 2페이지, 3페이지, 4페이지 ...
+
 			int startrow = (page - 1) * limit + 1;
-						// 읽기 시작할 row 번호 ( 1 11 21 31 ...
+			
 			int endrow = startrow + limit - 1;
-						// 읽을 마지막 row 번호 (10 20 30 40 ...
+
 			pstmt.setInt(1, startrow);
 			pstmt.setInt(2, endrow);
 			rs = pstmt.executeQuery();
@@ -301,17 +305,25 @@ public class MemberDAO {
 		
 			while(rs.next()) {
 				Member m = new Member();
-				m.setId(rs.getString("id"));
-				m.setPassword(rs.getString(2));
-				m.setName(rs.getString(3));
-				m.setAge(rs.getInt(4));
-				m.setGender(rs.getString(5));
-				m.setEmail(rs.getString(6));
+
+				m.setUser_id(rs.getString("user_id"));
+				m.setUser_password(rs.getString(2));
+				m.setUser_password1(rs.getString(3));
+				m.setUser_name(rs.getString(4));
+				m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(6));
+				m.setUser_email(rs.getString(7));
+				m.setUser_phone(rs.getInt(8));
+				m.setUser_address1(rs.getInt(9));
+				m.setUser_address2(rs.getString(10));
+
 				list.add(m);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+
 			System.out.println("getlist() 에러1: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -354,7 +366,9 @@ public class MemberDAO {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+
 			System.out.println("getListCount() 에러2: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -389,35 +403,44 @@ public class MemberDAO {
 			String sql = "select * "
 					+ "	  from (select b.*, rownum rnum"
 					+ "	  		from(select * from member "
-					+ "				 where id != 'admin'"
+					+ "				 where user_id != 'admin'"
 					+ "              and " + field + " like ? "
-					+ " 			 order by id) b"
+					+ " 			 order by user_id) b"
 					+ "			)"
 					+ "   where rnum between ? and ?" ;
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%"+value+ "%");
 			int startrow = (page - 1) * limit + 1;
-						// 읽기 시작할 row 번호 ( 1 11 21 31 ...
+			
 			int endrow = startrow + limit - 1;
-						// 읽을 마지막 row 번호 (10 20 30 40 ...
-			pstmt.setInt(2, startrow);			// <===================주의
-			pstmt.setInt(3, endrow);			//<===============주의
+			
+			pstmt.setInt(2, startrow);			
+			pstmt.setInt(3, endrow);			
+
 			rs = pstmt.executeQuery();
 		
 			while(rs.next()) {
 				Member m = new Member();
-				m.setId(rs.getString("id"));
-				m.setPassword(rs.getString(2));
-				m.setName(rs.getString(3));
-				m.setAge(rs.getInt(4));
-				m.setGender(rs.getString(5));
-				m.setEmail(rs.getString(6));
+
+				m.setUser_id(rs.getString("user_id"));
+				m.setUser_password(rs.getString(2));
+				m.setUser_password1(rs.getString(3));
+				m.setUser_name(rs.getString(4));
+				m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(6));
+				m.setUser_email(rs.getString(7));
+				m.setUser_phone(rs.getInt(8));
+				m.setUser_address1(rs.getInt(9));
+				m.setUser_address2(rs.getString(10));
+
 				list.add(m);
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+
 			System.out.println("getListCount() 에러3: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -439,13 +462,11 @@ public class MemberDAO {
 				}
 		}
 		return list;
-	} 
-	*/
 
 	public int delete(String user_id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
-		user_id = "5678";
+
 		int result = 0;
 		try {
 			con = ds.getConnection();
@@ -472,7 +493,6 @@ public class MemberDAO {
 		return result;
 	}
 
-	/*
 	public int isId(String id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
@@ -492,6 +512,7 @@ public class MemberDAO {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("isID 에러: " + ex);
+
 		} finally {
 			if(rs != null)
 				try {
@@ -514,5 +535,4 @@ public class MemberDAO {
 		}
 		return result;
 	}
-*/
 }	

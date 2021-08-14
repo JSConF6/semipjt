@@ -11,55 +11,56 @@ import javax.servlet.http.HttpSession;
 
 import net.main.action.Action;
 import net.main.action.ActionForward;
+
 import net.member.db.MemberDAO;
 
 public class MemberLoginProcessAction implements Action {
 
-		@Override
-		public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			ActionForward forward = new ActionForward();
-			String user_id = request.getParameter("user_id");
-			String user_password = request.getParameter("user_password");
-			MemberDAO mdao = new MemberDAO();
-			int result = mdao.isId(user_id,user_password);
-			System.out.println("°á°ú´Â" + result);
+	@Override
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		ActionForward forward = new ActionForward();
+		String user_id = request.getParameter("user_id");
+		String user_password = request.getParameter("user_password");
+		MemberDAO mdao = new MemberDAO();
+		int result = mdao.isId(user_id,user_password);
+		System.out.println("ê²°ê³¼ëŠ”" + result);
 			
-			//·Î±×ÀÎ ¼º°ø
-			if (result == 1) {
-				HttpSession session = request.getSession();
-				session.setAttribute("user_id", user_id);
+			//ë¡œê·¸ì¸ ì„±ê³µ
+		if (result == 1) {
+			HttpSession session = request.getSession();
+			session.setAttribute("user_id", user_id);
 				
-				String IDStore = request.getParameter("remember");
-				Cookie cookie = new Cookie("user_id", user_id);
+			String IDStore = request.getParameter("remember");
+			Cookie cookie = new Cookie("user_id", user_id);
 				
-				// ID ±â¾ïÇÏ±â¸¦ Ã¼Å©ÇÑ °æ¿ì
-				if (IDStore != null && IDStore.equals("store")) {
-					// cookie.setMaxAge( 60 *60 * 24); //ÄíÅ°ÀÇ À¯È¿½Ã°£À» 24½Ã°£À¸·Î ¼³Á¤ÇÕ´Ï´Ù.
-					cookie.setMaxAge(2*60);
-					// Å¬¶óÀÌ¾ğÆ®·Î ÄíÅ°°ªÀ» Àü¼ÛÇÕ´Ï´Ù.
-					response.addCookie(cookie);
+			// ID ê¸°ì–µí•˜ê¸°ë¥¼ ì²´í¬í•œ ê²½ìš°
+			if (IDStore != null && IDStore.equals("store")) {
+				// cookie.setMaxAge( 60 *60 * 24); //ì¿ í‚¤ì˜ ìœ íš¨ì‹œê°„ì„ 24ì‹œê°„ìœ¼ë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
+				cookie.setMaxAge(2*60);
+				// í´ë¼ì´ì–¸íŠ¸ë¡œ ì¿ í‚¤ê°’ì„ ì „ì†¡í•©ë‹ˆë‹¤.
+				response.addCookie(cookie);
 					
-				} else {
-					cookie.setMaxAge(0);
-					response.addCookie(cookie);
-				}
-				
-				forward.setRedirect(true);
-				forward.setPath("main.ma"); //<=====================ÇâÈÄ ¼öÁ¤ÇÒ °Í
-				return forward;
 			} else {
-				String message = "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.";
-				if (result == -1)
-					message = "¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.";
-				response.setContentType("text/html;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('" + message + "');");
-				out.println("location.href='login.net';");
-				out.println("</script>");
-				out.close();
-				return null;
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
 			}
+				
+			forward.setRedirect(true);
+			forward.setPath("main.ma"); //<=====================í–¥í›„ ìˆ˜ì •í•  ê²ƒ
+			return forward;
+		} else {
+			String message = "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+			if (result == -1)
+				message = "ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("location.href='login.net';");
+			out.println("</script>");
+		  out.close();
+			return null;
 		}
 	}
+}
