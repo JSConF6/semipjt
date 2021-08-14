@@ -1,0 +1,497 @@
+package net.member.db;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+public class MemberDAO {
+	private DataSource ds;
+	
+	public MemberDAO() {
+		try {
+			Context init = new InitialContext();
+			ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+		} catch (Exception ex) {
+			System.out.println("DB 연결 실패 : " + ex);
+			return;
+		}
+	}
+
+	public int insert(Member m) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			con = ds.getConnection();
+			System.out.println("getConnection : insert()");
+			
+			pstmt = con.prepareStatement(
+					"INSERT INTO member(user_id, user_password, user_password1 user_name, user_email , user_phone, user_address1 user_address2 user_jumin) "
+					+ "VALUES (?,?,?,?,?,?)");
+			pstmt.setString(1, m.getUser_id());
+			pstmt.setString(2, m.getUser_password());
+			pstmt.setString(3, m.getUser_password1());
+			pstmt.setString(4, m.getUser_name());
+			pstmt.setInt(5, m.getUser_jumin());
+			pstmt.setString(6, m.getUser_gender());
+			pstmt.setString(7, m.getUser_email());
+			pstmt.setInt(8, m.getUser_phone());
+			pstmt.setInt(9, m.getUser_address1());
+			pstmt.setString(10, m.getUser_address2());
+			result = pstmt.executeUpdate();
+			
+		
+		//primary key 제약조건 위반했을 경우 발생하는 에러
+		} catch(java.sql.SQLIntegrityConstraintViolationException e) {
+			result = -1;
+			System.out.println("유저 아이디 중복 에러입니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}	
+		return result;
+	}
+
+	public int isId(String user_id, String user_password) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs =null;
+		int result=-1;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select user_id, password from member where user_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString(2).equals(user_password)) {
+					result = 1;	
+				} else {
+					result = 0; 
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}	
+		return result;
+	}
+
+	public Member member_info(String user_id) {
+		Member m = null;
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * from member where user_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				m = new Member();
+				m.setUser_id(rs.getString(1));
+				m.setUser_password(rs.getString(2));
+				m.setUser_password1(rs.getString(3));
+				m.setUser_name(rs.getString(4));
+				m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(6));
+				m.setUser_email(rs.getString(7));
+				m.setUser_phone(rs.getInt(8));
+				m.setUser_address1(rs.getInt(9));
+				m.setUser_address2(rs.getString(10));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return m;	
+	}
+
+	public int update(Member m) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		int result=0;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "update member set user_name = ?, user_password = ?, user_password1 = ?, user_name = ?, user_jumin = ?, user_gender = ? , user_email = ? "
+					+ " user_phone = ?, user_address1 = ?, user_address2 = ? "
+					+ "	  where user_id = ?";	
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, m.getUser_id());
+			pstmt.setString(2, m.getUser_password());
+			pstmt.setString(3, m.getUser_password1());
+			pstmt.setString(4, m.getUser_name());
+			pstmt.setInt(5, m.getUser_jumin());
+			pstmt.setString(6, m.getUser_gender());
+			pstmt.setString(7, m.getUser_email());
+			pstmt.setInt(8, m.getUser_phone());
+			pstmt.setInt(9, m.getUser_address1());
+			pstmt.setString(10, m.getUser_address2());
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("update() ����: " + e);
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return result;	
+	}
+
+	public int getListCount() {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int x = 0;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement("select count(*) from member where user_id != 'admin'");
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				x = rs.getInt(1);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount() ����: " + ex);
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return x;
+	}
+
+	public List<Member> getList(int page, int limit) {
+		List<Member> list = new ArrayList<Member>();
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * "
+					+ "	  from (select b.*, rownum rnum"
+					+ "	  		from(select * from member "
+					+ "				 where user_id != 'admin'"
+					+ " 			 order by id) b	"
+					+           ")"
+					+ "   where rnum>=? and rnum<=?";
+			pstmt = con.prepareStatement(sql);
+			int startrow = (page - 1) * limit + 1;
+			
+			int endrow = startrow + limit - 1;
+			
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			rs = pstmt.executeQuery();
+
+		
+			while(rs.next()) {
+				Member m = new Member();
+				m.setUser_id(rs.getString("user_id"));
+				m.setUser_password(rs.getString(2));
+				m.setUser_password1(rs.getString(3));
+				m.setUser_name(rs.getString(4));
+				m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(6));
+				m.setUser_email(rs.getString(7));
+				m.setUser_phone(rs.getInt(8));
+				m.setUser_address1(rs.getInt(9));
+				m.setUser_address2(rs.getString(10));
+				list.add(m);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getlist() ����1: " + ex);
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return list;
+	}
+
+	public int getListCount(String field, String value) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int x = 0;
+		try {
+			con = ds.getConnection();
+			String sql = "select count(*) from member "
+					   + "where id !='admin' "
+					   + "and " + field + " like ?";
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+value+"%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				x = rs.getInt(1);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount() ����2: " + ex);
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return x;
+	}
+
+	public List<Member> getList(String field, String value, int page, int limit) {
+		List<Member> list = new ArrayList<Member>();
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * "
+					+ "	  from (select b.*, rownum rnum"
+					+ "	  		from(select * from member "
+					+ "				 where user_id != 'admin'"
+					+ "              and " + field + " like ? "
+					+ " 			 order by user_id) b"
+					+ "			)"
+					+ "   where rnum between ? and ?" ;
+			System.out.println(sql);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%"+value+ "%");
+			int startrow = (page - 1) * limit + 1;
+			
+			int endrow = startrow + limit - 1;
+			
+			pstmt.setInt(2, startrow);			
+			pstmt.setInt(3, endrow);			
+			rs = pstmt.executeQuery();
+		
+			while(rs.next()) {
+				Member m = new Member();
+				m.setUser_id(rs.getString("user_id"));
+				m.setUser_password(rs.getString(2));
+				m.setUser_password1(rs.getString(3));
+				m.setUser_name(rs.getString(4));
+				m.setUser_jumin(rs.getInt(5));
+				m.setUser_gender(rs.getString(6));
+				m.setUser_email(rs.getString(7));
+				m.setUser_phone(rs.getInt(8));
+				m.setUser_address1(rs.getInt(9));
+				m.setUser_address2(rs.getString(10));
+				list.add(m);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount() ����3: " + ex);
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return list;
+	}
+
+	public int delete(String user_id) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			String sql = "delete from member where user_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return result;
+	}
+
+	public int isId(String user_id) {
+		Connection con=null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int result=-1;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select id from member where user_id = ? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id); 
+			rs = pstmt.executeQuery();
+
+			if(rs.next()) {
+				result = 0; 
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("isID ����: " + ex);
+		} finally {
+			if(rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			if (con != null)
+				try {
+					con.close();
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+		}
+		return result;
+	}
+}	
