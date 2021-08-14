@@ -1,91 +1,83 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html>
 	<head>
 		<jsp:include page="header.jsp" />
 		<title>RocketLaptop</title>
-		
 		<script>
-	$(function() {
-		var checkuser_id=false;
-		var checkuser_email=false;
-		//주민번호 앞자리 6자리인 경우
-		if (jumin1.value.length == 6) {
-			pattern=/^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|[3][01])$/;
-			if(pattern.test(jumin1.value)){
-				jumin2.focus();
-			} else { 
-				alert("숫자또는 형식에 맞게 입력하세요");
-				jumin1.value = '';
-				jumin1.focus();
-			}
-		}
-		
-	//주민번호 앞자리 7자리인 경우		
-	if (jumin2.value.length == 7) {
-		pattern = /^[1234][0-9]{6}$/;
-		if (pattern.test(jumin2.value)){
-			
-		//주민 번호 뒷자리에 따라 남자 여자 성별 라디오 버튼 자동선택
-		var c = Number(jumin2.value.substring(0,1));
-		var index=(c-1)%2;
-		var user_gender = document.getElementById("user_gender"+(index+1));
-		gender.checked=true;
-		} else {
-			alert("형식에 맞게 입력하세요");
-			jumin2.value = '';
-			jumin2.focus();
-		} //if
-	} //if
-}// move end
-			
-			if(!checkuser_id){
-				alert("사용가능한 id로 입력하세요.");
-				$("input:eq(0)").val('').focus();
-				return false;
-			}
-			
-			if(!checkuser_email){
-				alert("email 형식을 확인하세요");
-				$("input:eq(6)").focus();
-				return false;
-			}
-		}
-	}) //submit
-	
-	$("input:eq(6)").on('keyup',
-			function() {
-				$("#email_message").empty();
-				var pattern = /^\w+@\w+[.]\w{3}$/;
-				var user_email = $("input:eq(6)").val();
-				if (!pattern.test(email)){
-					$("#email_message").css('color', 'red')
-										.html("이메일형식이 맞지 않습니다.");
-					checkuser_email=false;
-				}else{
-					$("#email_message").css('color', 'green')
-										.html("이메일형식에 맞습니다.");
-					checkemail=true;
+			$(function() {
+				var checkuser_id=false;
+				var checkuser_email=false;
+				//주민번호 앞자리 6자리인 경우
+				if (jumin1.value.length == 6) {
+					pattern=/^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|[3][01])$/;
+					if(pattern.test(jumin1.value)){
+						jumin2.focus();
+					} else { 
+						alert("숫자또는 형식에 맞게 입력하세요");
+						jumin1.value = '';
+						jumin1.focus();
+					}
 				}
-		}); //email keyup 이벤트 처리 끝
-		
-		$("input:eq(0)").on('keyup',
-			function() {
-			checkid=true;
-			$("#message").empty();
+				
+				//주민번호 앞자리 7자리인 경우		
+				if (jumin2.value.length == 7) {
+					pattern = /^[1234][0-9]{6}$/;
+					if (pattern.test(jumin2.value)){
+					
+					//주민 번호 뒷자리에 따라 남자 여자 성별 라디오 버튼 자동선택
+					var c = Number(jumin2.value.substring(0,1));
+					var index=(c-1)%2;
+					var user_gender = document.getElementById("user_gender"+(index+1));
+					gender.checked=true;
+					} else {
+						alert("형식에 맞게 입력하세요");
+						jumin2.value = '';
+						jumin2.focus();
+					} //if
+				} //if
+					
+					if(!checkuser_id){
+						alert("사용가능한 id로 입력하세요.");
+						$("input:eq(0)").val('').focus();
+						return false;
+					}
+					
+					if(!checkuser_email){
+						alert("email 형식을 확인하세요");
+						$("input:eq(6)").focus();
+						return false;
+					}
+				}
 			
-			var pattern = /^\w{5,12 $/;}
-			var user_id = $("input:eq(0)").val();
-			if (!pattern.test(id)){
-				$('#message').css('color', 'red')
-							.html("영문자 숫자_로 5~12자 가능합니다.");
-				checkid=false;
-			}
-		}) //id keyup end
-	})//ready
-</script>
-		
+				$("input:eq(6)").on('keyup', function() {
+						$("#email_message").empty();
+						var pattern = /^\w+@\w+[.]\w{3}$/;
+						var user_email = $("input:eq(6)").val();
+						if (!pattern.test(email)){
+							$("#email_message").css('color', 'red')
+												.html("이메일형식이 맞지 않습니다.");
+							checkuser_email=false;
+						}else{
+							$("#email_message").css('color', 'green')
+												.html("이메일형식에 맞습니다.");
+							checkemail=true;
+						}
+				}); //email keyup 이벤트 처리 끝
+				
+				$("input:eq(0)").on('keyup', function() {
+					checkid=true;
+					$("#message").empty();
+					
+					var pattern = /^\w{5,12 $/;}
+					var user_id = $("input:eq(0)").val();
+					if (!pattern.test(id)){
+						$('#message').css('color', 'red').html("영문자 숫자_로 5~12자 가능합니다.");
+							checkid=false;
+						}
+					})
+			})
+		</script>
 		<style>
 			#title{
 				font-size: 30px;

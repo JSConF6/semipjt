@@ -462,6 +462,7 @@ public class MemberDAO {
 				}
 		}
 		return list;
+	}
 
 	public int delete(String user_id) {
 		Connection con=null;

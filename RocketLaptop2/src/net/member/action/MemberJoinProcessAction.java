@@ -21,8 +21,8 @@ public class MemberJoinProcessAction implements Action {
 		int user_jumin = Integer.parseInt(request.getParameter("user_jumin"));
 		String user_gender = request.getParameter("user_gender");
 		String user_email = request.getParameter("user_email");
-		int user_phone = Integer.parseInt(request.getParameter("user_phone");
-		int user_address1 = Integer.parseInt(request.getParameter("user_address1");
+		int user_phone = Integer.parseInt(request.getParameter("user_phone"));
+		int user_address1 = Integer.parseInt(request.getParameter("user_address1"));
 		String user_address2 = request.getParameter("user_address2");
 		
 		Member m = new Member();
