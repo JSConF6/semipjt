@@ -56,10 +56,12 @@ public class ProductAddAction implements Action {
 			}
 			
 			System.out.println("상품 등록 완료");
-			// 상품 등록이 완료되면 상품 목록을 보여주기 위해 "ProductList.ad"로 이동합니다.
-			// Redirect여부를 true
-			forward.setRedirect(true);
-			forward.setPath("ProductList.ad"); // 이동할 경로를 지정합니다.
+			forward.setRedirect(false);
+			request.setAttribute("maintitle", "상품 등록");
+			request.setAttribute("title", "상품 등록");
+			request.setAttribute("body", "상품이 등록되었습니다.");
+			request.setAttribute("path", "ProductList.ad");
+			forward.setPath("Modal/SuccessModal.jsp");
 			return forward;
 		}catch(IOException ex) {
 			forward.setPath("error/error.jsp");

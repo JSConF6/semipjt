@@ -39,8 +39,12 @@ public class NoticeModifyAction implements Action {
 		}
 		
 		System.out.println("공지사항 글 수정 성공");
-		forward.setRedirect(true);
-		forward.setPath("NoticeDetail.ad?num=" + notice.getNotice_num());
+		forward.setRedirect(false);
+		request.setAttribute("maintitle", "공지사항 수정");
+		request.setAttribute("title", "공지사항 수정");
+		request.setAttribute("body", "공지사항 글이 수정되었습니다.");
+		request.setAttribute("path", "NoticeDetail.ad?num=" + notice.getNotice_num());
+		forward.setPath("Modal/SuccessModal.jsp");
 		return forward;
 	}
 

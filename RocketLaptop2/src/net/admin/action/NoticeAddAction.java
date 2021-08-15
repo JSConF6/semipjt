@@ -35,9 +35,12 @@ public class NoticeAddAction implements Action {
 			return forward;
 		}
 		System.out.println("공지사항 등록 완료");
-		
-		forward.setRedirect(true);
-		forward.setPath("NoticeList.ad");
+		forward.setRedirect(false);
+		request.setAttribute("maintitle", "공지사항 등록");
+		request.setAttribute("title", "공지사항 등록");
+		request.setAttribute("body", "공지사항 글이 등록되었습니다.");
+		request.setAttribute("path", "NoticeList.ad");
+		forward.setPath("Modal/SuccessModal.jsp");
 		return forward;
 	}
 

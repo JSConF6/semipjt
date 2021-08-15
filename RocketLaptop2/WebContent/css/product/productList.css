@@ -22,6 +22,18 @@
 #productAddbtn{
 	float : right;
 }
+
+.categorybtn{
+	margin-right : 10px;
+    float: right;
+}
+
+.categoryForm{
+	margin-right: 0px;
+    margin-left: 0px;
+    width: 100%;
+    text-align : left;
+}
 	
 .container > form{
 	margin-bottom : 15px;

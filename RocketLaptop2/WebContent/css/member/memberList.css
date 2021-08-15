@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.gray{color:gray}
+
+.MemberListBody{
+	text-align : center;
+	margin-top : 80px;
+}
+	
+.MemberListTitle{
+	text-align : center;
+	margin-top : 10px;
+}
+	
+.MemberListTitle > a{
+	color : black;
+}
+
+.modal {
+	overflow-y:auto;
+}
+	
+.container > h2{
+	float : left;
+}

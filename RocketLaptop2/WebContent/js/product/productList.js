@@ -2,7 +2,7 @@ $(function(){
 	var selectedValue=$('.search_field').val();
 	
 	if(selectedValue!='-1'){
-		$("#viewcount").val(selectedValue);
+		$("#productinfo").val(selectedValue);
 	}
 	
 	// 검색 버튼 클릭한 경우
@@ -17,7 +17,7 @@ $(function(){
 	});
 	
 	// 검색창 select가 바뀌면 placholder 바뀐다
-	$('#viewcount').change(function(){
+	$('#productinfo').change(function(){
 		selectedValue = $(this).val();
 		$("input").val('');
 		message = ["상품코드", "상품명", "카테고리", "상품상태"];
@@ -98,6 +98,31 @@ $(function(){
 		
 		$('#ProductAddModal').modal('show');
 	});
+	
+	// 카테고리 삭제를 클릭하면 모달창이 뜬다.
+	$('#categoryDelbtn').click(function(){
+		$.ajax({
+			url : "CategoryList.ad",
+			type : 'post',
+			dataType : 'json',
+			cache : false,
+			success : function(data){
+				$(".deletecategory > option").remove();
+				$(data.categorylist).each(function(index, item){
+					$(".deletecategory").append("<option value='" + this.category_code
+							+ "'>" + this.category_name + "</option>");
+				});
+			}
+		});
+		
+		$('#CategoryDelModal').modal('show');
+	});
+	
+	// 카테고리 추가 input 유효성 검사
+	$("#category_AddName").keyup(function(){
+		$(this).val($(this).val().replace(/[^A-Z]/g, ""));
+	});
+	
 	
 	// Modal창 안에 상품등록 폼이 submit할때 유효성 검사
 	$('#productAddFrom').submit(function(){

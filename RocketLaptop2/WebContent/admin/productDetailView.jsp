@@ -64,13 +64,13 @@
 					<div class="form-check-inline">
 						<label class="form-check-label" for="newProduct">
 							<input type="radio" class="form-check-input"
-							       id="newProduct" name="optradio" value="신규" onClick="return(false);">신규상품
+							       id="newProduct" name="productStatus" value="신규" onClick="return(false);">신규상품
 						</label>
 					</div>
 					<div class="form-check-inline">
 						<label class="form-check-label" for="usedProduct">
 							<input type="radio" class="form-check-input"
-							 	   id="usedProduct" name="optradio" value="중고" onClick="return(false);">중고상품
+							 	   id="usedProduct" name="productStatus" value="중고" onClick="return(false);">중고상품
 						</label>
 					</div>
 				</div>
@@ -84,7 +84,6 @@
 					
 				<!-- 버튼 -->
 				<div class="text-right mb-4">
-					<a type="submit" class="btn btn-primary" href="ProductModifyView.ad?product_code=${p.product_code}">수정</a>
 					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ProductDeleteModal">삭제</button>
 					<a type="button" class="btn btn-info" href="ProductList.ad">목록</a>
 				</div>

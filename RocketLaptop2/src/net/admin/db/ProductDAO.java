@@ -352,8 +352,7 @@ private DataSource ds;
 					+	   "p.product_price, p.product_details, p.product_stock, p.product_status, "
 					+	   "p.product_image, p.product_sales, p.product_date "  
 					+	   "from product p, category c " 
-					+	   "where p.category_code = c.category_code " 
-					+	   "order by product_code asc) p " 
+					+	   "where p.category_code = c.category_code) p " 
 					+"where product_code = ?";
 		try {
 			con = ds.getConnection();

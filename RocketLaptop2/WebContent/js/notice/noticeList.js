@@ -2,7 +2,7 @@ $(function(){
 	var selectedValue=$(".search_field").val();
 	
 	if(selectedValue!='-1'){
-		$("#viewcount").val(selectedValue);
+		$("#noticeinfo").val(selectedValue);
 	}
 	
 	// 검색 버튼 클릭한 경우
@@ -16,7 +16,7 @@ $(function(){
 		}
 	});
 	
-	$('#viewcount').change(function(){
+	$('#noticeinfo').change(function(){
 		selectedValue = $(this).val();
 		$("input").val('');
 		message = ["제목", "작성일"];

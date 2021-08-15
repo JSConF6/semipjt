@@ -16,7 +16,7 @@
 				<h1 class="ProductTitle"><a href="ProductList.ad">상품 목록</a></h1>
 				<form action="ProductList.ad" method="post">
 				    <div class="input-group">
-				        <select id="viewcount" name="search_field">
+				        <select id="productinfo" name="search_field">
 				            <option value="0" selected>상품코드</option>
 				            <option value="1">상품명</option>
 				            <option value="2">카테고리</option>
@@ -30,6 +30,9 @@
 				<input type="hidden" value="${search_field }" class="search_field">
 				<h2>상품 개수 : ${listcount}</h2>
 				<button type="button" class="btn btn-primary" id="productAddbtn">상품 등록</button>
+				<button type="button" class="btn btn-danger categorybtn" id="categoryDelbtn">카테고리 삭제</button>
+				<button type="button" class="btn btn-secondary categorybtn" data-toggle="modal" data-target="#CategoryAddModal">카테고리 추가</button>
+				
 				<c:if test="${listcount > 0 }">
 					<table class="table table-striped table-bordered text-center">
 						<thead>
@@ -62,7 +65,7 @@
 									<td class="align-middle">${p.product_status }</td>
 									<td class="align-middle">${p.product_sales }</td>
 									<td class="align-middle">${p.product_date }</td>
-									<td class="align-middle"><a class="btn btn-info" href="ProductModifyView.ad?product_code=${p.product_code}">수정</a></td>
+									<td class="align-middle"><a class="btn btn-primary" href="ProductModifyView.ad?product_code=${p.product_code}">수정</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -268,6 +271,69 @@
 							
 							<div class="modal-footer">
 								<button type="button" class="btn btn-primary"  onClick="javascript:location.replace('ProductList.ad');">확인</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 카테고리 추가 모달창 -->
+				<div class="modal fade" id="CategoryAddModal">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
+						<div class="modal-content">
+				      
+					        <!-- Modal Header -->
+							<div class="modal-header">
+								<h1 class="modal-title">카테고리 추가</h1>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+				        
+					        <!-- Modal body -->
+					        <div class="modal-body text-left">
+				          		<form action="CategoryAdd.ad" method="post" name="categoryaddform" class="categoryForm">
+				          			<!-- 카테고리 명 -->
+				          			<label for="category_AddName">카테고리 명</label>
+									<input type="text" class="form-control"
+									   	   id="category_AddName" name="category_AddName" placeholder="대문자 영어로 입력해주세요">
+									
+									<!-- 버튼 -->
+									<div class="text-right mt-3">
+										<button type="submit" class="btn btn-primary">추가</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 카테고리 삭제 모달창 -->
+				<div class="modal fade" id="CategoryDelModal">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
+						<div class="modal-content">
+				      
+					        <!-- Modal Header -->
+							<div class="modal-header">
+								<h1 class="modal-title">카테고리 삭제</h1>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							</div>
+				        
+					        <!-- Modal body -->
+					        <div class="modal-body text-left">
+				          		<form action="CategoryDelete.ad" method="post" name="categorydelform" class="categoryForm">
+				          			
+				          			<!-- 카테고리 -->
+				    				<div class="form-group text-left">
+				      					<label for="category">카테고리</label>
+				      					<select class="form-control deletecategory" name="category_code">
+										</select>
+				    				</div>
+									
+									<!-- 버튼 -->
+									<div class="text-right mt-3">
+										<button type="submit" class="btn btn-primary">삭제</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>

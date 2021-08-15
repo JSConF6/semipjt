@@ -17,7 +17,7 @@
 				<a class="nav-link" href="ProductList.ad">상품 목록</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="UserList.ad">회원 목록</a>
+				<a class="nav-link" href="MemberList.ad">회원 목록</a>
 			</li>
 		</ul>
 	</div>
