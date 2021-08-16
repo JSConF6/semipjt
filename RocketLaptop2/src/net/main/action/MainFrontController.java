@@ -58,6 +58,15 @@ public class MainFrontController extends HttpServlet {
 			case "/login.ma":
 				action = new MainLoginAction();
 				break;
+			case "/join.ma":
+				action = new MemberJoinAction();			//회원가입
+				break;
+			case "/joinProcess.ma":
+				action = new MemberJoinProcessAction();     //회원가입
+				break;	
+			case "/idcheck.ma":								//회원가입(ID유효성검사)
+				action = new MemberIdCheckAction();
+				break;	
 			case "/logout.ma":
 				action = new MainLogoutAction();
 				break;	
