@@ -13,7 +13,7 @@ public class MainLoginAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		String user_id = "admin";
+		String user_id = "";
 		HttpSession session = request.getSession();
 		session.setAttribute("user_id", user_id);
 		
