@@ -6,6 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.main.action.Action;
+import net.main.action.ActionForward;
+
 public class MemberJoinAction implements Action {
 
 	@Override
@@ -14,7 +17,7 @@ public class MemberJoinAction implements Action {
 
 ActionForward forward=new ActionForward();
 forward.setRedirect(false);
-forward.setPath("member/joinForm.jsp");
+forward.setPath("main/joinForm.jsp");
 return forward;
 }
 

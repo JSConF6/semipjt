@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import net.member.db.Member;
 import net.member.db.MemberDAO;
 
+import net.main.action.Action;
+import net.main.action.ActionForward;
+
 public class MemberJoinProcessAction implements Action {
 
 	@Override
@@ -41,7 +44,7 @@ public class MemberJoinProcessAction implements Action {
 		out.println("<script>>");
 		if (result == 1) {
 			out.println("alert('회원가입을 축하합니다.');");
-			out.println("location.href='login.net';");
+			out.println("location.href='login.ma';");
 		} else if (result == -1) {
 			out.println("alert('아이디가 중복되었습니다. 다시 입력하세요');");
 			out.println("history.back()");

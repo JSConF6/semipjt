@@ -5,6 +5,9 @@
 		<jsp:include page="header.jsp" />
 		<title>RocketLaptop</title>
 		<script>
+/*    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 모달 기능으로 구현했기 때문에 joinform.jsp는 불필요해지고 main.jsp에서 회원가입기능 구현
+ 
+		
 			$(function() {
 				var checkuser_id=false;
 				var checkuser_email=false;
@@ -69,14 +72,16 @@
 					checkid=true;
 					$("#message").empty();
 					
-					var pattern = /^\w{5,12 $/};
+					var pattern = /^\w{5,12}$/;
 					var user_id = $("input:eq(0)").val();
 					if (!pattern.test(id)){
 						$('#message').css('color', 'red').html("영문자 숫자_로 5~12자 가능합니다.");
 							checkid=false;
+							return;
 						}
 					})
 			})
+ */
 		</script>
 		<style>
 			#title{
@@ -189,7 +194,7 @@
 		</nav>
 		
 	<!-- 회원가입 양식 -->
-	<form name="joinform" action="joinProcess.net" method="post">
+	<form name="joinform" action="joinProcess.ma" method="post">
 		<h1>회원가입</h1>
 		<hr>
 		<b>아이디</b>
@@ -202,10 +207,10 @@
 		<b>비밀번호 확인</b><input
 			type="password" name="user_password1" placeholder="비밀번호 확인" required>
 		
-		<b>이름</b><input type="text" name="name" placeholder="이름"
+		<b>이름</b><input type="text" name="user_name" placeholder="이름"
 			maxLength="5" required>
 			
-		<b>주민등록번호</b><input type="text" name="user_jumin" maxLength="14" placeholder="주민등록번호" required>
+		<b>생년월일</b><input type="text" name="user_birthdate" maxLength="14" placeholder="생년월일 (ex)19980101" required>
 		
 		<b>성별</b>
 		<div>
@@ -226,10 +231,13 @@
 		<b>주소 </b>
 		<input type="text" name="user_address2" placeholder="주소" maxLength="100" required>
 		
+		<b>프로필 사진</b>
+		<input type="file" name="user_memberfile" placeholder="프로필사진" maxLength="20" accept="image/*" >
+		
 	
-		<div class="celafix">
+		<div class="clearfix">
 			<button type="submit" class="submitbtn">회원가입</button>
-			<button type="reset" class="cancelbtn">다시작성</button> 
+			<button type="reset" class="cancelbtn">다시작성</button>
 		</div>
 		
 	</form>
