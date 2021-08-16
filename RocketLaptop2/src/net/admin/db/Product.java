@@ -98,6 +98,6 @@ public class Product {
 	}
 	
 	public void setProduct_date(String product_date) {
-		this.product_date = product_date.substring(0, 10);
+		this.product_date = product_date;
 	}
 }

@@ -12,7 +12,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<c:if test="${id == 'admin'}">
+			<c:if test="${user_id == 'admin'}">
 				<h1 class="MemberListTitle"><a href="MemberList.ad">회원 목록</a></h1>
 				<form action="MemberList.ad" method="post">
 				    <div class="input-group">
@@ -142,5 +142,7 @@
 				</div>
 			</c:if>
 		</div>
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>

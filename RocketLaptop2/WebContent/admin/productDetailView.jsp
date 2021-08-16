@@ -12,7 +12,7 @@
 		<link href="css/product/productDetailView.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
-		<c:if test="${id == 'admin' }">
+		<c:if test="${user_id == 'admin' }">
 			<div id="showImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
 			<div id="DetailDiv" class="mt-2">
 				<h1>상품 상세 페이지</h1>
@@ -115,5 +115,7 @@
 				</div>
 			</div>
 		</c:if>
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>

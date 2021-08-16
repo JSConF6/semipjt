@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="js/member/memberModifyView.js"></script>
 	</head>
 	<body>
-		<c:if test="${id == 'admin' }">
+		<c:if test="${user_id == 'admin' }">
 			<input type="hidden" value="${m.user_gender }" class="user_gender">
 			<div id="ModifyDiv" class="mt-2">
 				<h1>회원 수정 - 관리자</h1>
@@ -128,5 +128,7 @@
 				</div>
 			</div>
 		</c:if>
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>

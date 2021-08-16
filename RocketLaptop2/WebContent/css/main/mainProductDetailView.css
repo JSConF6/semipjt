@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+span{
+	font-size : 40px;	
+}
+
+#productDetail > p{
+	font-size : 30px;
+}
+
+#showImage{
+	margin-top: 20px;
+    margin-left: 30px;
+    margin-right : 50px;
+    width: 33%;
+    height: 60%;
+    float: left;
+}
+
+#productDetail{
+	margin-left : 600px;
+	width: 50%;
+    height: 100%;
+    margin-top: 20px;
+}

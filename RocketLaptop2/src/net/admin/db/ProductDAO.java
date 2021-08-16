@@ -234,7 +234,7 @@ private DataSource ds;
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getNoticeList() 에러 : " + ex);
+			System.out.println("getProductList() 에러 : " + ex);
 		}finally {
 			if(rs != null) {
 				try {
@@ -311,7 +311,7 @@ private DataSource ds;
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println("getNoticeList() 에러: " + ex);
+			System.out.println("getProductList() 에러: " + ex);
 		}finally {
 			if(rs != null) {
 				try {
@@ -374,7 +374,7 @@ private DataSource ds;
 				product.setProduct_date(rs.getString("product_date"));
 			}
 		}catch(Exception ex) {
-			System.out.println("getDetail() 에러 : " + ex);
+			System.out.println("getProductDetail() 에러 : " + ex);
 		}finally {
 			if(rs != null) {
 				try {
@@ -504,7 +504,7 @@ private DataSource ds;
 			pstmt = con.prepareStatement(sql);
 			result = pstmt.executeUpdate();
 		}catch(SQLException ex){
-			System.out.println("NoticeSelectionDelete() 에러 : " + ex);
+			System.out.println("ProductSelectionDelete() 에러 : " + ex);
 		}finally {
 			if(pstmt != null) {
 				try {
@@ -524,4 +524,144 @@ private DataSource ds;
 		}
 		return result;
 	} // ProductSelectionDelete() end
+
+	public List<Product> bestProductList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * "
+					 +"from (select rownum rnum, p.* "
+					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
+					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_image, p.product_sales, p.product_date " 
+					 +			  "from product p, category c "
+					 +			  "where p.category_code = c.category_code "
+					 +			  "order by product_sales desc) p "
+					 +	   ")"
+					 +"where rnum >= 1 and rnum <= 3";
+		
+		List<Product> list = new ArrayList<Product>();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			// DB에서 가져온 데이터를 VO객체에 담습니다.
+			while(rs.next()) {
+				Product product = new Product();
+				product.setProduct_code(rs.getString("product_code"));
+				product.setCategory_code(rs.getString("category_code"));
+				product.setCategory_name(rs.getString("category_name"));
+				product.setProduct_name(rs.getString("product_name"));
+				product.setProduct_price(rs.getInt("product_price"));
+				product.setProduct_details(rs.getString("product_details"));
+				product.setProduct_stock(rs.getInt("product_stock"));
+				product.setProduct_status(rs.getString("product_status"));
+				product.setProduct_image(rs.getString("product_image"));
+				product.setProduct_sales(rs.getInt("product_sales"));
+				product.setProduct_date(rs.getString("product_date"));
+				list.add(product); // 값을 담은 객체를 리스트에 저장합니다.
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("bestProductList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	} // bestProductList() end
+
+	public List<Product> newProductList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * "
+					 +"from (select rownum rnum, p.* "
+					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
+					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_image, p.product_sales, p.product_date " 
+					 +			  "from product p, category c "
+					 +			  "where p.category_code = c.category_code "
+					 +			  "order by product_date desc) p "
+					 +	   ")"
+					 +"where rnum >= 1 and rnum <= 3";
+		
+		List<Product> list = new ArrayList<Product>();
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			// DB에서 가져온 데이터를 VO객체에 담습니다.
+			while(rs.next()) {
+				Product product = new Product();
+				product.setProduct_code(rs.getString("product_code"));
+				product.setCategory_code(rs.getString("category_code"));
+				product.setCategory_name(rs.getString("category_name"));
+				product.setProduct_name(rs.getString("product_name"));
+				product.setProduct_price(rs.getInt("product_price"));
+				product.setProduct_details(rs.getString("product_details"));
+				product.setProduct_stock(rs.getInt("product_stock"));
+				product.setProduct_status(rs.getString("product_status"));
+				product.setProduct_image(rs.getString("product_image"));
+				product.setProduct_sales(rs.getInt("product_sales"));
+				product.setProduct_date(rs.getString("product_date"));
+				list.add(product); // 값을 담은 객체를 리스트에 저장합니다.
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("newProductList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	} // newProductList() end
 }

@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<c:if test="${id == 'admin' }">
+			<c:if test="${user_id == 'admin' }">
 				<h2 id="DetailTitle">공지사항 글 상세보기</h2>
 				<div style="width : 60%; margin : 0 auto;">
 					<!-- 번호 -->
@@ -160,5 +160,7 @@
 				</div>
 			</c:if>
 		</div> <!-- .container end -->
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>

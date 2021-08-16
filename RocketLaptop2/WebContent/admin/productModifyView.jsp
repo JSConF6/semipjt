@@ -8,7 +8,7 @@
 		<script type="text/javascript" src="js/product/productModifyView.js"></script>
 	</head>
 	<body>
-		<c:if test="${id == 'admin' }">
+		<c:if test="${user_id == 'admin' }">
 			<input type="hidden" value="${p.product_status }" class="product_status">
 			<div id="showImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
 			<div id="ModifyDiv" class="mt-2">
@@ -113,5 +113,7 @@
 				</div>
 			</div>
 		</c:if>
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>
