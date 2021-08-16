@@ -20,16 +20,16 @@ public class MemberDeleteAction implements Action {
 		String user_id = request.getParameter("user_id");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		int result = mdao.delete(user_id);
-		if (result ==1) {
+		boolean result = mdao.memberDelete(user_id);
+		if(result == true) {
 			out.println("<script>");
-			out.println("alert('���� �����Դϴ�.');");
+			out.println("alert('삭제 성공입니다.');");
 			out.println("location.href='memberList.net'");
 			out.println("</script>");
-		} else {
+		}else {
 			out.println("<script>");
-			out.println("alert('ȸ������ �����Դϴ�.');");
-			out.println("history.back()");
+			out.println("alert('회원 삭제 실패입니다.');");
+			out.println("history.back();");
 			out.println("</script>");
 		}
 		out.close();

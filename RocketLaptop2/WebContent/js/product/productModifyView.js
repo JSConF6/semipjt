@@ -1,6 +1,7 @@
 $(function(){
 	$("input[value="+$(".product_status").val()+"]").prop('checked', true);
 	
+	var check = 0;
 	// 수정 폼 submit할때 유효성 검사
 	$('#productModifyFrom').submit(function(){
 		if($.trim($('#product_name').val()) == ''){
@@ -31,11 +32,18 @@ $(function(){
 			return false;
 		}
 		
-		if($.trim($('#imgUpload').val()) == ''){
+		if($.trim($('#imgvalue').text()) == ''){
 			$('#ErrorModal').modal('show');
 			$('#ErrorModal-Title').text("상품 등록");
 			$('#ErrorModal-body').html("<h4>이미지를 첨부해주세요</h4>");
 			return false;
+		}
+		
+		// 파일을 변경하지 않으면 적용
+		if(check == 0){
+			value = $("#imgvalue").text();
+			html = "<input type='text' value='" + value + "' name='check'>";
+			$(this).append(html);
 		}
 	});
 	
@@ -67,6 +75,7 @@ $(function(){
 	});
 	
 	$('#imgUpload').change(function(){
+		check++;
 		var inputimg = $(this).val().split("\\");
 		var filename = inputimg[inputimg.length - 1];
 		var pattern = /(gif|jpg|jpeg|png)$/i;

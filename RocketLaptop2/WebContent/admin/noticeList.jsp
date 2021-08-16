@@ -12,10 +12,10 @@
 	<body>
 		<div class="container">
 			<c:if test="${id == 'admin' }">
-				<h1 class="NoticeTitle"><a href="NoticeList.ad">공지사항 관리</a></h1>
+				<h1 class="NoticeTitle"><a href="NoticeList.ad">공지사항 목록</a></h1>
 				<form action="NoticeList.ad" method="post">
 				    <div class="input-group">
-				        <select id="viewcount" name="search_field">
+				        <select id="noticeinfo" name="search_field">
 				            <option value="0" selected>제목</option>
 				            <option value="1">작성일</option>
 				        </select>
@@ -110,7 +110,7 @@
 				
 				<!-- 공지사항 등록 모달창 -->
 				<div class="modal fade" id="ProductAddModal">
-					<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 					        <!-- Modal Header -->

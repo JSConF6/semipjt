@@ -7,6 +7,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.main.action.Action;
+import net.main.action.ActionForward;
+
 public class MemberLoginAction implements Action {
 
 	@Override
@@ -28,6 +31,7 @@ public class MemberLoginAction implements Action {
 			forward.setRedirect(false);
 			forward.setPath("member/loginForm.jsp");
 			return forward;
+
 		}
 
-	}
+}

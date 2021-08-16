@@ -9,14 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.member.action.MemberDeleteAction;
-import net.member.action.MemberInfoAction;
-import net.member.action.MemberLoginProcessAction;
-import net.member.action.MemberSearchAction;
-import net.member.action.MemberUpdateAction;
-import net.member.action.MemberUpdateProcessAction;
-
-
+import net.member.action.*;
 
 @WebServlet("*.ma")
 public class MainFrontController extends HttpServlet {

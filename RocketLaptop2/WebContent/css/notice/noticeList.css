@@ -22,6 +22,10 @@
 textarea{
 	resize : none;
 }
+
+#noticeAddFrom{
+	width: 100%;
+}
 	
 #noticeAddbtn{
 	float : right;

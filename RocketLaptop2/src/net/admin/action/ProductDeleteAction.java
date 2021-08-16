@@ -23,7 +23,6 @@ public class ProductDeleteAction implements Action {
 		
 		if(result == false) {
 			System.out.println("상품 삭제 실패");
-			forward = new ActionForward();
 			forward.setRedirect(false);
 			request.setAttribute("message", "데이터를 삭제하지 못했습니다.");
 			forward.setPath("error/error.jsp");
@@ -31,12 +30,12 @@ public class ProductDeleteAction implements Action {
 		}
 		
 		System.out.println("상품 삭제 성공");
-		forward = new ActionForward();
 		forward.setRedirect(false);
+		request.setAttribute("maintitle", "상품 삭제");
 		request.setAttribute("title", "상품 삭제");
 		request.setAttribute("body", "상품이 삭제되었습니다.");
 		request.setAttribute("path", "ProductList.ad");
-		forward.setPath("Modal/DeleteModal.jsp");
+		forward.setPath("Modal/SuccessModal.jsp");
 		return forward;
 	}
 

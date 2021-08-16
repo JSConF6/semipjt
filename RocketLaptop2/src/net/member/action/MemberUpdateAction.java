@@ -24,7 +24,7 @@ public class MemberUpdateAction implements Action {
 		String user_id = (String) session.getAttribute("user_id");
 
 		MemberDAO mdao = new MemberDAO();
-		Member m = mdao.member_info(user_id);
+		Member m = mdao.getMemberDetail(user_id);
 
 		String saveFolder = "memberupload";
 		ServletContext sc = request.getServletContext();
@@ -32,14 +32,14 @@ public class MemberUpdateAction implements Action {
 
 		System.out.println("realFolder= " + realFolder);
 		System.out.println("getMemberfile= " + m == null);
-		System.out.println("getMemberfile= " + m.getMemberfile());
-		File file = new File(realFolder + "/" + m.getMemberfile());
+		System.out.println("getMemberfile= " + m.getUser_memberfile());
+		File file = new File(realFolder + "/" + m.getUser_memberfile());
 		if (file.isFile()) {
 			System.out.println("realFolder= ");
 		} else {
 
 			System.out.println("r= ");
-			m.setMemberfile("");
+			m.setUser_memberfile("");
 		}
 
 		forward.setPath("member/updateForm.jsp");

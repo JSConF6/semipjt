@@ -6,35 +6,35 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.admin.db.NoticeDAO;
+import net.admin.db.CategoryDAO;
 
-public class NoticeDeleteAction implements Action {
+public class CategoryDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		NoticeDAO ndao = new NoticeDAO();
+		CategoryDAO cdao = new CategoryDAO();
 		boolean result = false;
 		
-		int num = Integer.parseInt(request.getParameter("notice_num"));
+		String category_code = request.getParameter("category_code");
 		
-		result = ndao.noticeDelete(num);
+		result = cdao.categoryDelete(category_code);
 		
 		if(result == false) {
-			System.out.println("공지사항 글 삭제 실패");
+			System.out.println("카테고리 삭제 실패");
 			forward.setRedirect(false);
 			request.setAttribute("message", "데이터를 삭제하지 못했습니다.");
 			forward.setPath("error/error.jsp");
 			return forward;
 		}
 		
-		System.out.println("공지사항 글 삭제 성공");
+		System.out.println("카테고리 삭제 성공");
 		forward.setRedirect(false);
-		request.setAttribute("maintitle", "공지사항 삭제");
-		request.setAttribute("title", "공지사항 삭제");
-		request.setAttribute("body", "공지사항 글이 삭제되었습니다.");
-		request.setAttribute("path", "NoticeList.ad");
+		request.setAttribute("maintitle", "카테고리 삭제");
+		request.setAttribute("title", "카테고리 삭제");
+		request.setAttribute("body", "카테고리가 삭제되었습니다.");
+		request.setAttribute("path", "ProductList.ad");
 		forward.setPath("Modal/SuccessModal.jsp");
 		return forward;
 	}

@@ -43,8 +43,15 @@ public class ProductModifyAction implements Action {
 			product.setProduct_details(multi.getParameter("product_details"));
 			product.setProduct_stock(Integer.parseInt(multi.getParameter("product_stock")));
 			product.setProduct_status(multi.getParameter("productStatus"));
-			String imgFileName = multi.getFilesystemName("imgUpload");
-			product.setProduct_image(imgFileName);
+			
+			String check = multi.getParameter("check");
+			System.out.println("check = " + check);
+			if(check != null) { // 파일 변경 안한 경우
+				product.setProduct_image(check);
+			}else { // 파일 변경 한 경우
+				String imgFileName = multi.getFilesystemName("imgUpload");
+				product.setProduct_image(imgFileName);
+			}
 			
 			result = pdao.productModify(product);
 			
@@ -57,9 +64,12 @@ public class ProductModifyAction implements Action {
 				return forward;
 			}
 			System.out.println("상품 수정 완료");
-			
-			forward.setRedirect(true);
-			forward.setPath("ProductDetail.ad?product_code=" + product.getProduct_code()); // 이동할 경로를 지정합니다.
+			forward.setRedirect(false);
+			request.setAttribute("maintitle", "상품 수정");
+			request.setAttribute("title", "상품 수정");
+			request.setAttribute("body", "상품이 수정되었습니다.");
+			request.setAttribute("path", "ProductDetail.ad?product_code=" + product.getProduct_code());
+			forward.setPath("Modal/SuccessModal.jsp");
 			return forward;
 		}catch(IOException ex) {
 			forward.setPath("error/error.jsp");

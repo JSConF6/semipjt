@@ -65,6 +65,12 @@ public class adminFrontController extends HttpServlet {
 			case "/CategoryList.ad":
 				action = new CategoryListAction();
 				break;
+			case "/CategoryAdd.ad":
+				action = new CategoryAddAction();
+				break;
+			case "/CategoryDelete.ad":
+				action = new CategoryDeleteAction();
+				break;
 			case "/ProductDetail.ad":
 				action = new ProductDetailAction();
 				break;
@@ -83,8 +89,20 @@ public class adminFrontController extends HttpServlet {
 			case "/ProductSelectionDelete.ad":
 				action = new ProductSelectionDeleteAction();
 				break;
-			case "/UserList.ad":
-				action = new UserListAction();
+			case "/MemberList.ad":
+				action = new MemberListAction();
+				break;
+			case "/MemberModifyView.ad":
+				action = new MemberModifyView();
+				break;
+			case "/MemberModifyAction.ad":
+				action = new MemberModifyAction();
+				break;
+			case "/MemberDetail.ad":
+				action = new MemberDetailAction();
+				break;
+			case "/MemberDeleteAction.ad":
+				action = new MemberDeleteAction();
 				break;
 		} // switch end
 		

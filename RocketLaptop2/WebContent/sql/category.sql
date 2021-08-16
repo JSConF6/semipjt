@@ -16,4 +16,10 @@ VALUES('ctg_003', 'APPLE');
 select *
 from category;
 
+
+--카테고리 갯수 쿼리
+select nvl(count(*), 0) + 1
+from category;
+
+
 DROP TABLE CATEGORY;

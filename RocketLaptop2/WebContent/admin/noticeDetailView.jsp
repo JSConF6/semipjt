@@ -124,8 +124,10 @@
 					        	<h3>정말 삭제하시겠습니까??</h3>
 					       		<form action="NoticeDeleteAction.ad" method="post" name="delform">
 					       			<input type="hidden" name="notice_num" value="${param.num }" id="notice_num">
-					         		<button type="submit" class="btn btn-danger">삭제</button>
-					         		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					         		<div class="text-right">
+					         			<button type="submit" class="btn btn-danger">삭제</button>
+					         			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+					         		</div>
 					         	</form>
 					       	</div>
 						</div>

@@ -76,7 +76,7 @@
 					<div class="form-group text-left">
 		 				<button class="btn btn-primary" id="imgUploadbtn">이미지 첨부</button>
 						<input class="form-control" type="file" id="imgUpload" name="imgUpload" accept="image/*">
-						<span id="imgvalue">${p.product_image }</span>
+						<span id="imgvalue">${p.product_image}</span>
 						<img src="image/remove.png" alt="이미지삭제" width="30px" class="remove">
 					</div>
 				   

@@ -18,26 +18,26 @@ public class MemberJoinProcessAction implements Action {
 		String user_id = request.getParameter("user_id");
 		String user_password = request.getParameter("user_password");
 		String user_name = request.getParameter("user_name");
-		int user_datebirth = Integer.parseInt(request.getParameter("user_birth"));
+		int user_birthdate = Integer.parseInt(request.getParameter("user_birthdate"));
 		String user_gender = request.getParameter("user_gender");
 		String user_email = request.getParameter("user_email");
 		String user_phone = request.getParameter("user_phone");
 		int user_address1 = Integer.parseInt(request.getParameter("user_address1"));
 		String user_address2 = request.getParameter("user_address2");
-		String memberfile	= request.getParameter("memberfile");
+		String user_memberfile = request.getParameter("user_memberfile");
 		
 		Member m = new Member();
-	    m.setUser_datebirth(user_datebirth); m.setUser_email(user_email); m.setUser_gender(user_gender);
-		m.setUser_id(user_id); m.setUser_name(user_name); m.setUser_password(user_password);
-	    m.setUser_phone(user_phone); m.setUser_address1(user_address1); m.setUser_address2(user_address2);
-	    m.setMemberfile(memberfile);
+		m.setUser_id(user_id); m.setUser_password(user_password); m.setUser_name(user_name);
+		m.setUser_birthdate(user_birthdate); m.setUser_gender(user_gender); m.setUser_email(user_email);
+		m.setUser_phone(user_phone); m.setUser_address1(user_address1); m.setUser_address2(user_address2);
+		m.setUser_memberfile(user_memberfile);
 		
 		response.setContentType("text/html;charset=utf-8");;
 		PrintWriter out = response.getWriter();
 		
 		MemberDAO mdao = new MemberDAO();
 		
-		int result = mdao.insert(m);
+		int result = mdao.memberInsert(m);
 		out.println("<script>>");
 		if (result == 1) {
 			out.println("alert('회원가입을 축하합니다.');");

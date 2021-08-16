@@ -36,20 +36,18 @@ public class MemberUpdateProcessAction implements Action {
 			MultipartRequest multi
 			=new MultipartRequest(request,realFolder,fileSize,"utf-8",
 					new DefaultFileRenamePolicy());
-			String user_id 			= multi.getParameter("user_id");
-			
-			String user_name 		= multi.getParameter("user_name");
-			//int user_jumin  		= Integer.parseInt(multi.getParameter("user_jumin"));
-			String user_gender 		= multi.getParameter("user_gender");
-			String user_email  		= multi.getParameter("user_email");
-			String user_phone		= multi.getParameter("user_phone");
-			int user_address1		= Integer.parseInt(multi.getParameter("user_address1"));
-			String user_address2	= multi.getParameter("user_address2");
+
+			String user_id 	= multi.getParameter("user_id");
+			String user_name = multi.getParameter("user_name");
+			String user_gender = multi.getParameter("user_gender");
+			String user_email = multi.getParameter("user_email");
+			String user_phone = multi.getParameter("user_phone");
+			int user_address1 = Integer.parseInt(multi.getParameter("user_address1"));
+			String user_address2 = multi.getParameter("user_address2");
 			
 			Member m = new Member();
 			m.setUser_id(user_id);
 			m.setUser_name(user_name);
-			//m.setUser_jumin(user_jumin);
 			m.setUser_gender(user_gender);
 			m.setUser_email(user_email);
 			m.setUser_phone(user_phone);
@@ -59,13 +57,13 @@ public class MemberUpdateProcessAction implements Action {
 			String check = multi.getParameter("check");
 			System.out.println("check" + check);
 			if(check != null) {
-				m.setMemberfile(check);
+				m.setUser_memberfile(check);
 			}else {
 				String memberfile = multi.getFilesystemName("memberfile");
-				m.setMemberfile(memberfile);
+				m.setUser_memberfile(memberfile);
 			}
 			MemberDAO mdao = new MemberDAO();
-			int result = mdao.update(m);
+			int result = mdao.memberUpdate(m);
 			
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

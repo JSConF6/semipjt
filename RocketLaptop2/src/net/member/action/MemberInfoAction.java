@@ -19,7 +19,7 @@ public class MemberInfoAction implements Action {
 		ActionForward forward = new ActionForward();
 		String user_id = request.getParameter("user_id");
 		MemberDAO mdao = new MemberDAO();
-		Member m = mdao.member_info(user_id);
+		Member m = mdao.getMemberDetail(user_id);
 		
 		if(m==null) {
 			forward.setPath("error/error.jsp");
