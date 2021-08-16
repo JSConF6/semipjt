@@ -51,6 +51,10 @@
 	    background-color: #f9f9f9;
 	    justify-content: center;
 	}
+	
+	.modal{
+		overflow-y:auto;
+	}
 </style>
 
 <nav class="navbar navbar-expand-sm bg-white navbar-dark float-right mt-3" id="nav-top">
@@ -72,7 +76,7 @@
 				<a class="nav-link text-dark" id="login" style="cursor : pointer;">로그인</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link text-dark" href="#">회원가입</a>
+				<a class="nav-link text-dark" id="signup" style="cursor : pointer;">회원가입</a>
 			</li>
 		</c:if>
 	</ul>
@@ -80,7 +84,7 @@
 
 <!--  로그인  모달 기능 구현 소스 _ 향후 배경 색상 검토 할 것!! -->
 <!-- LoginModal -->
-<div class="modal fade" id="loginModal" role="dialog">
+<div class="modal hide fade" id="loginModal" role="dialog">
 	<div class="modal-dialog">
     
 		<!-- Modal content-->
@@ -92,12 +96,12 @@
 			<div class="modal-body" style="padding:40px 50px;">
 				<form role="form" action="loginProcess.ma" method="post">
 					<div class="form-group">
-						<label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-						<input type="text" class="form-control" id="user_id" name="user_id" placeholder="아이디를 입력하세요">
+						<label for="login_id"><span class="glyphicon glyphicon-user"></span> Username</label>
+						<input type="text" class="form-control" id="login_id" name="login_id" placeholder="아이디를 입력하세요">
 					</div>
 					<div class="form-group">
-						<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-						<input type="password" class="form-control" id="user_password" name="user_password" placeholder="비밀번호를 입력하세요">
+						<label for="login_password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+						<input type="password" class="form-control" id="login_password" name="login_password" autocomplete="off" placeholder="비밀번호를 입력하세요">
 					</div>
 					<div class="checkbox">
 						<label><input type="checkbox" value="" checked>ID저장</label>
@@ -114,5 +118,100 @@
 		  		<strong>본 사이트는 Chrome 브라우저에 최적화되어 있습니다.</strong> 
 			</div>
 		</div> 
+	</div>
+</div>
+
+<!-- https://getbootstrap.com/docs/3.4/css/  참고해서 적용할 것 -->
+<!-- The Modal (회원가입 화면) -->
+<!-- Modal -->
+<div class="modal hide fade" id="signup_modal" role="dialog">
+	<div class="modal-dialog">
+    
+	    <!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:15px 50px;">
+				<h4><span class="glyphicon glyphicon-user"></span> 회원가입</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" style="padding:40px 40px;">
+				<form name="joinform" id="joinform" action="joinProcess.ma" method="post">
+					<div class="form-group">
+						<label for="user_id"><span class="glyphicon glyphicon-info-sign"></span> 아이디</label>
+						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" maxLength="12">
+						<span id="message"></span>
+					</div>
+					<div class="form-group">
+						<label for="user_password"><span class="glyphicon glyphicon-info-sign"></span> 비밀번호</label>
+						<input type="password" class="form-control" name="user_password" id="user_password" autocomplete="off" placeholder="비밀번호">
+					</div>
+					<div class="form-group">
+						<label for="psw_check"><span class="glyphicon glyphicon-info-sign"></span> 비밀번호 확인</label>
+						<input type="password" class="form-control" name="user_password1" id="user_password1" autocomplete="off" placeholder="비밀번호 확인">
+					</div>
+					<div class="form-group">
+						<label for="user_name"><span class="glyphicon glyphicon-info-sign"></span> 이름</label>
+						<input type="text" class="form-control" name="user_name" id="user_name" placeholder="이름" maxLength="5">
+					</div>
+					<div class="form-group">
+						<label for="user_birthdate"><span class="glyphicon glyphicon-info-sign"></span> 생년월일</label>
+						<input type="text" class="form-control" name="user_birthdate" id="user_birthdate" maxLength="8" placeholder="생년월일 (ex)19980101">
+					</div>
+					<div class="form-group">
+						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
+						<br>
+						<input type="radio" name="user_gender" value="남" checked><span>남자</span>
+						<input type="radio" name="user_gender" value="여"><span>여자</span>
+					</div>
+					<div class="form-group">
+						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>
+						<input type="text" class="form-control" name="user_email" id="user_email" maxLength="30" placeholder="이메일">
+						<span id="email_message"></span>
+					</div>
+					<div class="form-group">
+						<label for="user_phone"><span class="glyphicon glyphicon-info-sign"></span> 전화번호</label>
+						<input type="text" class="form-control" name="user_phone" id="user_phone" maxLength="20" placeholder="전화번호">
+					</div>
+					<div class="form-group">
+						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span> 우편번호</label>
+						<input type="text" class="form-control" name="user_address1" id="user_address1" maxLength="5" placeholder="우편번호">
+					</div>
+					<div class="form-group">
+						<label for="user_address2"><span class="glyphicon glyphicon-info-sign"></span> 주소</label>
+						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="주소">
+					</div>				
+					<div class="form-group">
+						<label for="user_memberfile"><span class="glyphicon glyphicon-paperclip"></span> 프로필사진</label>
+						<input type="file"  name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">회원가입</button>
+		    		<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">가입취소</button>				
+		  		</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 오류 모달창 -->
+<div class="modal hide fade" id="ErrorModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title" id="ErrorModal-Title"></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body" id="ErrorModal-body">
+			  
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+			</div>
+        
+		</div>
 	</div>
 </div>
