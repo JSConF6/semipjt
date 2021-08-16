@@ -69,7 +69,7 @@
 					checkid=true;
 					$("#message").empty();
 					
-					var pattern = /^\w{5,12 $/;}
+					var pattern = /^\w{5,12 $/};
 					var user_id = $("input:eq(0)").val();
 					if (!pattern.test(id)){
 						$('#message').css('color', 'red').html("영문자 숫자_로 5~12자 가능합니다.");

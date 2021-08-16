@@ -12,9 +12,9 @@
 					location.href="joinForm.net";
 				});
 				
-				var id = '${id}';
+				var user_id = '${user_id}';
 				if(id){
-					$("#id").val(id);
+					$("#user_id").val(user_id);
 					$("#remember").prop('checked',true);
 				}
 			})
@@ -70,6 +70,7 @@
 			#nav-search{
 				height:  70px;
 			}
+			
 		</style>
 	</head>
 	<body>
@@ -86,12 +87,12 @@
 				</div>
 			</form>
 			<ul class="navbar-nav">
-				<c:if test="${id == 'admin'}">
+				<c:if test="${user_id == 'admin'}">
 					<li class="nav-item">
 						<a class="nav-link fonticon" href="#"><i class="fas fa-user fa-2x"></i><br>관리자 페이지</a>
 					</li>
 				</c:if>
-				<c:if test="${id != 'admin' || empty id}">
+				<c:if test="${user_id != 'admin' || empty user_id}">
 					<li class="nav-item">
 						<a class="nav-link fonticon" href="#"><i class="fas fa-user fa-2x"></i><br>마이 페이지</a>
 					</li>
@@ -130,8 +131,9 @@
 		</nav>
 		
 	<!--로그인 영역   -->	
-<form name="loginform" action="loginProcess.net" method="post"><h1>로그인</h1>
+<form name="loginform" action="loginProcess.ma" method="post"><h1>로그인</h1>
 	<hr>
+
 		<b>아이디</b>
 		<input type="text" name="user_id" placeholder="Enter id" id="user_id" required>
 		<b>Password</b>
@@ -142,8 +144,7 @@
 			<button type="submit" class="submitbtn">로그인</button>
 			<button type="button" class="join">회원가입</button>
 		</div>
-
-
+</form>	
 		<jsp:include page="footer.jsp" />
 	</body>
 </html>

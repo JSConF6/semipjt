@@ -42,7 +42,7 @@ public class MemberUpdateProcessAction implements Action {
 			//int user_jumin  		= Integer.parseInt(multi.getParameter("user_jumin"));
 			String user_gender 		= multi.getParameter("user_gender");
 			String user_email  		= multi.getParameter("user_email");
-			int user_phone			= Integer.parseInt(multi.getParameter("user_phone"));
+			String user_phone		= multi.getParameter("user_phone");
 			int user_address1		= Integer.parseInt(multi.getParameter("user_address1"));
 			String user_address2	= multi.getParameter("user_address2");
 			

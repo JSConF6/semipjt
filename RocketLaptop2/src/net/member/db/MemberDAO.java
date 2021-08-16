@@ -37,23 +37,24 @@ public class MemberDAO {
 										+ "user_id, "
 										+ "user_password, "
 										+ "user_name, "
+										+ "user_datebirth, "
 										+ "user_gender, "
 										+ "user_email, "
 										+ "user_phone, "
 										+ "user_address1, "
 										+ "user_address2), "
 										+ "memberfile, "
-										+ "VALUES (?,?,?,?,?,?,?,?)");
+										+ "VALUES (?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setString(1, m.getUser_id());
 			pstmt.setString(2, m.getUser_password());
-			//pstmt.setString(3, m.getUser_password1());
 			pstmt.setString(3, m.getUser_name());
-			//pstmt.setInt(5, m.getUser_jumin());
-			pstmt.setString(4, m.getUser_gender());
-			pstmt.setString(5, m.getUser_email());
-			pstmt.setInt(6, m.getUser_phone());
-			pstmt.setInt(7, m.getUser_address1());
-			pstmt.setString(8, m.getUser_address2());
+			pstmt.setInt(4, m.getUser_datebirth());
+			pstmt.setString(5, m.getUser_gender());
+			pstmt.setString(6, m.getUser_email());
+			pstmt.setString(7, m.getUser_phone());
+			pstmt.setInt(8, m.getUser_address1());
+			pstmt.setString(9, m.getUser_address2());
+			pstmt.setString(10, m.getMemberfile());
 			result = pstmt.executeUpdate();//삽입 성공 시 result는 1
 
 		
@@ -91,7 +92,7 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select user_id, password from member where user_id = ? ";
+			String sql = "select user_id, user_password from member where user_id = ? ";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
@@ -148,13 +149,13 @@ public class MemberDAO {
 				m.setUser_id(rs.getString(1));
 				m.setUser_password(rs.getString(2));
 				m.setUser_name(rs.getString(3));
-				//m.setUser_jumin(rs.getInt(5));
-				m.setUser_gender(rs.getString(4));
-				m.setUser_email(rs.getString(5));
-				m.setUser_phone(rs.getInt(6));
-				m.setUser_address1(rs.getInt(7));
-				m.setUser_address2(rs.getString(8));
-				m.setMemberfile(rs.getString(9)); //<================추가
+				m.setUser_datebirth(rs.getInt(4));
+				m.setUser_gender(rs.getString(5));
+				m.setUser_email(rs.getString(6));
+				m.setUser_phone(rs.getString(7));
+				m.setUser_address1(rs.getInt(8));
+				m.setUser_address2(rs.getString(9));
+				m.setMemberfile(rs.getString(10)); //<================추가
 				System.out.println("====================== 1-1 " + m.toString());
 			}
 			System.out.println("====================== 2 ");
@@ -206,7 +207,7 @@ public class MemberDAO {
 			//pstmt.setInt(2, m.getUser_jumin());
 			pstmt.setString(2, m.getUser_gender());
 			pstmt.setString(3, m.getUser_email());
-			pstmt.setInt(4, m.getUser_phone());
+			pstmt.setString(4, m.getUser_phone());
 			pstmt.setInt(5, m.getUser_address1());
 			pstmt.setString(6, m.getUser_address2());
 			pstmt.setString(7, m.getMemberfile());
@@ -308,14 +309,13 @@ public class MemberDAO {
 
 				m.setUser_id(rs.getString("user_id"));
 				m.setUser_password(rs.getString(2));
-				m.setUser_password1(rs.getString(3));
-				m.setUser_name(rs.getString(4));
-				m.setUser_jumin(rs.getInt(5));
-				m.setUser_gender(rs.getString(6));
-				m.setUser_email(rs.getString(7));
-				m.setUser_phone(rs.getInt(8));
-				m.setUser_address1(rs.getInt(9));
-				m.setUser_address2(rs.getString(10));
+				m.setUser_name(rs.getString(3));
+				m.setUser_datebirth(rs.getInt(4));
+				m.setUser_gender(rs.getString(5));
+				m.setUser_email(rs.getString(6));
+				m.setUser_phone(rs.getString(7));
+				m.setUser_address1(rs.getInt(8));
+				m.setUser_address2(rs.getString(9));
 
 				list.add(m);
 			}
@@ -425,14 +425,13 @@ public class MemberDAO {
 
 				m.setUser_id(rs.getString("user_id"));
 				m.setUser_password(rs.getString(2));
-				m.setUser_password1(rs.getString(3));
-				m.setUser_name(rs.getString(4));
-				m.setUser_jumin(rs.getInt(5));
-				m.setUser_gender(rs.getString(6));
-				m.setUser_email(rs.getString(7));
-				m.setUser_phone(rs.getInt(8));
-				m.setUser_address1(rs.getInt(9));
-				m.setUser_address2(rs.getString(10));
+				m.setUser_name(rs.getString(3));
+				m.setUser_datebirth(rs.getInt(4));
+				m.setUser_gender(rs.getString(5));
+				m.setUser_email(rs.getString(6));
+				m.setUser_phone(rs.getString(7));
+				m.setUser_address1(rs.getInt(8));
+				m.setUser_address2(rs.getString(9));
 
 				list.add(m);
 			}
@@ -494,7 +493,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public int isId(String id) {
+	public int isId(String user_id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
@@ -502,9 +501,9 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select id from member where id = ? ";
+			String sql = "select user_id from member where user_id = ? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id); //<=========java.sql.SQLException: 인덱스에서 누락된 IN 또는 OUT 매개변수:: 1
+			pstmt.setString(1, user_id); //<=========java.sql.SQLException: 인덱스에서 누락된 IN 또는 OUT 매개변수:: 1
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {

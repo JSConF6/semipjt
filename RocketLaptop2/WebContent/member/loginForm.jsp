@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!--    <=============================== 삭제 예정 페이지  
 <!doctype html>
 <html>
 <head>
@@ -11,20 +12,20 @@
 				location.href="join.net"	
 			});
 
-			var id = '${id}';
-			if(id){
-					$("#id").val(id);
+			var user_id = '${user_id}';
+			if(user_id){
+					$("#user_id").val(user_id);
 					$("#remember").prop('checked',true);
 			}
 		})
 	</script>
 </head>
 <body>
-<form name="loginform" action="loginProcess.ma" method="post">
+<form name="loginform" action="/RocketLaptop/loginProcess.ma" method="post">
   <h1>로그인</h1>
       <hr>
       <b>아이디</b>
-        <input type="text" name="user_id" placeholder="Enter id" id="id" required>
+        <input type="text" name="user_id" placeholder="Enter id" id="user_id" required>
         <b>Password</b>
         <input type="password" name="user_password" placeholder="Enter password" required>
         <input type="checkbox" id="remember" name="remember" value="store">
@@ -36,3 +37,5 @@
 </form>
 </body>
 </html>
+
+ -->
