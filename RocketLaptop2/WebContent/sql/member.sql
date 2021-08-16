@@ -1,19 +1,20 @@
 drop table member;
 --1. index.jsp에서 시작합니다.
 --2. 관리자계정 admin, 비번 1234를 만듭니다.
---3. 사용자 계정을 3개 만듭니다.
+--3. 일반계정 1234, 비번1234을 만듭니다.
+--   일반계정 7777, 비번 7777을 만듭니다.
 
 create table member(
 	user_id			varchar2(20),
 	user_password	varchar2(20),
-	user_password1	varchar2(10),
 	user_name		varchar2(20),
+	user_datebirth  number(8),
 	user_gender		varchar2(20),
 	user_email		varchar2(20),
-	user_phone	    number(20),
-    user_address1   number(10),
-    user_address1   varchar2(100),
-    user_jumin      varchar2(13)
+	user_phone	    varchar2(20),
+    user_address1   number(5),
+    user_address2   varchar2(40),
+    memberfile		varchar2(20),
 	PRIMARY KEY(user_id)
 );
 

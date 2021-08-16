@@ -13,24 +13,25 @@ import net.main.action.ActionForward;
 public class MemberLoginAction implements Action {
 
 	@Override
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("여기는 login");
-		String id = "";
-		Cookie[] cookies = request.getCookies();
-		if(cookies !=null ) {
-			for(int i=0;i<cookies.length;i++) {
-				if(cookies[i].getName().equals("id")) {
-					id=cookies[i].getValue();
+		public ActionForward execute(HttpServletRequest request,
+								HttpServletResponse response) throws ServletException, IOException {
+			System.out.println("여기는 login");
+			String user_id = "";
+			Cookie[] cookies = request.getCookies();
+			if(cookies !=null ) {
+				for(int i=0;i<cookies.length;i++) {
+					if(cookies[i].getName().equals("user_id")) {
+						user_id=cookies[i].getValue();
+					}
 				}
 			}
+			
+			request.setAttribute("user_id", user_id);
+			ActionForward forward=new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("member/loginForm.jsp");
+			return forward;
+
 		}
-		
-		request.setAttribute("id", id);
-		ActionForward forward=new ActionForward();
-		forward.setRedirect(false);
-		forward.setPath("member/loginForm.jsp");
-		return forward;
-	}
 
 }

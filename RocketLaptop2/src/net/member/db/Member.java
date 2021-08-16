@@ -28,7 +28,7 @@ public class Member {
 	public void setUser_password(String user_password) {
 		this.user_password = user_password;
 	}
-	
+
 	public String getUser_name() {
 		return user_name;
 	}
@@ -60,11 +60,11 @@ public class Member {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	
+
 	public String getUser_phone() {
 		return user_phone;
 	}
-	
+
 	public void setUser_phone(String user_phone) {
 		this.user_phone = user_phone;
 	}
@@ -100,6 +100,5 @@ public class Member {
 	public void setUser_joindate(String user_joindate) {
 		this.user_joindate = user_joindate.substring(0, 10);
 	}
-	
 	
 }	

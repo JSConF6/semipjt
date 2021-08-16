@@ -183,14 +183,14 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "update member set "
-						+ "user_name = ?, "
-						+ "user_gender = ?, "
-						+ "user_email = ?, "
-						+ "user_phone = ?, "
-						+ "user_address1 = ?, "
-						+ "user_address2 = ?, "
-						+ "memberfile = ? "
-						+ "where user_id = ?";	
+						     + "user_name = ?, "
+						     + "user_gender = ?, "
+						     + "user_email = ?, "
+						     + "user_phone = ?, "
+						     + "user_address1 = ?, "
+						     + "user_address2 = ?, "
+						     + "user_memberfile = ? "
+						     + "where user_id = ?";	
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m.getUser_name());
 			pstmt.setString(2, m.getUser_gender());
@@ -428,13 +428,13 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "select * "
-					+ "	  from (select b.*, rownum rnum"
-					+ "	  		from(select * from member "
-					+ "				 where user_id != 'admin'"
-					+ "              and " + field + " like ? "
-					+ " 			 order by user_id) b"
-					+ "			)"
-					+ "   where rnum between ? and ?" ;
+					        +"from (select b.*, rownum rnum "
+					        +      "from(select * from member "
+					        +      "where user_id != 'admin' "
+					        +      "and " + field + " like ? "
+					        +      "order by user_id) b "
+					        +      ")"
+					        +"where rnum between ? and ?" ;
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%"+value+ "%");
@@ -494,7 +494,7 @@ public class MemberDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = "delete member "
-				   + "where USER_ID=?";
+				       + "where USER_ID=?";
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -526,7 +526,7 @@ public class MemberDAO {
 		return false;
 	} // memberDelete() end
 
-	public int isId(String id) {
+	public int isId(String user_id) {
 		Connection con=null;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;
@@ -534,9 +534,9 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select id from member where id = ? ";
+			String sql = "select user_id from member where user_id = ? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id); 
+			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
 
 			if(rs.next()) {

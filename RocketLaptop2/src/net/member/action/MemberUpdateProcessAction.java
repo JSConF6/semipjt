@@ -36,6 +36,7 @@ public class MemberUpdateProcessAction implements Action {
 			MultipartRequest multi
 			=new MultipartRequest(request,realFolder,fileSize,"utf-8",
 					new DefaultFileRenamePolicy());
+
 			String user_id 	= multi.getParameter("user_id");
 			String user_name = multi.getParameter("user_name");
 			String user_gender = multi.getParameter("user_gender");

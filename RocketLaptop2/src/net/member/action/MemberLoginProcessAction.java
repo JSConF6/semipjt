@@ -57,7 +57,7 @@ public class MemberLoginProcessAction implements Action {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('" + message + "');");
-			out.println("location.href='login.net';");
+			out.println("location.href='login.ma';");
 			out.println("</script>");
 		  out.close();
 			return null;

@@ -41,21 +41,21 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end" id="nav-top">
 	<ul class="navbar-nav">
-		<c:if test="${!empty id}">
-			<c:if test="${id == 'admin' }">
+		<c:if test="${!empty user_id}">
+			<c:if test="${user_id == 'admin' }">
 				<li class="nav-item">
 					<span id="loginUser">관리자님 </span><a href="logout.ma" class="logoutbtn">(로그아웃)</a>
 				</li>
 			</c:if>
-			<c:if test="${id != 'admin'}">
+			<c:if test="${user_id != 'admin'}">
 				<li class="nav-item">
-					<span id="loginUser">${id}님 </span><a href="logout.ma" class="logoutbtn">(로그아웃)</a>
+					<span id="loginUser">${uesr_id}님 </span><a href="logout.ma" class="logoutbtn">(로그아웃)</a>
 				</li>
 			</c:if>
 		</c:if>
-		<c:if test="${empty id}">
+		<c:if test="${empty user_id}">
 			<li class="nav-item">
-				<a class="nav-link" href="login.ma">로그인</a>
+				<a class="nav-link" id="login">로그인</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" href="#">회원가입</a>
