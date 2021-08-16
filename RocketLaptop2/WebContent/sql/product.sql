@@ -22,7 +22,7 @@ values('A00002', 'ctg_002', 'LG 노트북', 1200000, 'LG에서 판매하는 노�
 insert into PRODUCT
 values('A00003', 'ctg_003', '맥북', 1900000, '애플에서 판매하는 노트북 입니다.', 6, '신규', 'PRODUCT.JPG', 0, SYSDATE);
 
-select *
+select product_date
 from product;
 
 -- 상품 전체 조회 쿼리
@@ -58,6 +58,50 @@ from (select p.product_code, p.category_code, c.category_name, p.product_name,
 	  from product p, category c
 	  where p.category_code = c.category_code) p
 where product_code = 'A00001';
+
+-- 베스트 상품 정렬 쿼리
+select *
+from (select rownum rnum, p.*
+	  from (select p.product_code, p.category_code, c.category_name, p.product_name,
+	  		p.product_price, p.product_details, p.product_stock, p.product_status,
+	  		p.product_image, p.product_sales, p.product_date
+	  		from product p, category c
+	  		where p.category_code = c.category_code
+	  		order by product_sales desc) p
+	  )
+where rnum >= 1 and rnum <= 3;
+
+-- 새로운 상품 정렬 쿼리
+select *
+from (select rownum rnum, p.*
+	  from (select p.product_code, p.category_code, c.category_name, p.product_name,
+	  		p.product_price, p.product_details, p.product_stock, p.product_status,
+	  		p.product_image, p.product_sales, p.product_date
+	  		from product p, category c
+	  		where p.category_code = c.category_code
+	  		order by product_date desc) p
+	  )
+where rnum >= 1 and rnum <= 3;
+
+update PRODUCT
+set product_sales = 5
+where product_code = 'A00001';
+
+update PRODUCT
+set product_sales = 10
+where product_code = 'A00003';
+
+update PRODUCT
+set product_sales = 3
+where product_code = 'A00004';
+
+update PRODUCT
+set product_sales = 7
+where product_code = 'A00006';
+
+update PRODUCT
+set product_sales = 8
+where product_code = 'A00008';
 
 delete PRODUCT;
 

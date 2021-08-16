@@ -5,7 +5,7 @@
 		$('#loginErrorModal').modal('show');
 	});
 </script>
-<c:if test="${id == 'admin' }">
+<c:if test="${user_id == 'admin' }">
 	<div class="container">
 		<h1 id="title"><a href="main.ma"><img src="image/RocketLaptop.png" width="100px" id="mainPageImg">메인페이지</a></h1>
 		<br>
@@ -23,7 +23,7 @@
 	</div>
 </c:if>
 
-<c:if test="${id != 'admin' || id == null }">
+<c:if test="${user_id != 'admin' || user_id == null }">
 	<div class="modal hide fade" id="loginErrorModal">
 		<div class="modal-dialog modal-sm modal-dialog-centered">
 			<div class="modal-content">

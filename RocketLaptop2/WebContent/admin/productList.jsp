@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 	<head>
 		<jsp:include page="../main/header.jsp" />
@@ -12,7 +13,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<c:if test="${id == 'admin'}">
+			<c:if test="${user_id == 'admin'}">
 				<h1 class="ProductTitle"><a href="ProductList.ad">상품 목록</a></h1>
 				<form action="ProductList.ad" method="post">
 				    <div class="input-group">
@@ -53,6 +54,8 @@
 						<tbody>
 							<c:forEach var="p" items="${productlist }">
 								<fmt:formatNumber type="number" maxFractionDigits="3" value="${p.product_price}" var="product_price" />
+								<fmt:parseDate var="parseproduct_date" value="${p.product_date}" pattern="yyyy-MM-dd"/>
+								<fmt:formatDate var="product_date" value="${parseproduct_date}" pattern="yyyy-MM-dd"/>
 								<c:set var="src" value="${'LaptopImgUpload/'}${p.product_image }" />
 								<tr>
 									<td class="align-middle"><input name="RowCheck" type="checkbox" value="${p.product_code }"></td>
@@ -64,7 +67,7 @@
 									<td class="align-middle">${p.product_stock }</td>
 									<td class="align-middle">${p.product_status }</td>
 									<td class="align-middle">${p.product_sales }</td>
-									<td class="align-middle">${p.product_date }</td>
+									<td class="align-middle">${product_date}</td>
 									<td class="align-middle"><a class="btn btn-primary" href="ProductModifyView.ad?product_code=${p.product_code}">수정</a></td>
 								</tr>
 							</c:forEach>
@@ -365,5 +368,7 @@
 				</div>
   			</c:if>
 		</div>
+		<hr>
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>
