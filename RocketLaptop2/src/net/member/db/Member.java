@@ -8,7 +8,7 @@ public class Member {
 	private String user_gender; // 회원 성별
 	private String user_email; // 회원 이메일
 	private String user_phone; // 회원 전화번호
-	private int    user_address1; // 회원 우편번호
+	private String user_address1; // 회원 우편번호
 	private String user_address2; // 회원 주소
 	private String user_memberfile; // 회원 프로필 파일
 	private String user_joindate; // 회원 가입날짜
@@ -69,14 +69,14 @@ public class Member {
 		this.user_phone = user_phone;
 	}
 	
-	public int getUser_address1() {
+	public String getUser_address1() {
 		return user_address1;
 	}
-	
-	public void setUser_address1(int user_address1) {
+
+	public void setUser_address1(String user_address1) {
 		this.user_address1 = user_address1;
 	}
-	
+
 	public String getUser_address2() {
 		return user_address2;
 	}

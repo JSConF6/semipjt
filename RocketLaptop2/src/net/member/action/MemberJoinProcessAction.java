@@ -3,9 +3,13 @@ package net.member.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import net.member.db.Member;
 import net.member.db.MemberDAO;
@@ -18,41 +22,75 @@ public class MemberJoinProcessAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String user_id = request.getParameter("user_id");
-		String user_password = request.getParameter("user_password");
-		String user_name = request.getParameter("user_name");
-		int user_birthdate = Integer.parseInt(request.getParameter("user_birthdate"));
-		String user_gender = request.getParameter("user_gender");
-		String user_email = request.getParameter("user_email");
-		String user_phone = request.getParameter("user_phone");
-		int user_address1 = Integer.parseInt(request.getParameter("user_address1"));
-		String user_address2 = request.getParameter("user_address2");
-		String user_memberfile = request.getParameter("user_memberfile");
-		
-		Member m = new Member();
-		m.setUser_id(user_id); m.setUser_password(user_password); m.setUser_name(user_name);
-		m.setUser_birthdate(user_birthdate); m.setUser_gender(user_gender); m.setUser_email(user_email);
-		m.setUser_phone(user_phone); m.setUser_address1(user_address1); m.setUser_address2(user_address2);
-		m.setUser_memberfile(user_memberfile);
-		
-		response.setContentType("text/html;charset=utf-8");;
-		PrintWriter out = response.getWriter();
-		
-		MemberDAO mdao = new MemberDAO();
-		
-		int result = mdao.memberInsert(m);
-		out.println("<script>>");
-		if (result == 1) {
-			out.println("alert('회원가입을 축하합니다.');");
-			out.println("location.href='login.ma';");
-		} else if (result == -1) {
-			out.println("alert('아이디가 중복되었습니다. 다시 입력하세요');");
-			out.println("history.back()");
-		}
-		out.println("</script>");
-		out.close();
-		
-		return null;
-	}
 
+		String realFolder = "";
+
+		// WebContent 아래에 꼭 폴더 생성하세요
+		String saveFolder = "memberupload";
+
+		int fileSize = 5 * 1024 * 1024;// 업로드 할 파일의 최대 사이즈 입니다. 5MB
+
+		// 실제 저장 경로를 지정합니다.
+		ServletContext sc = request.getServletContext();
+		realFolder = sc.getRealPath(saveFolder);
+		System.out.println("realFolder= " + realFolder);
+		try {
+			MultipartRequest multi = new MultipartRequest(request, realFolder, fileSize, "utf-8",
+					new DefaultFileRenamePolicy());
+
+			String user_id = multi.getParameter("user_id");
+			String user_password = multi.getParameter("user_password");
+			String user_name = multi.getParameter("user_name");
+			int user_birthdate = Integer.parseInt(multi.getParameter("user_birthdate"));
+			String user_gender = multi.getParameter("user_gender");
+			String user_email = multi.getParameter("user_email");
+			String user_phone = multi.getParameter("user_phone");
+			String user_address1 = multi.getParameter("user_address1");
+			String user_address2 = multi.getParameter("user_address2");
+			String user_joindate = multi.getParameter("user_joindate");
+
+			Member m = new Member();
+			m.setUser_id(user_id);
+			m.setUser_password(user_password);
+			m.setUser_name(user_name);
+			m.setUser_birthdate(user_birthdate);
+			m.setUser_gender(user_gender);
+			m.setUser_email(user_email);
+			m.setUser_phone(user_phone);
+			m.setUser_address1(user_address1);
+			m.setUser_address2(user_address2);
+			m.setUser_joindate(user_joindate);
+
+			String check = multi.getParameter("check");
+			System.out.println("check" + check);
+			if (check != null) {
+				m.setUser_memberfile(check);
+			} else {
+				String user_memberfile = multi.getFilesystemName("user_memberfile");
+				m.setUser_memberfile(user_memberfile);
+			}
+			MemberDAO mdao = new MemberDAO();
+			int result = mdao.memberInsert(m);
+
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>>");
+			if (result == 1) {
+				out.println("alert('회원가입을 축하합니다.');");
+				out.println("location.href='main.ma';");
+			} else if (result == -1) {
+				out.println("alert('아이디가 중복되었습니다. 다시 입력하세요');");
+				out.println("history.back()");
+			}
+			out.println("</script>");
+			out.close();
+			return null;
+		} catch (IOException ex) {
+			ActionForward forward = new ActionForward();
+			forward.setPath("error/error.jsp");
+			request.setAttribute("message", "프로필 사진 업로드 실패입니다.");
+			forward.setRedirect(false);
+			return forward;
+		}
+	}
 }
