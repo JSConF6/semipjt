@@ -60,34 +60,40 @@ $(function(){
 				return false;
 			}
 			
-			if($('#user_phone').val() == ''){
+			if($.trim($('#user_phone').val()) == ''){
 				$('#ErrorModal').modal('show');
 				$('#ErrorModal-Title').text("회원가입 유효성 검사");
-				$('#ErrorModal-body').html("<h4>전화번호를 확인해주세요</h4>");
-				$("#user_email").focus();
+				$('#ErrorModal-body').html("<h4>전화번호를 입력해주세요</h4>");
 				return false;
 			}
-
+			
+			var phoneReg = /^\d{3}-\d{3,4}-\d{4}$/;
+			if(!phoneReg.test($.trim($('#user_phone').val()))){
+				$('#ErrorModal').modal('show');
+				$('#ErrorModal-Title').text("회원 정보");
+				$('#ErrorModal-body').html("<h5>전화번호 형식에 맞게 입력해주세요</h5>");
+				$('#user_phone').val('');
+				return false;
+			}
 			
 	  });
 	  
 	  $('#user_memberfile').change(function(event){
-	
+		  	var check = 0;
 			var inputfile = $(this).val().split('\\');
 			var filename=inputfile[inputfile.length - 1];
 			var pattern = /(gif|jpg|jpeg|png)$/i;//플래그 i는 대소문자 구분없는 검색
 			if (pattern.test(filename)) {
-				$('#filename').text(filename);//inputfile.length - 1 =2
+				//$('#filename').text(filename);//inputfile.length - 1 =2
 				
 				var reader = new FileReader();	//파일을 읽기 위한 객체 생성
 			//DataURL 형식으로 파일을 읽어옵니다.
 			//읽어온 결과는 reader객체의 result 속성에 저장됩니다.
 			//event.target.files[0] : 선택한 그림의 파일객체에서 첫번째 객체를 가져옵니다.
 				reader.readAsDataURL(event.target.files[0]);
-			
+				check++;
 				reader.onload = function(event) {//읽기에 성공했을 때 실행되는 이벤트 핸들러
-					$('#showImage').html('<img width="20px" src="'
-										+ event.target.result + '">');
+					$('#filenameSrc').attr('src',event.target.result);
 				};
 			}else{
 				alert('확장자는 gif, jpg, jpeg, png가 가능합니다.');

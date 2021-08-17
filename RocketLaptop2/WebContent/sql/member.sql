@@ -17,16 +17,17 @@ create table member(
     user_address1       varchar2(5),
     user_address2       varchar2(40),
     user_memberfile		varchar2(20),
-    user_joindate       varchar2(20),
+    user_joindate       DATE,
 	PRIMARY KEY(user_id)
 );
 
 select * from member;
---Board_Ajax 프로젝트에 추가 --
-alter table member
-add (memberfile VARCHAR2(50));
 
-select * from member;
-create table member_copy
-as
-select * from member;
+--Board_Ajax 프로젝트에 추가(회원가입 시 반영으로 불필요해짐 --
+--alter table member
+--add (memberfile VARCHAR2(50));
+
+--select * from member;
+--create table member_copy
+--as
+--select * from member;

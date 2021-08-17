@@ -33,7 +33,29 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "insert into member "
-					   + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+					   + "( USER_ID, "
+					   + "USER_PASSWORD, "
+					   + "USER_NAME, "
+					   + "USER_DATEBIRTH, "
+					   + "USER_GENDER, "
+					   + "USER_EMAIL, "
+					   + "USER_PHONE, "
+					   + "USER_ADDRESS1, "
+					   + "USER_ADDRESS2, "
+					   + "USER_MEMBERFILE,"
+					   + "USER_JOINDATE )"
+					   + "values("
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "?, "
+					   + "sysdate )";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, m.getUser_id());
@@ -46,7 +68,7 @@ public class MemberDAO {
 			pstmt.setString(8, m.getUser_address1());
 			pstmt.setString(9, m.getUser_address2());
 			pstmt.setString(10, m.getUser_memberfile());
-			pstmt.setString(11, m.getUser_joindate());
+			
 			result = pstmt.executeUpdate();
 
 		
@@ -88,8 +110,10 @@ public class MemberDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
-			
+
 			if(rs.next()) {
+				System.out.println("user_id[" + rs.getString(1) +"]");
+				System.out.println("user_password[" + rs.getString(2)+"]");
 				if(rs.getString(2).equals(user_password)) {
 
 					result = 1;	
@@ -131,7 +155,18 @@ public class MemberDAO {
 		try {
 			con = ds.getConnection();
 			
-			String sql = "select * from member where user_id = ? ";
+			String sql = "select USER_ID," + 
+					"USER_PASSWORD," + 
+					"USER_NAME," + 
+					"USER_DATEBIRTH," + 
+					"USER_GENDER," + 
+					"USER_EMAIL," + 
+					"USER_PHONE," + 
+					"USER_ADDRESS1," + 
+					"USER_ADDRESS2," + 
+					"USER_MEMBERFILE," + 
+					"to_char(USER_JOINDATE, 'YYYYMMDD') as USER_JOINDATE"
+					+ " from member where user_id = ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
