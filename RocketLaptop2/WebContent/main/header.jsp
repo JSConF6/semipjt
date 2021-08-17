@@ -6,6 +6,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script> 
 <script src="js/main/header.js" type="text/javascript"></script>
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
@@ -134,7 +135,7 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body" style="padding:40px 40px;">
-				<form name="joinform" id="joinform" action="joinProcess.ma" method="post">
+				<form name="joinform" id="joinform" action="joinProcess.ma" method="post" enctype="multipart/form-data">
 					<div class="form-group">
 						<label for="user_id"><span class="glyphicon glyphicon-info-sign"></span> 아이디</label>
 						<input type="text" class="form-control" name="user_id" id="user_id" placeholder="아이디" maxLength="12">
@@ -154,7 +155,7 @@
 					</div>
 					<div class="form-group">
 						<label for="user_birthdate"><span class="glyphicon glyphicon-info-sign"></span> 생년월일</label>
-						<input type="text" class="form-control" name="user_birthdate" id="user_birthdate" maxLength="8" placeholder="생년월일 (ex)19980101">
+						<input type="text" class="form-control" name="user_birthdate" id="user_birthdate" maxLength="8" placeholder="(ex)19980101">
 					</div>
 					<div class="form-group">
 						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
@@ -164,23 +165,35 @@
 					</div>
 					<div class="form-group">
 						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>
-						<input type="text" class="form-control" name="user_email" id="user_email" maxLength="30" placeholder="이메일">
+						<input type="text" class="form-control" name="user_email" id="user_email" maxLength="30" placeholder="(ex)abc@abc.net">
 						<span id="email_message"></span>
 					</div>
 					<div class="form-group">
 						<label for="user_phone"><span class="glyphicon glyphicon-info-sign"></span> 전화번호</label>
-						<input type="text" class="form-control" name="user_phone" id="user_phone" maxLength="20" placeholder="전화번호">
+						<input type="text" class="form-control" name="user_phone" id="user_phone" maxLength="20" placeholder="(ex)01012341234">
 					</div>
 					<div class="form-group">
-						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span> 우편번호</label>
-						<input type="text" class="form-control" name="user_address1" id="user_address1" maxLength="5" placeholder="우편번호">
+						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span></label>
+						<input type="button" class="btn btn-warning" name="postcode" id="postcode" value="주소검색  by_kakao">
+						<input type="text" class="form-control" name="user_address1" id="user_address1" size="5" maxLength="5" placeholder="우편번호 5자리">
+						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="상세주소">
 					</div>
 					<div class="form-group">
-						<label for="user_address2"><span class="glyphicon glyphicon-info-sign"></span> 주소</label>
-						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="주소">
-					</div>				
-					<div class="form-group">
-						<label for="user_memberfile"><span class="glyphicon glyphicon-paperclip"></span> 프로필사진</label>
+						<label for="user_memberfile"><span class="glyphicon glyphicon-paperclip"></span> 프로필사진</label><br>
+						<img src="image/attach.png" width="20px">  
+						<span id="filename">${memberinfo.user_memberfile}</span>
+						<%-- memberinfo.memberfile의 값이 없으면 기본 사진을 보여줍니다.
+							값이 존재하면 memberupload 폴더에 존재하는 파일명으로 경로를 설정합니다. --%>
+						<span id="showImage">
+							<c:if test='${empty memberinfo.user_memberfile}'>
+								<c:set var='src' value='image/profile.png'/>
+							</c:if>
+							<c:if test='${!empty memberinfo.user_memberfile}'>
+								<c:set var='src' value='${"memberupload/"}${memberinfo.user_memberfile}'/>
+							</c:if>
+							<%-- 위에서 memberinfo.memberfile의 값이 있는 경우와 없는 경우에 따라 src 속성값이 달라집니다. --%>	
+							<img src="${src}" width="20px" alt="profile">
+						</span>
 						<input type="file"  name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg">회원가입</button>
@@ -215,3 +228,4 @@
 		</div>
 	</div>
 </div>
+

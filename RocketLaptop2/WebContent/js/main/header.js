@@ -67,7 +67,49 @@ $(function(){
 				$("#user_email").focus();
 				return false;
 			}
+
+			
 	  });
+	  
+	  $('#user_memberfile').change(function(event){
+	
+			var inputfile = $(this).val().split('\\');
+			var filename=inputfile[inputfile.length - 1];
+			var pattern = /(gif|jpg|jpeg|png)$/i;//플래그 i는 대소문자 구분없는 검색
+			if (pattern.test(filename)) {
+				$('#filename').text(filename);//inputfile.length - 1 =2
+				
+				var reader = new FileReader();	//파일을 읽기 위한 객체 생성
+			//DataURL 형식으로 파일을 읽어옵니다.
+			//읽어온 결과는 reader객체의 result 속성에 저장됩니다.
+			//event.target.files[0] : 선택한 그림의 파일객체에서 첫번째 객체를 가져옵니다.
+				reader.readAsDataURL(event.target.files[0]);
+			
+				reader.onload = function(event) {//읽기에 성공했을 때 실행되는 이벤트 핸들러
+					$('#showImage').html('<img width="20px" src="'
+										+ event.target.result + '">');
+				};
+			}else{
+				alert('확장자는 gif, jpg, jpeg, png가 가능합니다.');
+				check=0;
+			}
+		})//$('input[type=file]').change() end
+	  
+	  
+	// 우편 검색 버튼 클릭
+		$("#postcode").click(function(){
+		    new daum.Postcode({
+		        oncomplete: function(data) {
+		            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+		            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+		        	//console.log(data);
+					$("#user_address2").val(data.address);
+					$("#user_address1").val(data.zonecode);
+					
+		        }
+		    }).open();
+		});	// $("#postcode").click() end
+
 	  
 	$("#user_email").on('keyup',
 			function() {

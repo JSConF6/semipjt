@@ -43,9 +43,10 @@ public class MemberDAO {
 			pstmt.setString(5, m.getUser_gender());
 			pstmt.setString(6, m.getUser_email());
 			pstmt.setString(7, m.getUser_phone());
-			pstmt.setInt(8, m.getUser_address1());
+			pstmt.setString(8, m.getUser_address1());
 			pstmt.setString(9, m.getUser_address2());
 			pstmt.setString(10, m.getUser_memberfile());
+			pstmt.setString(11, m.getUser_joindate());
 			result = pstmt.executeUpdate();
 
 		
@@ -143,7 +144,7 @@ public class MemberDAO {
 				m.setUser_gender(rs.getString("user_gender"));
 				m.setUser_email(rs.getString("user_email"));
 				m.setUser_phone(rs.getString("user_phone"));
-				m.setUser_address1(rs.getInt("user_address1"));
+				m.setUser_address1(rs.getString("user_address1"));
 				m.setUser_address2(rs.getString("user_address2"));
 				m.setUser_memberfile(rs.getString("user_memberfile"));
 				m.setUser_joindate(rs.getString("user_joindate"));
@@ -196,7 +197,7 @@ public class MemberDAO {
 			pstmt.setString(2, m.getUser_gender());
 			pstmt.setString(3, m.getUser_email());
 			pstmt.setString(4, m.getUser_phone());
-			pstmt.setInt(5, m.getUser_address1());
+			pstmt.setString(5, m.getUser_address1());
 			pstmt.setString(6, m.getUser_address2());
 			pstmt.setString(7, m.getUser_memberfile());
 			pstmt.setString(8, m.getUser_id());
@@ -235,7 +236,7 @@ public class MemberDAO {
 			pstmt.setString(1, member.getUser_password());
 			pstmt.setString(2, member.getUser_email());
 			pstmt.setString(3, member.getUser_phone());
-			pstmt.setInt(4, member.getUser_address1());
+			pstmt.setString(4, member.getUser_address1());
 			pstmt.setString(5, member.getUser_address2());
 			pstmt.setString(6, member.getUser_id());
 			int result = pstmt.executeUpdate();
@@ -340,7 +341,7 @@ public class MemberDAO {
 				m.setUser_gender(rs.getString("user_gender"));
 				m.setUser_email(rs.getString("user_email"));
 				m.setUser_phone(rs.getString("user_phone"));
-				m.setUser_address1(rs.getInt("user_address1"));
+				m.setUser_address1(rs.getString("user_address1"));
 				m.setUser_address2(rs.getString("user_address2"));
 				m.setUser_memberfile(rs.getString("user_memberfile"));
 				m.setUser_joindate(rs.getString("user_joindate"));
@@ -456,7 +457,7 @@ public class MemberDAO {
 				m.setUser_gender(rs.getString("user_gender"));
 				m.setUser_email(rs.getString("user_email"));
 				m.setUser_phone(rs.getString("user_phone"));
-				m.setUser_address1(rs.getInt("user_address1"));
+				m.setUser_address1(rs.getString("user_address1"));
 				m.setUser_address2(rs.getString("user_address2"));
 				m.setUser_memberfile(rs.getString("user_memberfile"));
 				m.setUser_joindate(rs.getString("user_joindate"));

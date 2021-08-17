@@ -14,12 +14,14 @@ create table member(
 	user_gender		    varchar2(3),
 	user_email		    varchar2(30),
 	user_phone	        varchar2(20),
-    user_address1       number(5),
+    user_address1       varchar2(5),
     user_address2       varchar2(40),
     user_memberfile		varchar2(20),
+    user_joindate       varchar2(20),
 	PRIMARY KEY(user_id)
 );
 
+select * from member;
 --Board_Ajax 프로젝트에 추가 --
 alter table member
 add (memberfile VARCHAR2(50));
