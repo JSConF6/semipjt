@@ -11,6 +11,7 @@
 	</head>
 	<body>
 		<c:if test="${user_id == 'admin' }">
+			<div id="showImage"><img src="image/among us.png" width="100%" height="100%"></div>
 			<input type="hidden" value="${m.user_gender }" class="user_gender">
 			<div id="ModifyDiv" class="mt-2">
 				<h1>회원 수정 - 관리자</h1>

@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.container{
+	display : flex;
+    flex-wrap : wrap;
+}
+
+.productItems{
+	width : 300px;
+	height : 300px;
+	margin-bottom : 140px;
+	margin-right : 70px;
+}
+
+.productItems > a > img{
+	border : 1px solid gray;
+}
+
+.productItems > div{
+	border-left : 1px solid gray;
+	border-right : 1px solid gray;
+	border-bottom : 1px solid gray;
+}

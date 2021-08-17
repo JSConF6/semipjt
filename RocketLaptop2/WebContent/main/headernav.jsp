@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="js/main/headernav.js" type="text/javascript"></script>
 <style>
 	#title{
 		font-size: 30px;
@@ -65,7 +66,7 @@
 			<button id="search" class="btn btn-success" type="submit">검색</button>
 		</div>
 	</form>
-	<input type="hidden" value="${search_field }" class="search_field">
+	<input type="hidden" value="${search_field}" class="search_field">
 	<ul class="navbar-nav">
 		<c:if test="${user_id == 'admin'}">
 			<li class="nav-item">
@@ -93,13 +94,13 @@
 		</li>
 		
 	  	<li class="nav-item">
-			<a class="nav-link" href="#">새로운 상품</a>
+			<a class="nav-link" href="MainNewProductList.ma">새로운 상품</a>
 	  	</li>
 	  	<li class="nav-item">
-			<a class="nav-link" href="#">베스트 상품</a>
+			<a class="nav-link" href="MainBestProductList.ma">베스트 상품</a>
 	 	 </li>
 	  	<li class="nav-item">
-			<a class="nav-link" href="#">공지사항</a>
+			<a class="nav-link" href="MainNoticeList.ma">공지사항</a>
 	 	 </li>
 	  	<li class="nav-item">
 			<a class="nav-link" href="#">문의사항</a>

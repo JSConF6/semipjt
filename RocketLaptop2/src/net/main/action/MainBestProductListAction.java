@@ -11,37 +11,32 @@ import javax.servlet.http.HttpServletResponse;
 import net.admin.db.Product;
 import net.admin.db.ProductDAO;
 
-public class MainSearchView implements Action {
+public class MainBestProductListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProductDAO pdao = new ProductDAO();
-		List<Product> searchlist = new ArrayList<Product>();
+		List<Product> bestlist = new ArrayList<Product>();
 		
 		int listcount = 0;
 		int index = -1;
-		
-		index = Integer.parseInt(request.getParameter("search_field"));
-		String[] search_field = new String[] {"PRODUCT_NAME", "CATEGORY_NAME"};
-		String search_word = request.getParameter("search_word");
 
-		int limit = pdao.getProductListCount(search_field[index], search_word);
+		int limit = pdao.bestProductListCount();
 		
-		listcount = pdao.getProductListCount(search_field[index], search_word);
-		searchlist = pdao.getProductList(search_field[index], search_word, 1, limit);
+		listcount = pdao.bestProductListCount();
+		bestlist = pdao.bestProductList(1, limit);
 			
 		request.setAttribute("listcount", listcount);
 			
 		// 해당 페이지의 상품 목록을 갖고 있는 리스트
-		request.setAttribute("searchlist", searchlist);
+		request.setAttribute("bestlist", bestlist);
 		request.setAttribute("limit", limit);
 		request.setAttribute("search_field", index);
-		request.setAttribute("search_word", search_word);
 		ActionForward forward = new ActionForward();
 		
 		forward.setRedirect(false);
-		forward.setPath("main/mainSearchView.jsp");
+		forward.setPath("main/mainBestProductView.jsp");
 		return forward;
 	}
 

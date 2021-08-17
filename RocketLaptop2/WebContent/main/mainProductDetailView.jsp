@@ -2,13 +2,16 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<head>
-		<jsp:include page="../main/header.jsp" />
+		<jsp:include page="header.jsp" />
 		<title>RocketLaptop - ${p.product_name}</title>
 		<link href="css/main/mainProductDetailView.css" type="text/css" rel="stylesheet">
+		<script src="js/main/mainProductDetailView.js" type="text/javascript"></script>
 	</head>
 	<body>
-		<jsp:include page="../main/headernav.jsp" />
-		<h1 class="text-center mt-3">상품 상세보기</h1>
+		<input type="hidden" value="${user_id}" class="checkid">
+		<input type="hidden" value="-1" class="search_field">
+		<jsp:include page="headernav.jsp" />
+		<h1 class="text-center mt-3">상품 정보</h1>
 		<div id="showImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
 		<div class="container" id="productDetail">
 			<hr>
@@ -22,14 +25,66 @@
 			<hr>
 			<p><span>재고 수</span> &nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber pattern="###,###,###" value="${p.product_stock}" /> EA</p>
 			<hr>
+			<p><span>상품 상태</span> &nbsp;&nbsp;${p.product_status}</p>
+			<hr>
 			<p class="text-center"><span>상품 설명</span><br>${p.product_details}</p>
 			<hr>
 			<div class="container text-right">
-				<button class="btn btn-dark ">바로 구매</button>
-				<button class="btn btn-secondary">장바구니 담기</button>
+				<button class="btn btn-success" id="buybtn">바로 구매</button>
+				<button class="btn btn-info" id="cartbtn">장바구니 담기</button>
 			</div>
 		</div>
 		<hr>
-		<jsp:include page="../main/footer.jsp" />
+		<jsp:include page="footer.jsp" />
+		
+		<!-- 주문 오류 모달창 -->
+		<div class="modal hide fade" id="productOrderModal">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content">
+		      
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">상품 주문</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+		        
+					<!-- Modal body -->
+					<div class="modal-body">
+					  <h4>로그인 후 구매 해주십시오.</h4>
+					</div>
+		        
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+					</div>
+		        
+				</div>
+			</div>
+		</div>
+		
+		<!-- 장바구니 담기 오류 모달창 -->
+		<div class="modal hide fade" id="productCartModal">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content">
+		      
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">장바구니 담기</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+		        
+					<!-- Modal body -->
+					<div class="modal-body">
+					  <h4>로그인 후 담아주세요.</h4>
+					</div>
+		        
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+					</div>
+		        
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

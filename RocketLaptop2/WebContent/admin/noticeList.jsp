@@ -20,7 +20,7 @@
 				            <option value="1">작성일</option>
 				        </select>
 				        <input name="search_word" type="text" class="form-control"
-				               placeholder="제목 입력하세요" value="${search_word}">
+				               placeholder="제목 입력하세요" value="${search_word}" id="search_word">
 				        <button id="search" class="btn btn-primary" type="submit">검색</button>
 				    </div>
 				</form>

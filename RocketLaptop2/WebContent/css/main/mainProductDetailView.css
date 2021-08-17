@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-span{
+#productDetail > p > span{
 	font-size : 40px;	
 }
 
@@ -12,14 +12,38 @@ span{
 	margin-top: 20px;
     margin-left: 30px;
     margin-right : 50px;
-    width: 33%;
+    width: 38%;
     height: 60%;
     float: left;
 }
 
 #productDetail{
-	margin-left : 600px;
+	margin-left : 635px;
 	width: 50%;
     height: 100%;
     margin-top: 20px;
+    margin-bottom : 100px;
+}
+
+#productDetail > div > button{
+	font-size : 25px;
+}
+
+#productDetail > p > button{
+	height: 30px;
+    font-size: 25px;
+    background: none;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+}
+
+#productDetail > p > button:hover{
+	color : green;
+}
+
+#productDetail > p > input{
+	height: 30px;
+    width: 40px;
+    font-size: 20px;
 }

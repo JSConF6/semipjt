@@ -24,7 +24,7 @@
 				            <option value="3">상품상태</option>
 				        </select>
 				        <input name="search_word" type="text" class="form-control"
-				               placeholder="상품코드 입력하세요" value="${search_word}">
+				               placeholder="상품코드 입력하세요" value="${search_word}" id="search_word">
 				        <button id="search" class="btn btn-primary" type="submit">검색</button>
 				    </div>
 				</form>

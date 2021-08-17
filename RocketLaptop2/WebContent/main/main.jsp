@@ -13,8 +13,8 @@
 		</style>
 	</head>
 	<body>
+		<input type="hidden" value="-1" class="search_field">
 		<jsp:include page="headernav.jsp" />
-
 		<!--banner-->
 		<div class="container" style="height:400px">
 			<div id="demo" class="carousel slide" data-ride="carousel">

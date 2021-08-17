@@ -8,7 +8,7 @@ $(function(){
 	// 검색 버튼 클릭한 경우
 	$('#search').click(function(){
 		// 검색어 유효성 검사를 한다.
-		if($("input").val()==''){
+		if($("search_word").val()==''){
 			$('#ErrorModal').modal('show');
 			$('#ErrorModal-Title'). text("검색어 입력");
 			$('#ErrorModal-body').html("<h4>검색어를 입력해주세요</h4>");
@@ -19,9 +19,9 @@ $(function(){
 	// 검색창 select가 바뀌면 placholder 바뀐다
 	$('#productinfo').change(function(){
 		selectedValue = $(this).val();
-		$("input").val('');
+		$("#search_word").val('');
 		message = ["상품코드", "상품명", "카테고리", "상품상태"];
-		$("input").attr("placeholder", message[selectedValue] + " 입력하세요");
+		$("#search_word").attr("placeholder", message[selectedValue] + " 입력하세요");
 	});
 	
 	// 선택삭제 부분

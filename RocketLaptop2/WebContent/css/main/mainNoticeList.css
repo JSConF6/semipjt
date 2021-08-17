@@ -1,0 +1,24 @@
+@charset "UTF-8";
+.gray{color:gray}
+
+.MainNoticeBody{
+	text-align : center;
+	margin-top : 80px;
+}
+	
+#MainNoticeTitle{
+	text-align : center;
+	margin-top : 10px;
+}
+	
+#MainNoticeTitle > a{
+	color : black;
+}
+	
+.container > h2{
+	float : left;
+}
+	
+textarea{
+	resize : none;
+}

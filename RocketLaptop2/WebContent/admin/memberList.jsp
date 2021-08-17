@@ -24,7 +24,7 @@
 				            <option value="4">전화번호</option>
 				        </select>
 				        <input name="search_word" type="text" class="form-control"
-				               placeholder="아이디 입력하세요" value="${search_word}">
+				               placeholder="아이디 입력하세요" value="${search_word}" id="search_word">
 				        <button id="search" class="btn btn-primary" type="submit">검색</button>
 				    </div>
 				</form>

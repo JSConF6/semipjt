@@ -6,8 +6,17 @@
 textarea{
 	resize : none;
 }
+
+#showImage{
+	margin-top: 60px;
+	margin-left: 28px;
+	width: 20%;
+	height: 40%;
+	border : 1px dotted gray;
+	float : left;
+}
 	
 #ModifyDiv{
-	width : 800px;
+	width : 700px;
 	margin : 0 auto;
 }

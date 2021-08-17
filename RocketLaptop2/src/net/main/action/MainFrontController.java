@@ -43,11 +43,14 @@ public class MainFrontController extends HttpServlet {
 			case "/main.ma":
 				action = new MainAction();
 				break;
-			case "/mainSearch.ma":
-				action = new MainSearchAction();
-				break;
 			case "/MainProductList.ma":
 				action = new MainProductListAction();
+				break;
+			case "/MainNewProductList.ma":
+				action = new MainNewProductListAction();
+				break;
+			case "/MainBestProductList.ma":
+				action = new MainBestProductListAction();
 				break;
 			case "/MainProductDetail.ma":
 				action = new MainProductDetailView();
@@ -55,16 +58,25 @@ public class MainFrontController extends HttpServlet {
 			case "/MainSearch.ma":
 				action = new MainSearchView();
 				break;
+			case "/MainCategoryProductList.ma":
+				action = new MainCategoryListAction();
+				break;
+			case "/MainNoticeList.ma":
+				action = new MainNoticeListAction();
+				break;
+			case "/MainNoticeDetail.ma":
+				action = new MainNoticeDetailAction();
+				break;
 			case "/login.ma":
 				action = new MainLoginAction();
 				break;
 			case "/join.ma":
-				action = new MemberJoinAction();			//회원가입
+				action = new MemberJoinAction();
 				break;
 			case "/joinProcess.ma":
-				action = new MemberJoinProcessAction();     //회원가입
+				action = new MemberJoinProcessAction();
 				break;	
-			case "/idcheck.ma":								//회원가입(ID유효성검사)
+			case "/idcheck.ma":				
 				action = new MemberIdCheckAction();
 				break;	
 			case "/logout.ma":
