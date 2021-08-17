@@ -47,7 +47,6 @@ public class MemberJoinProcessAction implements Action {
 			String user_phone = multi.getParameter("user_phone");
 			String user_address1 = multi.getParameter("user_address1");
 			String user_address2 = multi.getParameter("user_address2");
-			String user_joindate = multi.getParameter("user_joindate");
 
 			Member m = new Member();
 			m.setUser_id(user_id);
@@ -59,29 +58,27 @@ public class MemberJoinProcessAction implements Action {
 			m.setUser_phone(user_phone);
 			m.setUser_address1(user_address1);
 			m.setUser_address2(user_address2);
-			m.setUser_joindate(user_joindate);
 
-			String check = multi.getParameter("check");
-			System.out.println("check" + check);
-			if (check != null) {
-				m.setUser_memberfile(check);
-			} else {
+			//String check = multi.getParameter("check");
+			//System.out.println("check" + check);
+			//if (check != null) {
+			//	m.setUser_memberfile(check);
+			//} else {
 				String user_memberfile = multi.getFilesystemName("user_memberfile");
 				m.setUser_memberfile(user_memberfile);
-			}
+			//}
 			MemberDAO mdao = new MemberDAO();
 			int result = mdao.memberInsert(m);
 
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.println("<script>>");
+			out.println("<script>");
 			if (result == 1) {
 				out.println("alert('회원가입을 축하합니다.');");
-				out.println("location.href='main.ma';");
 			} else if (result == -1) {
 				out.println("alert('아이디가 중복되었습니다. 다시 입력하세요');");
-				out.println("history.back()");
 			}
+			out.println("location.href='main.ma';");
 			out.println("</script>");
 			out.close();
 			return null;

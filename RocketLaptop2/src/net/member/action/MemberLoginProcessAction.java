@@ -20,9 +20,11 @@ public class MemberLoginProcessAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		String user_id = request.getParameter("user_id");
-		String user_password = request.getParameter("user_password");
+		String user_id = request.getParameter("login_id");//모달(로그인/회원가입) ID중복 방지를 위해 로그인 아이디 식별자 변경
+		String user_password = request.getParameter("login_password");
 		MemberDAO mdao = new MemberDAO();
+		System.out.println("user_id[" + user_id +"]");
+		System.out.println("user_password[" + user_password+"]");
 		int result = mdao.isId(user_id,user_password);
 		System.out.println("결과는" + result);
 			

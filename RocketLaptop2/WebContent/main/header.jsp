@@ -102,7 +102,7 @@
 				<form role="form" action="loginProcess.ma" method="post">
 					<div class="form-group">
 						<label for="login_id"><span class="glyphicon glyphicon-user"></span> Username</label>
-						<input type="text" class="form-control" id="login_id" name="login_id" placeholder="아이디를 입력하세요">
+						<input type="text" class="form-control" id="login_id" name="login_id" placeholder="아이디를 입력하세요"><!-- 교훈: 모달 id 중복 시 유효성검사 적용 안될 가능성 -->
 					</div>
 					<div class="form-group">
 						<label for="login_password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
@@ -159,7 +159,7 @@
 					</div>
 					<div class="form-group">
 						<label for="user_birthdate"><span class="glyphicon glyphicon-info-sign"></span> 생년월일</label>
-						<input type="text" class="form-control" name="user_birthdate" id="user_birthdate" maxLength="8" placeholder="(ex)19980101">
+						<input type="text" class="form-control" name="user_birthdate" id="user_birthdate" maxLength="8" placeholder="(예) 19980101">
 					</div>
 					<div class="form-group">
 						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
@@ -169,12 +169,12 @@
 					</div>
 					<div class="form-group">
 						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>
-						<input type="text" class="form-control" name="user_email" id="user_email" maxLength="30" placeholder="(ex)abc@abc.net">
+						<input type="text" class="form-control" name="user_email" id="user_email" maxLength="30" placeholder="(예) abc@abc.net">
 						<span id="email_message"></span>
 					</div>
 					<div class="form-group">
 						<label for="user_phone"><span class="glyphicon glyphicon-info-sign"></span> 전화번호</label>
-						<input type="text" class="form-control" name="user_phone" id="user_phone" maxLength="20" placeholder="(ex)01012341234">
+						<input type="text" class="form-control" name="user_phone" id="user_phone" maxLength="20" placeholder="(예) 010-XXXX-XXXX">
 					</div>
 					<div class="form-group">
 						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span></label>
@@ -185,9 +185,11 @@
 						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="상세주소">
 					</div>
 					<div class="form-group">
+
 						<span class="glyphicon glyphicon-paperclip"></span> 프로필사진<br>
 						<label for="user_memberfile"><img src="image/attach.png" width="20px"></label> 
 						<span id="filename">${memberinfo.user_memberfile}</span>
+
 						<%-- memberinfo.memberfile의 값이 없으면 기본 사진을 보여줍니다.
 							값이 존재하면 memberupload 폴더에 존재하는 파일명으로 경로를 설정합니다. --%>
 						<span id="showImage">
@@ -198,7 +200,7 @@
 								<c:set var='src' value='${"memberupload/"}${memberinfo.user_memberfile}'/>
 							</c:if>
 							<%-- 위에서 memberinfo.memberfile의 값이 있는 경우와 없는 경우에 따라 src 속성값이 달라집니다. --%>	
-							<img src="${src}" width="20px" alt="profile">
+							<img src="${src}" id="filenameSrc" width="20px" alt="profile">
 						</span>
 						<input type="file"  name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
 					</div>
