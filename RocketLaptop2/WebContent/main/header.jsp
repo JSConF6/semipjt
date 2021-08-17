@@ -56,6 +56,10 @@
 	.modal{
 		overflow-y:auto;
 	}
+	
+	#user_memberfile{
+		display : none;
+	}
 </style>
 
 <nav class="navbar navbar-expand-sm bg-white navbar-dark float-right mt-3" id="nav-top">
@@ -174,14 +178,18 @@
 					</div>
 					<div class="form-group">
 						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span></label>
-						<input type="button" class="btn btn-warning" name="postcode" id="postcode" value="주소검색  by_kakao">
-						<input type="text" class="form-control" name="user_address1" id="user_address1" size="5" maxLength="5" placeholder="우편번호 5자리">
+						<div class="input-group">
+							<input type="text" class="form-control" name="user_address1" id="user_address1" size="5" maxLength="5" placeholder="우편번호 5자리">
+							<input type="button" class="btn btn-warning" name="postcode" id="postcode" value="주소검색  by_kakao">
+						</div>
 						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="상세주소">
 					</div>
 					<div class="form-group">
-						<label for="user_memberfile"><span class="glyphicon glyphicon-paperclip"></span> 프로필사진</label><br>
-						<img src="image/attach.png" width="20px">  
-						<%-- <span id="filename">${memberinfo.user_memberfile}</span> --%>
+
+						<span class="glyphicon glyphicon-paperclip"></span> 프로필사진<br>
+						<label for="user_memberfile"><img src="image/attach.png" width="20px"></label> 
+						<span id="filename">${memberinfo.user_memberfile}</span>
+
 						<%-- memberinfo.memberfile의 값이 없으면 기본 사진을 보여줍니다.
 							값이 존재하면 memberupload 폴더에 존재하는 파일명으로 경로를 설정합니다. --%>
 						<span id="showImage">

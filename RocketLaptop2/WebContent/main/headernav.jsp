@@ -70,7 +70,10 @@
 	<ul class="navbar-nav">
 		<c:if test="${user_id == 'admin'}">
 			<li class="nav-item">
-				<a class="nav-link fonticon text-dark" href="NoticeList.ad" style="margin-left: 40px;"><i class="fas fa-user fa-2x"></i><br>관리자 페이지</a>
+				<a class="nav-link fonticon text-dark" href="NoticeList.ad"><i class="fas fa-user fa-2x"></i><br>관리자 페이지</a>
+			</li>
+			<li>
+				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
 			</li>
 		</c:if>
 		<c:if test="${user_id != 'admin' || empty user_id}">
@@ -78,7 +81,7 @@
 				<a class="nav-link fonticon text-dark" href="#"><i class="fas fa-user fa-2x"></i><br>마이 페이지</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fontiocn text-dark" href="#"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
+				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
 			</li>
 		</c:if>
 	</ul>
