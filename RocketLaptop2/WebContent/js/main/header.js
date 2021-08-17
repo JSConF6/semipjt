@@ -76,7 +76,7 @@ $(function(){
 			var inputfile = $(this).val().split('\\');
 			var filename=inputfile[inputfile.length - 1];
 			var pattern = /(gif|jpg|jpeg|png)$/i;//플래그 i는 대소문자 구분없는 검색
-			if (pattern.test(filename)) {
+			if(pattern.test(filename)) {
 				$('#filename').text(filename);//inputfile.length - 1 =2
 				
 				var reader = new FileReader();	//파일을 읽기 위한 객체 생성

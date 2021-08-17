@@ -8,7 +8,7 @@ $(function(){
 	// 검색 버튼 클릭한 경우
 	$('#search').click(function(){
 		// 검색어 유효성 검사를 한다.
-		if($("#search_word").val()==''){
+		if($.trim($("#search_word").val())==''){
 			$('#ErrorModal').modal('show');
 			$('#ErrorModal-Title'). text("검색어 입력");
 			$('#ErrorModal-body').html("<h4>검색어를 입력해주세요</h4>");

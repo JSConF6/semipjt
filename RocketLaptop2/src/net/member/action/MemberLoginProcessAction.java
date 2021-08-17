@@ -59,7 +59,7 @@ public class MemberLoginProcessAction implements Action {
 			out.println("alert('" + message + "');");
 			out.println("location.href='login.ma';");
 			out.println("</script>");
-		  out.close();
+			out.close();
 			return null;
 		}
 	}

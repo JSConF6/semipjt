@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 #productDetail > p > span{
-	font-size : 40px;	
+	font-size : 30px;	
 }
 
 #productDetail > p{
-	font-size : 30px;
+	font-size : 20px;
 }
 
 #showImage{
@@ -18,7 +18,7 @@
 }
 
 #productDetail{
-	margin-left : 635px;
+	margin-left : 645px;
 	width: 50%;
     height: 100%;
     margin-top: 20px;
@@ -35,7 +35,6 @@
     background: none;
     outline: none;
     border: none;
-    border-radius: 50%;
 }
 
 #productDetail > p > button:hover{

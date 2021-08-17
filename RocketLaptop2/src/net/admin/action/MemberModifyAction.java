@@ -31,7 +31,7 @@ public class MemberModifyAction implements Action {
 		member.setUser_password(user_password);
 		member.setUser_email(user_email);
 		member.setUser_phone(user_phone);
-		member.setUser_address1(Integer.parseInt(user_address1));
+		member.setUser_address1(user_address1);
 		member.setUser_address2(user_address2);
 		
 		result = mdao.adminMemberModify(member);

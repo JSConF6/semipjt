@@ -67,6 +67,12 @@ public class MainFrontController extends HttpServlet {
 			case "/MainNoticeDetail.ma":
 				action = new MainNoticeDetailAction();
 				break;
+			case "/MainCartView.ma":
+				action = new MainCartView();
+				break;
+			case "/MainCartAction.ma":
+				action = new MainCartAction();
+				break;
 			case "/login.ma":
 				action = new MainLoginAction();
 				break;
