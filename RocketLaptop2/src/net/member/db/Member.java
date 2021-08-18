@@ -98,7 +98,7 @@ public class Member {
 	}
 
 	public void setUser_joindate(String user_joindate) {
-		this.user_joindate = user_joindate;
+		this.user_joindate = user_joindate.substring(0, 10);
 	}
 
 	@Override

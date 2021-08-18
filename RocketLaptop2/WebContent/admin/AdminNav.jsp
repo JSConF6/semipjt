@@ -19,6 +19,9 @@
 			<li class="nav-item">
 				<a class="nav-link" href="MemberList.ad">회원 목록</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#">주문 목록</a>
+			</li>
 		</ul>
 	</div>
 </c:if>

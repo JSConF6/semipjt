@@ -38,8 +38,7 @@
 			<hr>
 			<p class="text-center"><span>상품 설명</span><br>${p.product_details}</p>
 			<hr>
-			<div class="container text-right">
-				<button class="btn btn-success" id="buybtn">바로 구매</button>
+			<div class="container text-center">
 				<button class="btn btn-info" id="cartbtn">장바구니 담기</button>
 			</div>
 		</div>
@@ -114,7 +113,8 @@
 		        
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+						<a type="button" class="btn btn-primary" href="javascript:location.href='MainCartView.ma?user_id=${user_id}';">장바구니로 </a>
+						<button type="button" class="btn btn-info" data-dismiss="modal">계속 쇼핑</button>
 					</div>
 		        
 				</div>

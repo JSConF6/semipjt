@@ -168,8 +168,8 @@
 					<div class="form-group">
 						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
 						<br>
-						<input type="radio" name="user_gender" value="남" checked><span>남자</span>
-						<input type="radio" name="user_gender" value="여"><span>여자</span>
+						<input type="radio" name="user_gender" value="남자" checked><span>남자</span>
+						<input type="radio" name="user_gender" value="여자"><span>여자</span>
 					</div>
 					<div class="form-group">
 						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>

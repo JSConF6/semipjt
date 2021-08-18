@@ -24,22 +24,30 @@ $(function(){
 			dataType : 'json',
 			cache : false,
 			success : function(data){
-				console.log()
 				$('#bestProductMain > #bestProduct').remove();
 				$('#newProductMain > #newProduct').remove();
 				var bestoutput = "<div class='row row-cols-1 row-cols-md-3 g-4' id='bestProduct'>";
-				$(data.bestlist).each(function(index, item){
-					bestoutput += SetProduct(this.product_image, this.product_name,
-										 this.product_details, "상품 판매량 : " + this.product_sales, 'MainProductDetail.ma?product_code=' + this.product_code);
-				});
-				bestoutput += "</div>";
+				if(data.bestlist.length != 0){
+					$(data.bestlist).each(function(index, item){
+						bestoutput += SetProduct(this.product_image, this.product_name,
+											 this.product_details, "상품 판매량 : " + this.product_sales, 'MainProductDetail.ma?product_code=' + this.product_code);
+					});
+					bestoutput += "</div>";
+				}else{					
+					bestoutput += "<div class='container text-center'><h1>베스트 상품이 없습니다.</h1></div>";
+				}
+				
 				
 				var newoutput = "<div class='row row-cols-1 row-cols-md-3 g-4' id='newProduct'>";
-				$(data.newlist).each(function(index, item){
-					newoutput += SetProduct(this.product_image, this.product_name,
-										 this.product_details, "상품 등록 날짜 : " + this.product_date, 'MainProductDetail.ma?product_code=' + this.product_code);
-				});
-				newoutput += "</div>";
+				if(data.newlist.length != 0){
+					$(data.newlist).each(function(index, item){
+						newoutput += SetProduct(this.product_image, this.product_name,
+											 this.product_details, "상품 등록 날짜 : " + this.product_date, 'MainProductDetail.ma?product_code=' + this.product_code);
+					});
+					newoutput += "</div>";
+				}else{					
+					newoutput += "<div class='container text-center'><span style='font-size:33px;'>새로 올라온 상품이 없습니다.</span></div>";
+				}
 				
 				$('#bestProductMain').append(bestoutput);
 				$('#newProductMain').append(newoutput);

@@ -156,17 +156,19 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "select USER_ID," + 
-						"USER_PASSWORD," + 
-						"USER_NAME," + 
-						"USER_BIRTHDATE," + 
-						"USER_GENDER," + 
-						"USER_EMAIL," + 
-						"USER_PHONE," + 
-						"USER_ADDRESS1," + 
-						"USER_ADDRESS2," + 
-						"USER_MEMBERFILE," + 
-						"to_char(USER_JOINDATE, 'YYYYMMDD') as USER_JOINDATE"
-						+ " from member where user_id = ? ";
+
+					"USER_PASSWORD," + 
+					"USER_NAME," + 
+					"USER_BIRTHDATE," + 
+					"USER_GENDER," + 
+					"USER_EMAIL," + 
+					"USER_PHONE," + 
+					"USER_ADDRESS1," + 
+					"USER_ADDRESS2," + 
+					"USER_MEMBERFILE," + 
+					"USER_JOINDATE "
+					+ " from member where user_id = ? ";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();

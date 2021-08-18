@@ -611,7 +611,8 @@ private DataSource ds;
 					 +			  "where p.category_code = c.category_code "
 					 +			  "order by product_sales desc) p "
 					 +	   ")"
-					 +"where rnum >= 1 and rnum <= 3";
+					 +"where product_sales != 0 "
+					 +"and rnum >= 1 and rnum <= 3";
 		
 		List<Product> list = new ArrayList<Product>();
 		
@@ -866,7 +867,7 @@ private DataSource ds;
 		return p;
 	} // bestProductListCount() end
 
-	public int newProductListCount() {
+	public int newProductListCount(String Today, String Tomorrow) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -879,12 +880,15 @@ private DataSource ds;
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
 					 +			  "order by product_date desc) p "
-					 +	   ")";
+					 +	   ")"
+					 +"where product_date between TO_DATE(?) and TO_DATE(?)";
 		
 		int p = 0;
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, Today);
+			pstmt.setString(2, Tomorrow);
 			rs = pstmt.executeQuery();
 			
 			// DB에서 가져온 데이터를 VO객체에 담습니다.
@@ -936,7 +940,8 @@ private DataSource ds;
 					 +			  "where p.category_code = c.category_code "
 					 +			  "order by product_date desc) p "
 					 +	   ")"
-					 +"where product_date between TO_DATE(?) and TO_DATE(?)";
+					 +"where product_date between TO_DATE(?) and TO_DATE(?) "
+					 +"and rnum >= 1 and rnum <= 3";
 		
 		List<Product> list = new ArrayList<Product>();
 		

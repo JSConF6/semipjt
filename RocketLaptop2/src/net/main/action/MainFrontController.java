@@ -55,6 +55,15 @@ public class MainFrontController extends HttpServlet {
 			case "/MainProductDetail.ma":
 				action = new MainProductDetailView();
 				break;
+			case "/OrderAction.ma":
+				action = new OrderAction();
+				break;
+			case "/OrderListView.ma":
+				action = new OrderListView();
+				break;
+			case "/OrderDetailView.ma":
+				action = new OrderDetailView();
+				break;
 			case "/MainSearch.ma":
 				action = new MainSearchView();
 				break;
@@ -72,6 +81,12 @@ public class MainFrontController extends HttpServlet {
 				break;
 			case "/MainCartAction.ma":
 				action = new MainCartAction();
+				break;
+			case "/MainCartDeleteAction.ma":
+				action = new MainCartDeleteAction();
+				break;
+			case "/MainCartSelectionDelete.ma":
+				action = new MainCartSelectionDeleteAction();
 				break;
 			case "/login.ma":
 				action = new MainLoginAction();

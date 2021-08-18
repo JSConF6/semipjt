@@ -32,11 +32,11 @@ public class MainNewProductListAction implements Action {
 		int listcount = 0;
 		int index = -1;
 
-		int limit = pdao.newProductListCount();
+		int limit = pdao.newProductListCount(Today, Tomorrow);
 		
-		listcount = pdao.newProductListCount();
+		listcount = pdao.newProductListCount(Today, Tomorrow);
 		newlist = pdao.newProductList(Today, Tomorrow);
-			
+		
 		request.setAttribute("listcount", listcount);
 			
 		// 해당 페이지의 상품 목록을 갖고 있는 리스트

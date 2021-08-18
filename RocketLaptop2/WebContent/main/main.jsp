@@ -58,87 +58,11 @@
 		<!--bestproduct-->
 		<div class="container mt-5 mb-5" id="bestProductMain">
 			<h3>베스트 상품</h3>
-			<div class="row row-cols-1 row-cols-md-3 g-4" id="bestProduct">
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/account_user.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>	
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/among us.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/android_robot.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<!--newproduct-->
 		<div class="container mb-5" id="newProductMain">
 			<h3>새로운 상품</h3>
-			<div class="row row-cols-1 row-cols-md-3 g-4" id="newProduct">
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/heart.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/social.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card h-100">
-						<img src="image/user.png" class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">상품 이름</h5>
-							<p class="card-text">상품 설명</p>
-						</div>
-						<div class="card-footer">
-							<a href="#">자세히 보기</a>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		<jsp:include page="footer.jsp" />
 		
