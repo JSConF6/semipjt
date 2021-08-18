@@ -1,7 +1,10 @@
 package net.main.action;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,7 +27,14 @@ public class MainProductListAction implements Action {
 		List<Product> bestlist = new ArrayList<Product>();
 		List<Product> newlist = new ArrayList<Product>();
 		
-		newlist = pdao.newProductList();
+		Calendar cal = new GregorianCalendar();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String Today = sdf.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String Tomorrow = sdf.format(cal.getTime());
+		
+		newlist = pdao.newProductList(Today, Tomorrow);
 		bestlist = pdao.bestProductList();
 		
 		JsonObject object = new JsonObject();

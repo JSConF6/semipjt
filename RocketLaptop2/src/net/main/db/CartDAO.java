@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class CartDAO {
-private DataSource ds;
+	private DataSource ds;
 	
 	public CartDAO() {
 		try {
@@ -179,6 +179,89 @@ private DataSource ds;
 		
 		return c;
 	} // getCartListCount() end
+
+	public int cartDelete(int cart_num, String user_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try{
+			con = ds.getConnection();
+			
+			String sql = "delete cart "
+					   + "where cart_num = ?"
+					   + "and user_id = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cart_num);
+			pstmt.setString(2, user_id);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("cartDelete() 에러 : " + ex);
+			ex.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	} // cartDelete() end
+
+	public int CartSelectionDelete(String[] ajaxArr, String user_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "delete CART where CART_NUM in ("; 
+		for(int i = 0; i < ajaxArr.length; i++) {
+			sql += ajaxArr[i];
+			if(i != ajaxArr.length - 1) {
+				sql += ", ";
+			}
+		}
+		sql += ") and user_id = ?";
+		
+		System.out.println("sql = " + sql);
+		
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			result = pstmt.executeUpdate();
+		}catch(SQLException ex){
+			System.out.println("CartSelectionDelete() 에러 : " + ex);
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	} // CartSelectionDelete() end
 	
 	
 }

@@ -38,7 +38,7 @@
 					<table class="table table-striped table-bordered text-center">
 						<thead>
 							<tr>
-								<th class="align-middle">전체선택<br><input name="allCheck" type="checkbox" name="allCheck"></th>
+								<th class="align-middle">전체선택<br><input name="allCheck" type="checkbox"></th>
 								<th class="align-middle">상품이미지</th>
 								<th class="align-middle">상품코드</th>
 								<th class="align-middle">카테고리</th>

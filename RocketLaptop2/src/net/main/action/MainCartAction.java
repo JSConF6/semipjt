@@ -18,22 +18,26 @@ public class MainCartAction implements Action {
 		Cart cart = new Cart();
 		
 		String user_id = request.getParameter("user_id");
-		System.out.println(user_id);
 		String product_code = request.getParameter("product_code");
 		int cart_stock = Integer.parseInt(request.getParameter("stock"));
 		
 		int checkid = 0;
+		boolean result = false;
 		
 		if(!user_id.equals("")) {
 			cart.setUser_id(user_id);
 			cart.setProduct_code(product_code);
 			cart.setCart_stock(cart_stock);
-			cdao.cartInsert(cart);
-			checkid = 1;
+			result = cdao.cartInsert(cart);
+			if(result == true) {
+				checkid = 1;
+			}else {
+				checkid = -1;
+			}
 		}
 		
 		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().println(checkid);
+		response.getWriter().print(checkid);
 		return null;
 	}
 

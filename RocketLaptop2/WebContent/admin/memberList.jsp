@@ -38,7 +38,7 @@
 								<th>프로필사진</th>
 								<th>아이디</th>
 								<th style="width : 75px;">이름</th>
-								<th style="width : 100px;">생년월일</th>
+								<th style="width : 105px;">생년월일</th>
 								<th style="width : 50px;">성별</th>
 								<th>이메일</th>
 								<th style="width : 132px;">전화번호</th>

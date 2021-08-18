@@ -84,7 +84,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control"
 							       id="user_address1" name="user_address1" value="${m.user_address1}" readOnly>
-							<button type="button" class="btn btn-secondary" id="postsearchbtn">우편검색</button>
+							<input type="button" class="btn btn-info" id="postsearchbtn" value="주소 검색">
 						</div>
 					</div>
 					

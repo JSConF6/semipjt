@@ -76,6 +76,20 @@ $(function(){
 				return false;
 			}
 			
+			if($.trim($('#user_address1').val()) == ''){
+				$('#ErrorModal').modal('show');
+				$('#ErrorModal-Title').text("회원가입 유효성 검사");
+				$('#ErrorModal-body').html("<h4>주소검색을 해주세요</h4>");
+				return false;
+			}
+			
+			if($.trim($('#user_memberfile').val()) == ''){
+				$('#ErrorModal').modal('show');
+				$('#ErrorModal-Title').text("회원가입 유효성 검사");
+				$('#ErrorModal-body').html("<h3>이미지를 첨부해주세요</h3>");
+				return false;
+			}
+			
 	  });
 	  
 	  $('#user_memberfile').change(function(event){

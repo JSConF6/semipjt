@@ -20,6 +20,12 @@ public class MainCartView implements Action {
 		CartDAO cdao = new CartDAO();
 		
 		String user_id = request.getParameter("user_id");
+		if(user_id.equals("")) {
+			ActionForward forward = new ActionForward();
+			forward.setRedirect(false);
+			forward.setPath("Modal/CartModal.jsp");
+			return forward;
+		}
 		
 		int listcount = cdao.getCartListCount(user_id);
 		cartlist = cdao.getCartList(user_id);

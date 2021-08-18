@@ -80,7 +80,7 @@ $(function(){
 		deleteValue();
 	});
 	
-	// 상품등록 버튼 클릭하면 모달창이 뜬다.
+	// 상품등록 버튼 클릭하면 모달창이 뜨고 ajax를 이용해 카테고리를 드롭다운 방식으로 추가해준다.
 	$("#productAddbtn").click(function(){
 		$.ajax({
 			url : "CategoryList.ad",
@@ -99,7 +99,7 @@ $(function(){
 		$('#ProductAddModal').modal('show');
 	});
 	
-	// 카테고리 삭제를 클릭하면 모달창이 뜬다.
+	// 카테고리 삭제를 클릭하면 모달창이 뜨고 ajax를 이용해 카테고리를 드롭다운 방식으로 추가해준다.
 	$('#categoryDelbtn').click(function(){
 		$.ajax({
 			url : "CategoryList.ad",

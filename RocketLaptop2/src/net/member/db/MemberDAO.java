@@ -36,7 +36,7 @@ public class MemberDAO {
 					   + "( USER_ID, "
 					   + "USER_PASSWORD, "
 					   + "USER_NAME, "
-					   + "USER_DATEBIRTH, "
+					   + "USER_BIRTHDATE, "
 					   + "USER_GENDER, "
 					   + "USER_EMAIL, "
 					   + "USER_PHONE, "
@@ -158,14 +158,14 @@ public class MemberDAO {
 			String sql = "select USER_ID," + 
 					"USER_PASSWORD," + 
 					"USER_NAME," + 
-					"USER_DATEBIRTH," + 
+					"USER_BIRTHDATE," + 
 					"USER_GENDER," + 
 					"USER_EMAIL," + 
 					"USER_PHONE," + 
 					"USER_ADDRESS1," + 
 					"USER_ADDRESS2," + 
 					"USER_MEMBERFILE," + 
-					"to_char(USER_JOINDATE, 'YYYYMMDD') as USER_JOINDATE"
+					"USER_JOINDATE "
 					+ " from member where user_id = ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
