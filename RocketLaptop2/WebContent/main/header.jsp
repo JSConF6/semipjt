@@ -60,6 +60,10 @@
 	#user_memberfile{
 		display : none;
 	}
+	
+	#update_user_memberfile{
+		display : none;
+	}
 </style>
 
 <nav class="navbar navbar-expand-sm bg-white navbar-dark float-right mt-3" id="nav-top">
@@ -115,8 +119,8 @@
 				</form>
 			</div>
 			<div class="modal-footer loginmodal-footer">
-				<p>Not a member? <a href="#"> 회원가입  &nbsp; </a></p>
-				<p>Forgot <a href="#"> 비밀번호찾기 &nbsp; </a></p>
+				<p>Not a member? <a href="main.ma"> 회원가입  &nbsp; </a></p>
+				<p>Forgot <a href="main.ma"> 비밀번호찾기 &nbsp; </a></p>
 				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
 					<span class="glyphicon glyphicon-remove"></span> 취소
           		</button>
@@ -185,7 +189,6 @@
 						<input type="text" class="form-control" name="user_address2" id="user_address2" maxLength="40" placeholder="상세주소">
 					</div>
 					<div class="form-group">
-
 						<span class="glyphicon glyphicon-paperclip"></span> 프로필사진<br>
 						<label for="user_memberfile"><img src="image/attach.png" width="20px"></label> 
 						<span id="filename">${memberinfo.user_memberfile}</span>
@@ -211,6 +214,96 @@
 		</div>
 	</div>
 </div>
+
+
+
+<!-- The Modal (마이페이지 회원정보 수정화면) -->
+<!-- Modal -->
+<div class="modal hide fade" id="updateMember_modal" role="dialog">
+	<div class="modal-dialog">
+    
+	    <!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" style="padding:15px 50px;">
+				<h4><span class="glyphicon glyphicon-user"></span> 회원 정보 수정</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" style="padding:40px 40px;">
+				<form name="updateform" id="updateform" action="updateProcess.ma" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="user_id"><span class="glyphicon glyphicon-info-sign"></span> 아이디</label>
+						<input type="text" class="form-control" name="update_user_id" id="update_user_id" value="" maxLength="12" readonly>
+						<span id="update_message"></span>
+					</div>
+					<div class="form-group">
+						<label for="user_password"><span class="glyphicon glyphicon-info-sign"></span> 비밀번호</label>
+						<input type="password" class="form-control" name="update_user_password" id="update_user_password"  autocomplete="off" placeholder="비밀번호">
+					</div>
+					<div class="form-group">
+						<label for="psw_check"><span class="glyphicon glyphicon-info-sign"></span> 비밀번호 확인</label>
+						<input type="password" class="form-control" name="update_user_password1" id="update_user_password1"  autocomplete="off" placeholder="비밀번호 확인">
+					</div>
+					<div class="form-group">
+						<label for="user_name"><span class="glyphicon glyphicon-info-sign"></span> 이름</label>
+						<input type="text" class="form-control" name="update_user_name" id="update_user_name"  placeholder="이름" maxLength="5">
+					</div>
+					<div class="form-group">
+						<label for="user_birthdate"><span class="glyphicon glyphicon-info-sign"></span> 생년월일</label>
+						<input type="text" class="form-control" name="update_user_birthdate" id="update_user_birthdate"  maxLength="8" placeholder="(예) 19980101">
+					</div>
+					<div class="form-group">
+						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
+						<br>
+						<input type="radio" name="update_user_gender" value="남" checked><span>남자</span>
+						<input type="radio" name="update_user_gender" value="여"><span>여자</span>
+					</div>
+					<div class="form-group">
+						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>
+						<input type="text" class="form-control" name="update_user_email" id="update_user_email"  maxLength="30" placeholder="(예) abc@abc.net">
+						<span id="update_email_message"></span>
+					</div>
+					<div class="form-group">
+						<label for="user_phone"><span class="glyphicon glyphicon-info-sign"></span> 전화번호</label>
+						<input type="text" class="form-control" name="update_user_phone" id="update_user_phone"  maxLength="20" placeholder="(예) 010-XXXX-XXXX">
+					</div>
+					<div class="form-group">
+						<label for="user_address1"><span class="glyphicon glyphicon-info-sign"></span></label>
+						<div class="input-group">
+							<input type="text" class="form-control" name="update_user_address1" id="update_user_address1"  size="5" maxLength="5" placeholder="우편번호 5자리">
+							<input type="button" class="btn btn-warning" name="update_postcode" id="update_postcode" value="주소검색  by_kakao">
+						</div>
+						<input type="text" class="form-control" name="update_user_address2" id="update_user_address2"  maxLength="40" placeholder="상세주소">
+					</div>
+					<div class="form-group">
+						<span class="glyphicon glyphicon-paperclip"></span> 프로필사진<br>
+						<label for="update_user_memberfile"><img src="image/attach.png" width="20px"></label> 
+						<span id="update_filename"></span>
+
+						<%-- memberinfo.memberfile의 값이 없으면 기본 사진을 보여줍니다.
+							값이 존재하면 memberupload 폴더에 존재하는 파일명으로 경로를 설정합니다. --%>
+						<span id="update_showImage">
+							<%-- 	<c:if test='${empty memberinfo.user_memberfile}'>
+									<c:set var='src' value='image/profile.png'/>
+								</c:if>
+								<c:if test='${!empty memberinfo.user_memberfile}'>
+									<c:set var='src' value='${"memberupload/"}${memberinfo.user_memberfile}'/>
+								</c:if> --%>
+							<img src="" id="update_filenameSrc" width="20px" alt="profile">
+						</span>
+						<input type="file"  name="update_user_memberfile" id="update_user_memberfile" maxLength="20" accept="image/*">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">수정완료</button>
+		    		<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">수정취소</button>				
+		  		</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
 
 <!-- 오류 모달창 -->
 <div class="modal hide fade" id="ErrorModal">

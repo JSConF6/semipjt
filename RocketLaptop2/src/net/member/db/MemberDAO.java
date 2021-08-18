@@ -36,7 +36,7 @@ public class MemberDAO {
 					   + "( USER_ID, "
 					   + "USER_PASSWORD, "
 					   + "USER_NAME, "
-					   + "USER_DATEBIRTH, "
+					   + "USER_BIRTHDATE, "
 					   + "USER_GENDER, "
 					   + "USER_EMAIL, "
 					   + "USER_PHONE, "
@@ -156,17 +156,17 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "select USER_ID," + 
-					"USER_PASSWORD," + 
-					"USER_NAME," + 
-					"USER_DATEBIRTH," + 
-					"USER_GENDER," + 
-					"USER_EMAIL," + 
-					"USER_PHONE," + 
-					"USER_ADDRESS1," + 
-					"USER_ADDRESS2," + 
-					"USER_MEMBERFILE," + 
-					"to_char(USER_JOINDATE, 'YYYYMMDD') as USER_JOINDATE"
-					+ " from member where user_id = ? ";
+						"USER_PASSWORD," + 
+						"USER_NAME," + 
+						"USER_BIRTHDATE," + 
+						"USER_GENDER," + 
+						"USER_EMAIL," + 
+						"USER_PHONE," + 
+						"USER_ADDRESS1," + 
+						"USER_ADDRESS2," + 
+						"USER_MEMBERFILE," + 
+						"to_char(USER_JOINDATE, 'YYYYMMDD') as USER_JOINDATE"
+						+ " from member where user_id = ? ";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
@@ -183,6 +183,8 @@ public class MemberDAO {
 				m.setUser_address2(rs.getString("user_address2"));
 				m.setUser_memberfile(rs.getString("user_memberfile"));
 				m.setUser_joindate(rs.getString("user_joindate"));
+				
+				System.out.println("Member[" + m.toString() +"]");
 			}
 
 		} catch (Exception e) {

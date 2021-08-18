@@ -100,5 +100,13 @@ public class Member {
 	public void setUser_joindate(String user_joindate) {
 		this.user_joindate = user_joindate;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
+				+ ", user_birthdate=" + user_birthdate + ", user_gender=" + user_gender + ", user_email=" + user_email
+				+ ", user_phone=" + user_phone + ", user_address1=" + user_address1 + ", user_address2=" + user_address2
+				+ ", user_memberfile=" + user_memberfile + ", user_joindate=" + user_joindate + "]";
+	}
 	
 }	
