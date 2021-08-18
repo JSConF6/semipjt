@@ -156,6 +156,7 @@ public class MemberDAO {
 			con = ds.getConnection();
 			
 			String sql = "select USER_ID," + 
+
 					"USER_PASSWORD," + 
 					"USER_NAME," + 
 					"USER_BIRTHDATE," + 
@@ -167,6 +168,7 @@ public class MemberDAO {
 					"USER_MEMBERFILE," + 
 					"USER_JOINDATE "
 					+ " from member where user_id = ? ";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			rs = pstmt.executeQuery();
@@ -183,6 +185,8 @@ public class MemberDAO {
 				m.setUser_address2(rs.getString("user_address2"));
 				m.setUser_memberfile(rs.getString("user_memberfile"));
 				m.setUser_joindate(rs.getString("user_joindate"));
+				
+				System.out.println("Member[" + m.toString() +"]");
 			}
 
 		} catch (Exception e) {

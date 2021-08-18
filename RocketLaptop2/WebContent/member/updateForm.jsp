@@ -1,7 +1,9 @@
+<%-- 모달구현으로 향후 삭제되어야 할 페이지 --%>
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+
 <title>RocketLaptop 회원수정 페이지</title>
 <link href="css/join.css" type="text/css" rel="stylesheet">
 <link rel="shortcut icon" href="image/favicon-16x16.png">

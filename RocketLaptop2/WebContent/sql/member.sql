@@ -23,6 +23,8 @@ create table member(
 
 select * from member;
 
+alter table member rename column user_datebirth to user_birthdate;
+
 --Board_Ajax 프로젝트에 추가(회원가입 시 반영으로 불필요해짐 --
 --alter table member
 --add (memberfile VARCHAR2(50));
