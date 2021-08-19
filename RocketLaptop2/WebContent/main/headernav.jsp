@@ -9,7 +9,7 @@
 	}
 		
 	#search_word{
-		width: 500px;
+		width: 410px;
 		border-radius: .25rem;
 		border : 1px solid black;
 	}
@@ -40,17 +40,13 @@
 		margin-right: 30px;
 	}
 	
-	.fa-user{
-		padding-left: 20px;
-	}
-	
 	#categorynav{
 		height : 50px;
 	}
 
 	#headersearch{
 		height:  70px;
-		margin-left: 155px;
+		margin-left: 165px;
 	}
 </style>
 <nav class="navbar navbar-expand-sm bg-white navbar-dark pt-3 justify-content-center" id="headersearch">
@@ -71,7 +67,10 @@
 	<ul class="navbar-nav">
 		<c:if test="${user_id == 'admin'}">
 			<li class="nav-item">
-				<a class="nav-link fonticon text-dark" href="NoticeList.ad"><i class="fas fa-user fa-2x"></i><br>관리자 페이지</a>
+				<a class="nav-link fonticon text-dark" href="NoticeList.ad"><i class="fas fa-user fa-2x" style="padding-left : 24px;"></i><br>관리자페이지</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link fontiocn text-dark" href="OrderListView.ma?user_id=${user_id}"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
 			</li>
 			<li>
 				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
@@ -79,10 +78,13 @@
 		</c:if>
 		<c:if test="${user_id != 'admin' || empty user_id}">
 			<li class="nav-item">
-				<a class="nav-link fonticon text-dark" id="updateMember" style="cursor : pointer;"><i class="fas fa-user fa-2x"></i><br>마이 페이지</a>
+				<a class="nav-link fonticon text-dark" id="updateMember" style="cursor : pointer;"><i class="fas fa-user fa-2x" style="padding-left : 18px;"></i><br>마이페이지</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
+				<a class="nav-link fontiocn text-dark" href="OrderListView.ma?user_id=${user_id}"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x" style="padding-left : 2px;"></i><br>장바구니</a>
 			</li>
 		</c:if>
 	</ul>
