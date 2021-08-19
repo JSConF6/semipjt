@@ -32,6 +32,36 @@ $(function(){
 	$("#signup").click(function(){
 		$("#signup_modal").modal();
 	});
+	 
+	// -----------------------------------  회원탈퇴 유효성 --------------------------------
+	  $('#secession').click(function(){
+		  $.ajax({
+				  type: "post",
+				  url:'memberUpdate.ma',
+				  dataType: "json",
+				  success : function(data){
+					  console.log("ajax2"+data.user_password);
+					  	  // 패스워드 입력 확인
+					  if($('#checkPassword').val() == ""){
+						  alert("패스워드를 입력해 주세요.");
+						  $('#checkPassword').focus();
+						  return;
+					  }else if($('#checkPassword').val() !=  data.user_password){
+						  alert("비밀번호가 일치하지 않습니다.");
+						  return;
+					  }else{
+						  // 탈퇴
+						  var result = confirm("정말 탈퇴 하시겠습니까?");
+						  if(result){
+							  $('#memberDeleteform').submit();
+						  	  }
+					  }
+				  },
+				  error: function(){
+								alert("서버 에러");
+				  }
+		  });// ajax end
+	  });// ('#secession').click end
 
 	$("#updateMember").click(function(){
 		var user_id = $('.headernavid').val();
@@ -88,8 +118,7 @@ $(function(){
 			$('#ErrorModal-body').html("<h3>비밀번호를 입력해주세요</h3>");
 			$('#user_password1').val('');
 			return false;
-		}
-			
+		}	
 			
 		if($('#user_password1').val() != $("#user_password").val()){
 			$('#ErrorModal').modal('show');
