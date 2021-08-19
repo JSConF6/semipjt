@@ -6,20 +6,23 @@ drop table member;
 --   일반계정 abcde, 비번 abcde을 만듭니다.
 --   일반계정 korea, 비번 korea을 만듭니다. 
 
-create table member(
-	user_id			    varchar2(20),
-	user_password	    varchar2(20),
-	user_name		    varchar2(20),
-	user_datebirth      number(8),
-	user_gender		    varchar2(3),
-	user_email		    varchar2(30),
-	user_phone	        varchar2(20),
-    user_address1       varchar2(5),
-    user_address2       varchar2(40),
-    user_memberfile		varchar2(20),
-    user_joindate       DATE,
-	PRIMARY KEY(user_id)
+
+CREATE TABLE MEMBER(
+	USER_ID VARCHAR2(20) -- 회원 아이디
+	CONSTRAINT PK_USER_ID PRIMARY KEY,
+	USER_PASSWORD VARCHAR2(20) NOT NULL, -- 회원 비밀번호
+	USER_NAME VARCHAR2(20) NOT NULL, -- 회원 이름
+	USER_BIRTHDATE NUMBER(8) NOT NULL, -- 회원 생년월일
+	USER_GENDER VARCHAR2(20) NOT NULL, -- 회원 성별
+	USER_EMAIL VARCHAR2(20) NOT NULL, -- 회원 이메일
+	USER_PHONE VARCHAR2(20) NOT NULL, -- 회원 전화번호
+	USER_ADDRESS1 VARCHAR2(5) NOT NULL, -- 회원 우편번호
+	USER_ADDRESS2 VARCHAR2(100) NOT NULL, -- 회원 주소
+	USER_MEMBERFILE VARCHAR2(100), -- 회원 프로필 이미지
+	USER_JOINDATE DATE -- 회원 가입날짜
 );
+
+
 
 select * from member;
 

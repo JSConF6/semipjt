@@ -11,8 +11,8 @@ $(function(){
 	  $("#updateMember").click(function(){
 		  //정보가져오는 url ajax로 가져오기
 		  $.ajax({
-			  type: "get",
-			  url:'http://localhost:8088/RocketLaptop/memberUpdate.ma',
+			  type: "post",
+			  url:'memberUpdate.ma',
 			  dataType: "json",
 			  success : function(data){
 				 console.log("ajax"+data.user_memberfile);
@@ -21,12 +21,13 @@ $(function(){
 				 $('#update_user_password').val(data.user_password);
 				 $('#update_user_name').val(data.user_name);
 				 $('#update_user_birthdate').val(data.user_birthdate);
-				 $('#update_user_gender').val(data.user_gender);
+				 console.log(data.user_gender);
+				 $("input[name=update_user_gender][value="+data.user_gender+"]").prop("checked",true);
 				 $('#update_user_email').val(data.user_email);
 				 $('#update_user_phone').val(data.user_phone);
 				 $('#update_user_address1').val(data.user_address1);
 				 $('#update_user_address2').val(data.user_address2);
-				 if(data.user_memberfile == undefined){
+				 if(data.user_memberfile == ""){
 					 $('#update_filename').text('aaaaa.txt');
 					 $('#update_filenameSrc').val('/RocketLaptop/memberupload/profile.png');
 				 }else{
@@ -40,6 +41,37 @@ $(function(){
 	  
 	  var checkid=false;
 	  var checkemail=false;
+	 
+	// -----------------------------------  회원탈퇴 유효성 --------------------------------
+	  $('#secession').click(function(){
+		  $.ajax({
+				  type: "post",
+				  url:'memberUpdate.ma',
+				  dataType: "json",
+				  success : function(data){
+					  console.log("ajax2"+data.user_password);
+					  	  // 패스워드 입력 확인
+					  if($('#checkPassword').val() == ""){
+						  alert("패스워드를 입력해 주세요.");
+						  $('#checkPassword').focus();
+						  return;
+					  }else if($('#checkPassword').val() !=  data.user_password){
+						  alert("비밀번호가 일치하지 않습니다.");
+						  return;
+					  }else{
+						  // 탈퇴
+						  var result = confirm("정말 탈퇴 하시겠습니까?");
+						  if(result){
+							  $('#memberDeleteform').submit();
+						  	  }
+					  }
+				  },
+				  error: function(){
+								alert("서버 에러");
+				  }
+		  });// ajax end
+	  });// ('#secession').click end
+	  
 	  // -----------------------------------  회원가입 유효성 --------------------------------
 	  $('#joinform').submit(function(){
 			if(!checkid){

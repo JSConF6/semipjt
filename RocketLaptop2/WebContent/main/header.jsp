@@ -13,6 +13,7 @@
 
 	*{
 		font-family: 'Do Hyeon', sans-serif;
+		
 	}
 
 	 #nav-top{
@@ -64,6 +65,8 @@
 	#update_user_memberfile{
 		display : none;
 	}
+	
+	
 </style>
 
 <nav class="navbar navbar-expand-sm bg-white navbar-dark float-right mt-3" id="nav-top">
@@ -207,8 +210,12 @@
 						</span>
 						<input type="file"  name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
 					</div>
-					<button type="submit" class="btn btn-primary btn-lg">회원가입</button>
-		    		<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">가입취소</button>				
+					<div> 
+						<ul class="pagination justify-content-center ">
+						<li><button type="submit" class="btn btn-primary btn-lg">가입완료</button></li>
+			    		<li><button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">가입취소</button></li>
+			    		</ul>
+					</div> 
 		  		</form>
 			</div>
 		</div>
@@ -254,8 +261,8 @@
 					<div class="form-group">
 						<label for="user_gender"><span class="glyphicon glyphicon-info-sign"></span> 성별</label>
 						<br>
-						<input type="radio" name="update_user_gender" value="남" checked><span>남자</span>
-						<input type="radio" name="update_user_gender" value="여"><span>여자</span>
+						<input type="radio" name="update_user_gender" value="남자"><span>남자</span>
+						<input type="radio" name="update_user_gender" value="여자"><span>여자</span>
 					</div>
 					<div class="form-group">
 						<label for="user_email"><span class="glyphicon glyphicon-info-sign"></span> 이메일주소</label>
@@ -292,8 +299,14 @@
 						</span>
 						<input type="file"  name="update_user_memberfile" id="update_user_memberfile" maxLength="20" accept="image/*">
 					</div>
-					<button type="submit" class="btn btn-primary btn-lg">수정완료</button>
-		    		<button type="button" class="btn btn-default btn-lg" data-dismiss="modal">수정취소</button>				
+					<!-- justify-content-center : 가운데 정렬 -->		
+						<div> 
+							<ul class="pagination justify-content-center ">
+								<li><button type="submit" class="btn btn-primary btn-lg">수정완료</button></li>
+					    		<li><button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">수정취소</button></li>
+					    		<li><a data-toggle="modal" href="#myModal2" class="btn btn-danger btn-lg">회원탈퇴</a></li>				
+				    		</ul>
+						</div> 
 		  		</form>
 			</div>
 		</div>
@@ -301,7 +314,27 @@
 </div>
 
 
-
+<!-- 회원탈퇴  modal -->
+    <div class="modal" id="myModal2" aria-hidden="true" style="display: none; z-index: 1180;">
+    	<div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">회원탈퇴 최종확인</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div><div class="container"></div>
+            <div class="modal-body">
+            	<form name="memberDeleteform" id="memberDeleteform"  action="memberDelete.ma" method="post">
+					<p><strong>비밀번호를 입력하세요.</strong></p>
+					<input type="password" id="checkPassword" name="checkPassword">
+              		<a href="#" type="submit" class="btn btn-danger" id="secession">탈퇴하기</a>
+ 	                <button type="button" class="btn btn-secondary"  data-dismiss="modal">취소</button>
+				</form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+    </div>
 
 
 
