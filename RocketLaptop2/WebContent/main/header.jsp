@@ -116,14 +116,14 @@
 						<input type="password" class="form-control" id="login_password" name="login_password" autocomplete="off" placeholder="비밀번호를 입력하세요">
 					</div>
 					<div class="checkbox">
-						<label><input type="checkbox" value="" checked>ID저장</label>
+						<label><input type="checkbox" value="store" name="remember" id="remember">ID저장</label>
 					</div>
 						<button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> 로그인</button>
 				</form>
 			</div>
 			<div class="modal-footer loginmodal-footer">
-				<p>Not a member? <a href="main.ma"> 회원가입  &nbsp; </a></p>
-				<p>Forgot <a href="main.ma"> 비밀번호찾기 &nbsp; </a></p>
+				<p>Not a member? <a class="text-primary" id="signupbtn" style="cursor : pointer;"> 회원가입  &nbsp; </a></p>
+				<p>Forgot <a class="text-primary" id="findpassbtn" style="cursor : pointer;"> 비밀번호찾기 &nbsp; </a></p>
 				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
 					<span class="glyphicon glyphicon-remove"></span> 취소
           		</button>
@@ -208,7 +208,7 @@
 							<%-- 위에서 memberinfo.memberfile의 값이 있는 경우와 없는 경우에 따라 src 속성값이 달라집니다. --%>	
 							<img src="${src}" id="filenameSrc" width="20px" alt="profile">
 						</span>
-						<input type="file"  name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
+						<input type="file" name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
 					</div>
 					<div> 
 						<ul class="pagination justify-content-center ">
@@ -313,6 +313,34 @@
 	</div>
 </div>
 
+<!-- 비밀번호 찾기 모달창 -->
+<div class="modal hide fade" id="FindPasswordModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title" id="FindPasswordModal-Title">비밀번호 찾기</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body" id="FindPasswordModal-body">
+				<form action="FindPasswordAction.ma" method="post" name="findpass" id="findpassmodal">
+					<div class="form-group text-left">
+				      	<h3>아이디 입력</h3>
+				      	<input type="text" class="form-control" id="findPassId" name="findPassId">
+				    </div>
+				    <div class="text-right">
+				    	<button type="submit" class="btn btn-primary">비밀번호 찾기</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+					</div>
+			    </form>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <!-- 회원탈퇴  modal -->
     <div class="modal" id="myModal2" aria-hidden="true" style="display: none; z-index: 1180;">
@@ -337,6 +365,30 @@
     </div>
 
 
+<!-- 비밀번호 찾기 확인 모달창 -->
+<div class="modal hide fade" id="FindPasswordSuccessModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title" id="FindPasswordSuccessModal-Title"></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body" id="FindPasswordSuccessModal-body">
+				
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
 
 <!-- 오류 모달창 -->
 <div class="modal hide fade" id="ErrorModal">

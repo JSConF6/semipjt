@@ -7,7 +7,6 @@ public class Product {
 	private String product_name; // 상품명
 	private int product_price; // 상품가격
 	private String product_details; // 상품 상세정보
-	private int product_stock; // 재고 수
 	private String product_status; // 상품 상태
 	private String product_image; // 상품 이미지
 	private int product_sales; // 상품 판매량
@@ -59,14 +58,6 @@ public class Product {
 	
 	public void setProduct_details(String product_details) {
 		this.product_details = product_details;
-	}
-	
-	public int getProduct_stock() {
-		return product_stock;
-	}
-	
-	public void setProduct_stock(int product_stock) {
-		this.product_stock = product_stock;
 	}
 	
 	public String getProduct_status() {

@@ -30,8 +30,8 @@ $(function(){
 				}
 				
 				
-				$('#user_address1').val(data.zonecode);
-				$('#user_address2').val(fullRoadAddr);
+				$('#adminpage_user_address1').val(data.zonecode);
+				$('#adminpage_user_address2').val(fullRoadAddr);
 				
 			}
 		}).open();
@@ -39,42 +39,42 @@ $(function(){
 	
 	// userModifyFrom을 submit했을떄 유효성 검사
 	$('#memberModifyFrom').submit(function(){
-		if($.trim($('#user_password').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("회원 정보");
-			$('#ErrorModal-body').html("<h4>비밀번호를 입력해주세요</h4>");
+		if($.trim($('#adminpage_user_password').val()) == ''){
+			$('#MemberModifyErrorModal').modal('show');
+			$('#MemberModifyErrorModal-Title').text("회원 정보");
+			$('#MemberModifyErrorModal-body').html("<h4>비밀번호를 입력해주세요</h4>");
 			return false;
 		}
 
-		if($.trim($('#user_email').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("회원 정보");
-			$('#ErrorModal-body').html("<h4>이메일을 입력해주세요</h4>");
+		if($.trim($('#adminpage_user_email').val()) == ''){
+			$('#MemberModifyErrorModal').modal('show');
+			$('#MemberModifyErrorModal-Title').text("회원 정보");
+			$('#MemberModifyErrorModal-body').html("<h4>이메일을 입력해주세요</h4>");
 			return false;
 		}
 		
 		var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		if(!emailReg.test($.trim($('#user_email').val()))){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("회원 정보");
-			$('#ErrorModal-body').html("<h5>이메일 형식에 맞게 입력해주세요</h5>");
-			$('#user_email').val('');
+		if(!emailReg.test($.trim($('#adminpage_user_email').val()))){
+			$('#MemberModifyErrorModal').modal('show');
+			$('#MemberModifyErrorModal-Title').text("회원 정보");
+			$('#MemberModifyErrorModal-body').html("<h5>이메일 형식에 맞게 입력해주세요</h5>");
+			$('#adminpage_user_email').val('');
 			return false;
 		}
 		
-		if($.trim($('#user_phone').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("회원 정보");
-			$('#ErrorModal-body').html("<h4>전화번호를 입력해주세요</h4>");
+		if($.trim($('#adminpage_user_phone').val()) == ''){
+			$('#MemberModifyErrorModal').modal('show');
+			$('#MemberModifyErrorModal-Title').text("회원 정보");
+			$('#MemberModifyErrorModal-body').html("<h4>전화번호를 입력해주세요</h4>");
 			return false;
 		}
 		
 		var phoneReg = /^\d{3}-\d{3,4}-\d{4}$/;
-		if(!phoneReg.test($.trim($('#user_phone').val()))){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("회원 정보");
-			$('#ErrorModal-body').html("<h5>전화번호 형식에 맞게 입력해주세요</h5>");
-			$('#user_phone').val('');
+		if(!phoneReg.test($.trim($('#adminpage_user_phone').val()))){
+			$('#MemberModifyErrorModal').modal('show');
+			$('#MemberModifyErrorModal-Title').text("회원 정보");
+			$('#MemberModifyErrorModal-body').html("<h5>전화번호 형식에 맞게 입력해주세요</h5>");
+			$('#adminpage_user_phone').val('');
 			return false;
 		}
 	});

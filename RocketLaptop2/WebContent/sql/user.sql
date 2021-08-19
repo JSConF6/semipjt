@@ -9,7 +9,7 @@ CREATE TABLE MEMBER(
 	USER_PHONE VARCHAR2(20) NOT NULL, -- 회원 전화번호
 	USER_ADDRESS1 VARCHAR2(5) NOT NULL, -- 회원 우편번호
 	USER_ADDRESS2 VARCHAR2(100) NOT NULL, -- 회원 주소
-	USER_MEMBERFILE VARCHAR2(100) NOT NULL, -- 회원 프로필 이미지
+	USER_MEMBERFILE VARCHAR2(100), -- 회원 프로필 이미지
 	USER_JOINDATE DATE -- 회원 가입날짜
 );
 
@@ -39,4 +39,4 @@ from MEMBER;
 
 delete member;
 
-drop table member CASCADE CONSTRAINTS;
+drop table member;

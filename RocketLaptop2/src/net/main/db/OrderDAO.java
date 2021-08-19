@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import net.admin.db.Product;
+
 public class OrderDAO {
 private DataSource ds;
 	
@@ -51,8 +53,8 @@ private DataSource ds;
 			pstmt.close();
 			
 			sql = "insert into order_detail "
-				+ "(order_de_num, order_num, product_code, cart_stock) "
-				+ "select order_detail_seq.nextval, ?, product_code, cart_stock "
+				+ "(order_de_num, order_num, product_code, order_de_count) "
+				+ "select order_detail_seq.nextval, ?, product_code, order_de_count "
 				+ "from cart "
 				+ "where user_id = ?";
 			pstmt = con.prepareStatement(sql);
@@ -100,7 +102,7 @@ private DataSource ds;
 			}
 		}
 		return result;
-	}
+	} // orderInsert() end
 
 	public List<Order> getOrderList(String user_id) {
 		Connection con = null;
@@ -163,7 +165,7 @@ private DataSource ds;
 		return list;
 	} // getOrderList() end
 	
-	public Order getOrder(String order_num) {
+	public Order getOrder(String order_num, String user_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -171,13 +173,15 @@ private DataSource ds;
 		String sql = "select order_num, user_id, order_name, user_address1, user_address2, "
 				   + "user_address3, order_phone, order_totalprice, order_payment,  order_delivery, order_date "
 				   + "from order_tb "
-				   + "where order_num = ?";
+				   + "where order_num = ?"
+				   + "and user_id = ?";
 		
 		Order order = new Order();
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, order_num);
+			pstmt.setString(2, user_id);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -279,7 +283,7 @@ private DataSource ds;
 		
 		String sql = "select o.order_num, o.user_id, o.order_name, o.user_address1, o.user_address2, o.user_address3, " 
 					+	   " o.order_phone, o.order_totalprice, o.order_payment, o.order_delivery, o.order_date, "
-					+	   " d.order_de_num, d.product_code, d.cart_stock, p.product_name, p.product_image, p.product_price " 
+					+	   " d.order_de_num, d.product_code, d.order_de_count, p.product_name, p.product_image, p.product_price " 
 					+"from order_tb o "
 					+		" inner join order_detail d "
 					+			" on o.order_num = d.order_num "
@@ -298,9 +302,20 @@ private DataSource ds;
 			
 			while(rs.next()) {
 				OrderList orderlist = new OrderList();
+				orderlist.setOrder_num(rs.getString("order_num"));
+				orderlist.setUser_id(rs.getString("user_id"));
+				orderlist.setOrder_name(rs.getString("order_name"));
+				orderlist.setUser_address1(rs.getString("user_address1"));
+				orderlist.setUser_address2(rs.getString("user_address2"));
+				orderlist.setUser_address3(rs.getString("user_address3"));
+				orderlist.setOrder_phone(rs.getString("order_phone"));
+				orderlist.setOrder_totalprice(rs.getInt("order_totalprice"));
+				orderlist.setOrder_payment(rs.getString("order_payment"));
+				orderlist.setOrder_delivery(rs.getString("order_delivery"));
+				orderlist.setOrder_date(rs.getString("order_date"));
 				orderlist.setOrder_de_num(rs.getInt("order_de_num"));
 				orderlist.setProduct_code(rs.getString("product_code"));
-				orderlist.setCart_stock(rs.getInt("cart_stock"));
+				orderlist.setOrder_de_count(rs.getInt("order_de_count"));
 				orderlist.setProduct_name(rs.getString("product_name"));
 				orderlist.setProduct_image(rs.getString("product_image"));
 				orderlist.setProduct_price(rs.getInt("product_price"));
@@ -336,6 +351,471 @@ private DataSource ds;
 		}
 		return list;
 	} // getOrderDetailList() end
-	
+
+	public List<Order> getOrderList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select order_num, order_name, user_address1, user_address2, "
+				   + "user_address3, order_phone, order_totalprice, order_payment,  order_delivery "
+				   + "from order_tb";
+		
+		List<Order> list = new ArrayList<Order>();
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Order order = new Order();
+				order.setOrder_num(rs.getString("order_num"));
+				order.setOrder_name(rs.getString("order_name"));
+				order.setUser_address1(rs.getString("user_address1"));
+				order.setUser_address2(rs.getString("user_address2"));
+				order.setUser_address3(rs.getString("user_address3"));
+				order.setOrder_phone(rs.getString("order_phone"));
+				order.setOrder_totalprice(rs.getInt("order_totalprice"));
+				order.setOrder_payment(rs.getString("order_payment"));
+				order.setOrder_delivery(rs.getString("order_delivery"));
+				list.add(order);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	} // getOrderList() end
+
+	public int getOrderListCount() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select count(*) from order_tb";
+		
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderListCount() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	} // getOrderListCount() end
+
+	public List<Order> getOrderList(int page, int limit) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * "
+					+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, " 
+					+	  		  "order_phone, order_totalprice, order_payment, order_delivery, order_date "
+					+	 "from order_tb "
+					+	 "order by order_date desc) "
+					+"where rnum >= ? and rnum <= ?";
+		
+		List<Order> list = new ArrayList<Order>();
+		
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Order order = new Order();
+				order.setOrder_num(rs.getString("order_num"));
+				order.setUser_id(rs.getString("user_id"));
+				order.setOrder_name(rs.getString("order_name"));
+				order.setUser_address1(rs.getString("user_address1"));
+				order.setUser_address2(rs.getString("user_address2"));
+				order.setUser_address3(rs.getString("user_address3"));
+				order.setOrder_phone(rs.getString("order_phone"));
+				order.setOrder_totalprice(rs.getInt("order_totalprice"));
+				order.setOrder_payment(rs.getString("order_payment"));
+				order.setOrder_delivery(rs.getString("order_delivery"));
+				order.setOrder_date(rs.getString("order_date"));
+				list.add(order);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	} // getOrderList() end
+
+	public int getOrderListCount(String field, String value) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int o = 0;
+		try {
+			con = ds.getConnection();
+			String sql = "select count(*) "
+						+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, " 
+						+	   "order_phone, order_totalprice, order_payment, order_delivery, order_date "
+						+	   "from order_tb "
+						+ 	   "where " + field + " like ?"
+						+	   "order by order_date desc) ";
+			System.out.println(sql);
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + value + "%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				o = rs.getInt(1);
+				System.out.println(o);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getProductListCount() 에러: " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		return o;
+	} // getOrderListCount() end
+
+	public List<Order> getOrderList(String field, String value, int page, int limit) {
+		List<Order> list = new ArrayList<Order>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * "
+						+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, "
+						+	  		 " order_phone, order_totalprice, order_payment, order_delivery, order_date "
+						+	   "from order_tb "
+						+	   "where " + field + " like ? "
+						+	   "order by order_date desc) " 
+						+"where rnum >= ? and rnum <= ?";
+			System.out.println(sql);
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + value + "%");
+			
+			int startrow = (page - 1) * limit + 1;
+			int endrow = startrow + limit - 1;
+			
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Order order = new Order();
+				order.setOrder_num(rs.getString("order_num"));
+				order.setUser_id(rs.getString("user_id"));
+				order.setOrder_name(rs.getString("order_name"));
+				order.setUser_address1(rs.getString("user_address1"));
+				order.setUser_address2(rs.getString("user_address2"));
+				order.setUser_address3(rs.getString("user_address3"));
+				order.setOrder_phone(rs.getString("order_phone"));
+				order.setOrder_totalprice(rs.getInt("order_totalprice"));
+				order.setOrder_payment(rs.getString("order_payment"));
+				order.setOrder_delivery(rs.getString("order_delivery"));
+				order.setOrder_date(rs.getString("order_date"));
+				list.add(order);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderList() 에러: " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+	} // getOrderList() end
+
+	public int getOrderDeliveryListCount(String delivery) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select count(*) "
+				   + "from order_tb "
+				   + "where order_delivery = ?";
+		
+		int result = 0;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, delivery);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderDeliveryListCount() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	} // getOrderDeliveryListCount() end
+
+	public List<Order> getOrderDeliveryList(String delivery, int page, int limit) {
+		List<Order> list = new ArrayList<Order>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "select * "
+						+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, "
+						+	  		 " order_phone, order_totalprice, order_payment, order_delivery, order_date "
+						+	   "from order_tb "
+						+	   "where order_delivery like ? "
+						+	   "order by order_date desc) " 
+						+"where rnum >= ? and rnum <= ?";
+			System.out.println(sql);
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + delivery + "%");
+			
+			int startrow = (page - 1) * limit + 1;
+			int endrow = startrow + limit - 1;
+			
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Order order = new Order();
+				order.setOrder_num(rs.getString("order_num"));
+				order.setUser_id(rs.getString("user_id"));
+				order.setOrder_name(rs.getString("order_name"));
+				order.setUser_address1(rs.getString("user_address1"));
+				order.setUser_address2(rs.getString("user_address2"));
+				order.setUser_address3(rs.getString("user_address3"));
+				order.setOrder_phone(rs.getString("order_phone"));
+				order.setOrder_totalprice(rs.getInt("order_totalprice"));
+				order.setOrder_payment(rs.getString("order_payment"));
+				order.setOrder_delivery(rs.getString("order_delivery"));
+				order.setOrder_date(rs.getString("order_date"));
+				list.add(order);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderDeliveryList() 에러: " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+	} // getOrderDeliveryList() end
+
+	public int orderDeliveryUpdate(String order_num, String user_id, String deliveryStatus) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "update order_tb "
+				   + "set order_delivery = ? "
+				   + "where user_id = ? "
+				   + "and order_num = ?";
+		
+		int result = 0;
+		try{
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, deliveryStatus);
+			pstmt.setString(2, user_id);
+			pstmt.setString(3, order_num);
+			result = pstmt.executeUpdate();
+		}catch(Exception ex) {
+			System.out.println("orderDeliveryUpdate() 에러 : " + ex);
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
 	
 }

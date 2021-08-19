@@ -17,7 +17,7 @@ public class NoticeDeleteAction implements Action {
 		NoticeDAO ndao = new NoticeDAO();
 		boolean result = false;
 		
-		int num = Integer.parseInt(request.getParameter("notice_num"));
+		int num = Integer.parseInt(request.getParameter("delete_notice_num"));
 		
 		result = ndao.noticeDelete(num);
 		

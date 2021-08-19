@@ -1,7 +1,6 @@
 package net.member.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,7 +21,7 @@ public class MemberJoinProcessAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		ActionForward forward = new ActionForward();
 		String realFolder = "";
 
 		// WebContent 아래에 꼭 폴더 생성하세요
@@ -59,31 +58,36 @@ public class MemberJoinProcessAction implements Action {
 			m.setUser_address1(user_address1);
 			m.setUser_address2(user_address2);
 
-			//String check = multi.getParameter("check");
-			//System.out.println("check" + check);
-			//if (check != null) {
-			//	m.setUser_memberfile(check);
-			//} else {
-				String user_memberfile = multi.getFilesystemName("user_memberfile");
-				m.setUser_memberfile(user_memberfile);
-			//}
+			String user_memberfile = multi.getFilesystemName("user_memberfile");
+			m.setUser_memberfile(user_memberfile);
+			
 			MemberDAO mdao = new MemberDAO();
 			int result = mdao.memberInsert(m);
 
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			if (result == 1) {
-				out.println("alert('회원가입을 축하합니다.');");
-			} else if (result == -1) {
-				out.println("alert('아이디가 중복되었습니다. 다시 입력하세요');");
+			if (result == -1) {
+				forward.setRedirect(false);
+				request.setAttribute("maintitle", "회원가입");
+				request.setAttribute("title", "회원가입");
+				request.setAttribute("body", "아이디가 중복되었습니다. 다시 입력하세요.");
+				request.setAttribute("path", "main.ma");
+				forward.setPath("Modal/SuccessModal.jsp");
+			}else if(result == 0) {
+				forward.setRedirect(false);
+				request.setAttribute("maintitle", "회원가입");
+				request.setAttribute("title", "회원가입");
+				request.setAttribute("body", "회원가입 실패");
+				request.setAttribute("path", "main.ma");
+				forward.setPath("Modal/SuccessModal.jsp");
 			}
-			out.println("location.href='main.ma';");
-			out.println("</script>");
-			out.close();
-			return null;
+			
+			forward.setRedirect(false);
+			request.setAttribute("maintitle", "회원가입");
+			request.setAttribute("title", "회원가입");
+			request.setAttribute("body", "회원가입을 축하합니다.");
+			request.setAttribute("path", "main.ma");
+			forward.setPath("Modal/SuccessModal.jsp");
+			return forward;
 		} catch (IOException ex) {
-			ActionForward forward = new ActionForward();
 			forward.setPath("error/error.jsp");
 			request.setAttribute("message", "프로필 사진 업로드 실패입니다.");
 			forward.setRedirect(false);

@@ -4,7 +4,7 @@ public class OrderDetail {
 	private int order_de_num;
 	private String order_num;
 	private String product_code;
-	private int cart_stock;
+	private int order_de_count;
 	private String order_delivery;
 	
 	public int getOrder_de_num() {
@@ -31,12 +31,12 @@ public class OrderDetail {
 		this.product_code = product_code;
 	}
 	
-	public int getCart_stock() {
-		return cart_stock;
+	public int getOrder_de_count() {
+		return order_de_count;
 	}
 	
-	public void setCart_stock(int cart_stock) {
-		this.cart_stock = cart_stock;
+	public void setOrder_de_count(int order_de_count) {
+		this.order_de_count = order_de_count;
 	}
 	
 	public String getOrder_delivery() {

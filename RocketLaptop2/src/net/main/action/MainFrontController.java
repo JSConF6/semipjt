@@ -9,7 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.member.action.*;
+import net.member.action.MemberDeleteAction;
+import net.member.action.MemberIdCheckAction;
+import net.member.action.MemberInfoAction;
+import net.member.action.MemberJoinProcessAction;
+import net.member.action.MemberLoginAction;
+import net.member.action.MemberLoginProcessAction;
+import net.member.action.MemberLogoutAction;
+import net.member.action.MemberSearchAction;
+import net.member.action.MemberUpdateAction;
+import net.member.action.MemberUpdateProcessAction;
 
 @WebServlet("*.ma")
 public class MainFrontController extends HttpServlet {
@@ -88,12 +97,6 @@ public class MainFrontController extends HttpServlet {
 			case "/MainCartSelectionDelete.ma":
 				action = new MainCartSelectionDeleteAction();
 				break;
-			case "/login.ma":
-				action = new MainLoginAction();
-				break;
-			case "/join.ma":
-				action = new MemberJoinAction();
-				break;
 			case "/joinProcess.ma":
 				action = new MemberJoinProcessAction();
 				break;	
@@ -101,10 +104,16 @@ public class MainFrontController extends HttpServlet {
 				action = new MemberIdCheckAction();
 				break;	
 			case "/logout.ma":
-				action = new MainLogoutAction();
+				action = new MemberLogoutAction();
+				break;	
+			case "/login.ma":
+				action = new MemberLoginAction();
 				break;	
 			case "/loginProcess.ma":
 				action = new MemberLoginProcessAction();
+				break;
+			case "/FindPasswordAction.ma":
+				action = new MemberFindPasswordAction();
 				break;
 			case "/memberUpdate.ma":
 				action = new MemberUpdateAction();

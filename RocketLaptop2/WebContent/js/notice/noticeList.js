@@ -6,12 +6,12 @@ $(function(){
 	}
 	
 	// 검색 버튼 클릭한 경우
-	$('#search').click(function(){
+	$('#noticesearch').click(function(){
 		// 검색어 유효성 검사를 한다.
 		if($("#search_word").val()==''){
-			$("#ErrorModal").modal('show');
-			$('#ErrorModal-Title').text('검색');
-			$("#ErrorModal-body").html("<h3>검색어를 입력해주세요.</h3>");
+			$("#NoticeErrorModal").modal('show');
+			$('#NoticeErrorModal-Title').text('검색');
+			$("#NoticeErrorModal-body").html("<h3>검색어를 입력해주세요.</h3>");
 			return false;
 		}
 	});
@@ -50,9 +50,9 @@ $(function(){
 			 }
 		 }
 		 if(valueArr.length == 0){
-			$("#ErrorModal").modal('show');
-			$('#ErrorModal-Title').text('선택 삭제');
-			$("#ErrorModal-body").html("<h3>선택한 글이 없습니다.</h3>");
+			$("#NoticeErrorModal").modal('show');
+			$('#NoticeErrorModal-Title').text('선택 삭제');
+			$("#NoticeErrorModal-body").html("<h3>선택한 글이 없습니다.</h3>");
 		 }else{
 			 $("#SelectionDeleteModal").modal('show');
 			 $("#SelectionDeletebtn").click(function(){
@@ -80,16 +80,16 @@ $(function(){
 	
 	$("#noticeAddFrom").submit(function(){
 		if($.trim($("#notice_title").val()) == ""){
-			$("#ErrorModal").modal('show');
-			$('#ErrorModal-Title').text('공지사항 등록');
-			$("#ErrorModal-body").html("<h3>제목을 입력해주세요.</h3>");
+			$("#NoticeErrorModal").modal('show');
+			$('#NoticeErrorModal-Title').text('공지사항 등록');
+			$("#NoticeErrorModal-body").html("<h3>제목을 입력해주세요.</h3>");
 			return false;
 		}
 		
 		if($.trim($("#notice_content").val()) == ""){
-			$("#ErrorModal").modal('show');
-			$('#ErrorModal-Title').text('공지사항 등록');
-			$("#ErrorModal-body").html("<h3>내용을 입력해주세요.</h3>");
+			$("#NoticeErrorModal").modal('show');
+			$('#NoticeErrorModal-Title').text('공지사항 등록');
+			$("#NoticeErrorModal-body").html("<h3>내용을 입력해주세요.</h3>");
 			return false;
 		}
 	});

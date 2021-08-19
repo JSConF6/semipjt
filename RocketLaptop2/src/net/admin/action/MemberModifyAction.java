@@ -19,12 +19,12 @@ public class MemberModifyAction implements Action {
 		MemberDAO mdao = new MemberDAO();
 		
 		boolean result = false;
-		String user_id = request.getParameter("user_id");
-		String user_password = request.getParameter("user_password");
-		String user_email = request.getParameter("user_email");
-		String user_phone = request.getParameter("user_phone");
-		String user_address1 = request.getParameter("user_address1");
-		String user_address2 = request.getParameter("user_address2");
+		String user_id = request.getParameter("adminpage_user_id");
+		String user_password = request.getParameter("adminpage_user_password");
+		String user_email = request.getParameter("adminpage_user_email");
+		String user_phone = request.getParameter("adminpage_user_phone");
+		String user_address1 = request.getParameter("adminpage_user_address1");
+		String user_address2 = request.getParameter("adminpage_user_address2");
 		
 		
 		member.setUser_id(user_id);

@@ -4,7 +4,7 @@ public class CartList {
 	private int cart_num;
 	private String product_code;
 	private String user_id;
-	private int cart_stock;
+	private int order_de_count;
 	private String adddate;
 	private String product_name;
 	private int product_price;
@@ -34,12 +34,12 @@ public class CartList {
 		this.user_id = user_id;
 	}
 	
-	public int getCart_stock() {
-		return cart_stock;
+	public int getOrder_de_count() {
+		return order_de_count;
 	}
 	
-	public void setCart_stock(int cart_stock) {
-		this.cart_stock = cart_stock;
+	public void setOrder_de_count(int order_de_count) {
+		this.order_de_count = order_de_count;
 	}
 	
 	public String getAdddate() {

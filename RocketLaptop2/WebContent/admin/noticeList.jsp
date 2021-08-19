@@ -21,7 +21,7 @@
 				        </select>
 				        <input name="search_word" type="text" class="form-control"
 				               placeholder="제목 입력하세요" value="${search_word}" id="search_word">
-				        <button id="search" class="btn btn-primary" type="submit">검색</button>
+				        <button id="noticesearch" class="btn btn-primary" type="submit">검색</button>
 				    </div>
 				</form>
 				<input type="hidden" value="${search_field }" class="search_field">
@@ -216,18 +216,18 @@
 				</div>
 				
 				<!-- 오류 모달창 -->
-				<div class="modal hide fade" id="ErrorModal">
+				<div class="modal hide fade" id="NoticeErrorModal">
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 							<!-- Modal Header -->
 							<div class="modal-header">
-								<h4 class="modal-title" id="ErrorModal-Title"></h4>
+								<h4 class="modal-title" id="NoticeErrorModal-Title"></h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 				        
 							<!-- Modal body -->
-							<div class="modal-body" id="ErrorModal-body">
+							<div class="modal-body" id="NoticeErrorModal-body">
 							  
 							</div>
 				        

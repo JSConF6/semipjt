@@ -40,7 +40,6 @@ public class ProductAddAction implements Action {
 			product.setProduct_name(multi.getParameter("product_name"));
 			product.setProduct_price(Integer.parseInt(multi.getParameter("product_price")));
 			product.setProduct_details(multi.getParameter("product_details"));
-			product.setProduct_stock(Integer.parseInt(multi.getParameter("product_stock")));
 			product.setProduct_status(multi.getParameter("productStatus"));
 			String imgFileName = multi.getFilesystemName("imgUpload");
 			product.setProduct_image(imgFileName);

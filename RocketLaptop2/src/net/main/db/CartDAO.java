@@ -31,13 +31,13 @@ public class CartDAO {
 		try{
 			con = ds.getConnection();
 			
-			String sql = "insert into cart(cart_num, product_code, user_id, cart_stock) "
+			String sql = "insert into cart(cart_num, product_code, user_id, order_de_count) "
 					   + "values(cart_seq.nextval, ?, ?, ?)";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, cart.getProduct_code());
 			pstmt.setString(2, cart.getUser_id());
-			pstmt.setInt(3, cart.getCart_stock());
+			pstmt.setInt(3, cart.getOrder_de_count());
 			
 			result = pstmt.executeUpdate();
 			
@@ -74,7 +74,7 @@ public class CartDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		String sql = "select c.cart_num, c.user_id, c.product_code, c.cart_stock, " 
+		String sql = "select c.cart_num, c.user_id, c.product_code, c.order_de_count, " 
 					+"c.adddate, p.product_name, p.product_price, p.product_image " 
 					+"from cart c, product p "
 					+"where c.product_code = p.product_code "
@@ -94,7 +94,7 @@ public class CartDAO {
 				cartlist.setCart_num(rs.getInt("cart_num"));
 				cartlist.setProduct_code(rs.getString("product_code"));
 				cartlist.setUser_id(rs.getString("user_id"));
-				cartlist.setCart_stock(rs.getInt("cart_stock"));
+				cartlist.setOrder_de_count(rs.getInt("order_de_count"));
 				cartlist.setAdddate(rs.getString("adddate"));
 				cartlist.setProduct_name(rs.getString("product_name"));
 				cartlist.setProduct_price(rs.getInt("product_price"));

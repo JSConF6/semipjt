@@ -34,9 +34,8 @@ private DataSource ds;
 			// 상품 등록 부분
 			String sql = "insert into product "
 				+ "(PRODUCT_CODE, CATEGORY_CODE, PRODUCT_NAME, PRODUCT_PRICE, "
-				+ " PRODUCT_DETAILS, PRODUCT_STOCK, "
-				+ " PRODUCT_STATUS, PRODUCT_IMAGE, PRODUCT_DATE)"
-				+ " values(?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+				+ " PRODUCT_DETAILS, PRODUCT_STATUS, PRODUCT_IMAGE, PRODUCT_DATE)"
+				+ " values(?, ?, ?, ?, ?, ?, ?, sysdate)";
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, product.getProduct_code());
@@ -44,9 +43,8 @@ private DataSource ds;
 			pstmt.setString(3, product.getProduct_name());
 			pstmt.setInt(4, product.getProduct_price());
 			pstmt.setString(5, product.getProduct_details());
-			pstmt.setInt(6, product.getProduct_stock()); 
-			pstmt.setString(7, product.getProduct_status()); 
-			pstmt.setString(8, product.getProduct_image()); 
+			pstmt.setString(6, product.getProduct_status()); 
+			pstmt.setString(7, product.getProduct_image()); 
 			result = pstmt.executeUpdate();
 			if(result == 1) {
 				System.out.println("데이터 삽입이 완료되었습니다.");
@@ -138,7 +136,7 @@ private DataSource ds;
 			String sql = "select count(*) "
 						+"from (select rownum rnum, p.* "
 						+	  	"from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-						+	  		  "p.product_price, p.product_details, p.product_stock, p.product_status, "  
+						+	  		  "p.product_price, p.product_details, p.product_status, "  
 						+	  		  "p.product_image, p.product_sales, p.product_date " 
 						+	  		  "from product p, category c " 
 						+	  		  "where p.category_code = c.category_code " 
@@ -197,7 +195,7 @@ private DataSource ds;
 		String product_list_sql = "select * "
 								 +"from (select rownum rnum, p.* "
 								 +	  	"from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-								 +	  		  "p.product_price, p.product_details, p.product_stock, p.product_status, "  
+								 +	  		  "p.product_price, p.product_details, p.product_status, "  
 								 +	  		  "p.product_image, p.product_sales, p.product_date " 
 								 +	  		  "from product p, category c " 
 								 +	  		  "where p.category_code = c.category_code " 
@@ -225,7 +223,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -274,7 +271,7 @@ private DataSource ds;
 			String sql = "select * "
 					 	+"from (select rownum rnum, p.* "
 					 	+	   "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 	+	  		  "p.product_price, p.product_details, p.product_stock, p.product_status, "  
+					 	+	  		  "p.product_price, p.product_details, p.product_status, "  
 					 	+	  		  "p.product_image, p.product_sales, p.product_date " 
 					 	+	  		  "from product p, category c " 
 					 	+	  		  "where p.category_code = c.category_code " 
@@ -302,7 +299,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -352,7 +348,7 @@ private DataSource ds;
 			String sql = "select * "
 					 	+"from (select rownum rnum, p.* "
 					 	+	   "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 	+	  		  "p.product_price, p.product_details, p.product_stock, p.product_status, "  
+					 	+	  		  "p.product_price, p.product_details, p.product_status, "  
 					 	+	  		  "p.product_image, p.product_sales, p.product_date " 
 					 	+	  		  "from product p, category c " 
 					 	+	  		  "where p.category_code = c.category_code " 
@@ -374,7 +370,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -421,7 +416,7 @@ private DataSource ds;
 		
 		String sql = "select p.* " 
 					+"from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					+	   "p.product_price, p.product_details, p.product_stock, p.product_status, "
+					+	   "p.product_price, p.product_details, p.product_status, "
 					+	   "p.product_image, p.product_sales, p.product_date "  
 					+	   "from product p, category c " 
 					+	   "where p.category_code = c.category_code) p " 
@@ -439,7 +434,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -480,7 +474,7 @@ private DataSource ds;
 		PreparedStatement pstmt = null;
 		String sql = "update product "
 					+"set PRODUCT_NAME=?, PRODUCT_PRICE=?, PRODUCT_DETAILS=?, "
-					+"PRODUCT_STOCK=?, PRODUCT_STATUS=?, PRODUCT_IMAGE=? "
+					+"PRODUCT_STATUS=?, PRODUCT_IMAGE=? "
 					+"where PRODUCT_CODE=?";
 		try {
 			con = ds.getConnection();
@@ -488,10 +482,9 @@ private DataSource ds;
 			pstmt.setString(1, product.getProduct_name());
 			pstmt.setInt(2, product.getProduct_price());
 			pstmt.setString(3, product.getProduct_details());
-			pstmt.setInt(4, product.getProduct_stock());
-			pstmt.setString(5, product.getProduct_status());
-			pstmt.setString(6, product.getProduct_image());
-			pstmt.setString(7, product.getProduct_code());
+			pstmt.setString(4, product.getProduct_status());
+			pstmt.setString(5, product.getProduct_image());
+			pstmt.setString(6, product.getProduct_code());
 			int result = pstmt.executeUpdate();
 			if(result == 1) {
 				System.out.println("성공 업데이트");
@@ -605,7 +598,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -630,7 +623,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -676,7 +668,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -700,7 +692,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -746,7 +737,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -772,7 +763,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
@@ -818,7 +808,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -875,7 +865,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -934,7 +924,7 @@ private DataSource ds;
 		String sql = "select * "
 					 +"from (select rownum rnum, p.* "
 					 +	    "from (select p.product_code, p.category_code, c.category_name, p.product_name, " 
-					 +			  "p.product_price, p.product_details, p.product_stock, p.product_status, " 
+					 +			  "p.product_price, p.product_details, p.product_status, " 
 					 +			  "p.product_image, p.product_sales, p.product_date " 
 					 +			  "from product p, category c "
 					 +			  "where p.category_code = c.category_code "
@@ -961,7 +951,6 @@ private DataSource ds;
 				product.setProduct_name(rs.getString("product_name"));
 				product.setProduct_price(rs.getInt("product_price"));
 				product.setProduct_details(rs.getString("product_details"));
-				product.setProduct_stock(rs.getInt("product_stock"));
 				product.setProduct_status(rs.getString("product_status"));
 				product.setProduct_image(rs.getString("product_image"));
 				product.setProduct_sales(rs.getInt("product_sales"));
