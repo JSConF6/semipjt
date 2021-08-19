@@ -6,12 +6,12 @@ $(function(){
 	}
 	
 	// 검색 버튼 클릭한 경우
-	$('#search').click(function(){
+	$('#productsearch').click(function(){
 		// 검색어 유효성 검사를 한다.
-		if($("search_word").val()==''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title'). text("검색어 입력");
-			$('#ErrorModal-body').html("<h4>검색어를 입력해주세요</h4>");
+		if($("#search_word").val()==''){
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title'). text("검색어 입력");
+			$('#ProductErrorModal-body').html("<h3>검색어를 입력해주세요</h3>");
 			return false;
 		}
 	});
@@ -52,9 +52,9 @@ $(function(){
 			 }
 		 }
 		 if(valueArr.length == 0){
-			$("#ErrorModal").modal('show');
-			$('#ErrorModal-Title').text('선택 삭제');
-			$("#ErrorModal-body").html("<h3>선택한 상품이 없습니다.</h3>");
+			$("#ProductErrorModal").modal('show');
+			$('#ProductErrorModal-Title').text('선택 삭제');
+			$("#ProductErrorModal-body").html("<h3>선택한 상품이 없습니다.</h3>");
 		 }else{
 			 $("#SelectionDeleteModal").modal('show');
 			 $("#SelectionDeletebtn").click(function(){
@@ -127,58 +127,51 @@ $(function(){
 	// Modal창 안에 상품등록 폼이 submit할때 유효성 검사
 	$('#productAddFrom').submit(function(){
 		if($.trim($('#product_code').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품 코드를 입력해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>상품 코드를 입력해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('.category').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>카테고리를 선택해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>카테고리를 선택해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('#product_name').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품명을 입력해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>상품명을 입력해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('#product_price').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품 가격을 입력해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>상품 가격을 입력해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('#product_details').val()) == ""){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품 상세정보를 입력해주세요</h4>");
-			return false;
-		}
-		
-		if($.trim($('#product_stock').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품 재고 수를 입력해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>상품 상세정보를 입력해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('input[name="productStatus"]:checked').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>상품 상태를 체크해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>상품 상태를 체크해주세요</h4>");
 			return false;
 		}
 		
 		if($.trim($('#imgUpload').val()) == ''){
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("상품 등록");
-			$('#ErrorModal-body').html("<h4>이미지를 첨부해주세요</h4>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>이미지를 첨부해주세요</h4>");
 			return false;
 		}
 	});
@@ -187,12 +180,6 @@ $(function(){
 	$("#product_price").keyup(function(){
 		if(!($.isNumeric($('#product_price').val()))){
 			$("#product_price").val('');
-		}
-	});
-	
-	$("#product_stock").keyup(function(){
-		if(!($.isNumeric($('#product_stock').val()))){
-			$("#product_stock").val('');
 		}
 	});
 	
@@ -220,9 +207,9 @@ $(function(){
 			$('#imgvalue').text(filename);
 			show();
 		}else{
-			$('#ErrorModal').modal('show');
-			$('#ErrorModal-Title').text("이미지 첨부");
-			$('#ErrorModal-body').html("<h6>확장자는 gif, jpg, jpeg, png가 가능합니다.</h6>");
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("이미지 첨부");
+			$('#ProductErrorModal-body').html("<h6>확장자는 gif, jpg, jpeg, png가 가능합니다.</h6>");
 			return false;
 		}
 	});

@@ -19,7 +19,7 @@ public class NoticeModifyAction implements Action {
 		NoticeDAO ndao = new NoticeDAO();
 		
 		boolean result = false;
-		int num = Integer.parseInt(request.getParameter("notice_num"));
+		int num = Integer.parseInt(request.getParameter("modify_notice_num"));
 		String title = request.getParameter("modifyNotice_title");
 		String content = request.getParameter("modifyNotice_content");
 		

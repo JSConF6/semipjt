@@ -25,7 +25,7 @@
 				        </select>
 				        <input name="search_word" type="text" class="form-control"
 				               placeholder="상품코드 입력하세요" value="${search_word}" id="search_word">
-				        <button id="search" class="btn btn-primary" type="submit">검색</button>
+				        <button id="productsearch" class="btn btn-primary" type="submit">검색</button>
 				    </div>
 				</form>
 				<input type="hidden" value="${search_field }" class="search_field">
@@ -44,7 +44,6 @@
 								<th class="align-middle">카테고리</th>
 								<th class="align-middle">상품명</th>
 								<th class="align-middle">상품가격</th>
-								<th class="align-middle">재고수</th>
 								<th class="align-middle">상품 상태</th>
 								<th class="align-middle">판매량</th>
 								<th class="align-middle">상품등록일</th>
@@ -64,7 +63,6 @@
 									<td class="align-middle">${p.category_name }</td>
 									<td class="align-middle"><a href="ProductDetail.ad?product_code=${p.product_code}">${p.product_name }</a></td>
 									<td class="align-middle">${product_price }</td>
-									<td class="align-middle">${p.product_stock }</td>
 									<td class="align-middle">${p.product_status }</td>
 									<td class="align-middle">${p.product_sales }</td>
 									<td class="align-middle">${product_date}</td>
@@ -168,12 +166,6 @@
 					      				<textarea class="form-control" rows="3"
 					      				id="product_details" name="product_details"></textarea>
 				    				</div>
-		    				
-									<!-- 상품 재고 수 -->
-									<div class="form-group text-left">
-										<label for="product_stock">재고 수</label>
-										<input type="text" class="form-control" id="product_stock" name="product_stock">
-									</div>
 		    				
 									<!-- 상품 상태 -->
 									<div class="form-group text-left" style="font-size: 25px;">
@@ -343,18 +335,18 @@
 				</div>
 				  
 				<!-- 오류 모달창 -->
-				<div class="modal hide fade" id="ErrorModal">
+				<div class="modal hide fade" id="ProductErrorModal">
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 							<!-- Modal Header -->
 							<div class="modal-header">
-								<h4 class="modal-title" id="ErrorModal-Title"></h4>
+								<h4 class="modal-title" id="ProductErrorModal-Title"></h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 				        
 							<!-- Modal body -->
-							<div class="modal-body" id="ErrorModal-body">
+							<div class="modal-body" id="ProductErrorModal-body">
 				          
 							</div>
 				        

@@ -26,11 +26,9 @@ public class MemberLoginAction implements Action {
 				}
 			}
 			
-			request.setAttribute("user_id", user_id);
-			ActionForward forward=new ActionForward();
-			forward.setRedirect(false);
-			forward.setPath("member/loginForm.jsp");
-			return forward;
+			response.setContentType("text/html;charset=UTF-8");
+			response.getWriter().println(user_id);
+			return null;
 
 		}
 

@@ -10,7 +10,7 @@
 	<body>
 		<c:if test="${user_id == 'admin' }">
 			<input type="hidden" value="${p.product_status }" class="product_status">
-			<div id="showImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
+			<div id="ProsuctShowImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
 			<div id="ModifyDiv" class="mt-2">
 				<h1>상품 수정</h1>
 				<form action="ProductModifyAction.ad" id="productModifyFrom" method="post" name="productModifyForm" enctype="multipart/form-data">
@@ -50,13 +50,6 @@
 					  	id="product_details" name="product_details">${p.product_details}</textarea>
 				   	</div>
 		    		
-					<!-- 상품 재고 수 -->
-					<div class="form-group text-left">
-						<label for="product_stock">재고 수</label>
-						<input type="text" class="form-control"
-						       id="product_stock" name="product_stock" value="${p.product_stock}">
-					</div>
-		    		
 					<!-- 상품 상태 -->
 					<div class="form-group text-left" style="font-size : 25px;">
 						<label for="product_status">상태 </label>
@@ -88,18 +81,18 @@
 				</form>
 				
 				<!-- 오류 모달창 -->
-				<div class="modal hide fade" id="ErrorModal">
+				<div class="modal hide fade" id="ProductModifyErrorModal">
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 							<!-- Modal Header -->
 							<div class="modal-header">
-								<h4 class="modal-title" id="ErrorModal-Title"></h4>
+								<h4 class="modal-title" id="ProductModifyErrorModal-Title"></h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 				        
 							<!-- Modal body -->
-							<div class="modal-body" id="ErrorModal-body">
+							<div class="modal-body" id="ProductModifyErrorModal-body">
 				          
 							</div>
 				        

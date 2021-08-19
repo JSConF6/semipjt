@@ -51,13 +51,6 @@
 			  				  id="product_details" name="product_details" readOnly>${p.product_details}</textarea>
 				</div>
 			    
-				<!-- 상품 재고 수 -->
-				<div class="form-group text-left">
-					<label for="product_stock">재고 수</label>
-					<input type="text" class="form-control"
-					       id="product_stock" name="product_stock" value="${p.product_stock}" readOnly>
-				</div>
-			    
 				<!-- 상품 상태 -->
 				<div class="form-group text-left" style="font-size : 25px">
 					<label for="product_status">상태 </label>

@@ -104,6 +104,15 @@ public class adminFrontController extends HttpServlet {
 			case "/MemberDeleteAction.ad":
 				action = new MemberDeleteAction();
 				break;
+			case "/OrderList.ad":
+				action = new OrderListAction();
+				break;
+			case "/OrderDetail.ad":
+				action = new OrderDetailAction();
+				break;
+			case "/OrderDeliveryUpdate.ad":
+				action = new OrderDeliveryUpdateAction();
+				break;
 		} // switch end
 		
 		forward = action.execute(request, response);

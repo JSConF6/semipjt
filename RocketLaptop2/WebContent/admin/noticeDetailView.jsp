@@ -101,7 +101,7 @@
 							      			   id="modifyNotice_readcount" name="modifyNotice_readcount" value="${n.notice_readcount }" readOnly>
 							    	</div>
 							    	<div class="text-right mt-4 mb-4">
-						       			<input type="hidden" name="notice_num" value="${param.num }" id="notice_num">
+						       			<input type="hidden" name="modify_notice_num" value="${param.num }" id="modify_notice_num">
 						         		<button type="submit" class="btn btn-info">수정</button>
 						         		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 					         		</div>
@@ -123,7 +123,7 @@
 					       	<div class="modal-body">
 					        	<h3>정말 삭제하시겠습니까??</h3>
 					       		<form action="NoticeDeleteAction.ad" method="post" name="delform">
-					       			<input type="hidden" name="notice_num" value="${param.num }" id="notice_num">
+					       			<input type="hidden" name="delete_notice_num" value="${param.num }" id="delete_notice_num">
 					         		<div class="text-right">
 					         			<button type="submit" class="btn btn-danger">삭제</button>
 					         			<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
@@ -135,18 +135,18 @@
 				</div> 
 				
 				<!-- 오류 모달창 -->
-				<div class="modal hide fade" id="ErrorModal">
+				<div class="modal hide fade" id="NoticeDetailErrorModal">
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 							<!-- Modal Header -->
 							<div class="modal-header">
-								<h4 class="modal-title" id="ErrorModal-Title"></h4>
+								<h4 class="modal-title" id="NoticeDetailErrorModal-Title"></h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 				        
 							<!-- Modal body -->
-							<div class="modal-body" id="ErrorModal-body">
+							<div class="modal-body" id="NoticeDetailErrorModal-body">
 							  
 							</div>
 				        

@@ -10,7 +10,6 @@
 	<body>
 		<input type="hidden" value="${user_id}" class="checkid">
 		<input type="hidden" value="${p.product_code}" class="product_code">
-		<input type="hidden" value="${p.product_stock }" class="product_stock">
 		<input type="hidden" value="-1" class="search_field">
 		<jsp:include page="headernav.jsp" />
 		<h1 class="text-center mt-3">상품 정보</h1>
@@ -25,14 +24,12 @@
 			<hr>
 			<p><span>가격</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber pattern="###,###,###" value="${p.product_price}" /> 원</p>
 			<hr>
-			<p><span>재고 수</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber pattern="###,###,###" value="${p.product_stock}" /> EA</p>
-			<hr>
 			<p><span>상품 상태</span> &nbsp;&nbsp;${p.product_status}</p>
 			<hr>
 			<p>
 				<span>주문 수량</span>&nbsp;
 				<button type="button" class="plus">+</button>
-				<input type="number" class="stock" min="1" max="${p.product_stock}" value="1" readOnly>
+				<input type="number" class="order_de_count" min="1" max="1000" value="1" readOnly>
 				<button type="button" class="minus">-</button>
 			</p>
 			<hr>

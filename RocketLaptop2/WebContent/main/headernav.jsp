@@ -66,6 +66,7 @@
 			<button id="search" class="btn btn-success" type="submit">검색</button>
 		</div>
 	</form>
+	<input type="hidden" value="${user_id}" class="headernavid">
 	<input type="hidden" value="${search_field}" class="search_field">
 	<ul class="navbar-nav">
 		<c:if test="${user_id == 'admin'}">
@@ -78,7 +79,7 @@
 		</c:if>
 		<c:if test="${user_id != 'admin' || empty user_id}">
 			<li class="nav-item">
-				<a class="nav-link fonticon text-dark" id="updateMember" ><i class="fas fa-user fa-2x"></i><br>마이 페이지</a>
+				<a class="nav-link fonticon text-dark" id="updateMember" style="cursor : pointer;"><i class="fas fa-user fa-2x"></i><br>마이 페이지</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
@@ -110,3 +111,28 @@
 	 	</li>
 	</ul>
 </nav>
+
+<!-- 오류 모달창 -->
+<div class="modal hide fade" id="headerNavErrorModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title" id="headerNavErrorModal-Title"></h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body" id="headerNavErrorModal-body">
+			  
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+			</div>
+        
+		</div>
+	</div>
+</div>

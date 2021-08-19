@@ -1,7 +1,6 @@
 package net.member.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -34,6 +33,7 @@ public class MemberLoginProcessAction implements Action {
 			session.setAttribute("user_id", user_id);
 				
 			String IDStore = request.getParameter("remember");
+			System.out.println(IDStore);
 			Cookie cookie = new Cookie("user_id", user_id);
 				
 			// ID 기억하기를 체크한 경우
@@ -53,16 +53,17 @@ public class MemberLoginProcessAction implements Action {
 			return forward;
 		} else {
 			String message = "비밀번호가 일치하지 않습니다.";
-			if (result == -1)
+			if (result == -1) {
 				message = "아이디가 존재하지 않습니다.";
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-			out.println("alert('" + message + "');");
-			out.println("location.href='login.ma';");
-			out.println("</script>");
-			out.close();
-			return null;
+			}
+			
+			forward.setRedirect(false);
+			request.setAttribute("maintitle", "로그인");
+			request.setAttribute("title", "로그인");
+			request.setAttribute("body", message);
+			request.setAttribute("path", "main.ma");
+			forward.setPath("Modal/SuccessModal.jsp");
+			return forward;
 		}
 	}
 }

@@ -1,4 +1,4 @@
-package net.main.action;
+package net.admin.action;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import net.main.db.Order;
 import net.main.db.OrderDAO;
 import net.main.db.OrderList;
 
-public class OrderDetailView implements Action {
+public class OrderDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -20,7 +20,6 @@ public class OrderDetailView implements Action {
 		ActionForward forward = new ActionForward();
 		List<OrderList> orderlist = new ArrayList<OrderList>();
 		Order order = new Order();
-		
 		OrderDAO odao = new OrderDAO();
 		
 		String order_num = request.getParameter("order_num");
@@ -33,7 +32,7 @@ public class OrderDetailView implements Action {
 		request.setAttribute("orderlist", orderlist);
 		
 		forward.setRedirect(false);
-		forward.setPath("main/orderDetailView.jsp");
+		forward.setPath("admin/orderDetail.jsp");
 		return forward;
 	}
 

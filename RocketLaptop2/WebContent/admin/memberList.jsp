@@ -117,18 +117,18 @@
 				</c:if>
 				  
 				<!-- 오류 모달창 -->
-				<div class="modal hide fade" id="ErrorModal">
+				<div class="modal hide fade" id="MemberErrorModal">
 					<div class="modal-dialog modal-sm modal-dialog-centered">
 						<div class="modal-content">
 				      
 							<!-- Modal Header -->
 							<div class="modal-header">
-								<h4 class="modal-title" id="ErrorModal-Title"></h4>
+								<h4 class="modal-title" id="MemberErrorModal-Title"></h4>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 							</div>
 				        
 							<!-- Modal body -->
-							<div class="modal-body" id="ErrorModal-body">
+							<div class="modal-body" id="MemberErrorModal-body">
 				          
 							</div>
 				        

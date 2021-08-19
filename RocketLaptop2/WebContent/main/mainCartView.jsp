@@ -36,12 +36,12 @@
 								<td class="align-middle"><a href="MainProductDetail.ma?product_code=${c.product_code}">${c.product_name}</a></td>
 								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price}"/></td>
 								<td class="align-middle">
-									<input class="text-center" type="number" value="${c.cart_stock}" readOnly style="width:40px;">
+									<input class="text-center" type="number" value="${c.order_de_count}" readOnly style="width:40px;">
 								</td>
-								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price * c.cart_stock}"/></td>
+								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price * c.order_de_count}"/></td>
 								<td class="align-middle"><button class="btn btn-danger cartdelbtn" data-cartNum="${c.cart_num}">삭제</button></td>
 							</tr>
-							<c:set var="pricesum" value="${pricesum + (c.product_price * c.cart_stock)}"/>
+							<c:set var="pricesum" value="${pricesum + (c.product_price * c.order_de_count)}"/>
 						</c:forEach>
 					</tbody>
 				</table>

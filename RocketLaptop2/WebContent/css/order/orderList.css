@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.gray{color:gray}
+
+.OrderBody{
+	text-align : center;
+	margin-top : 80px;
+}
+			
+.OrderTitle{
+	text-align : center;
+	margin-top : 8px;
+}
+	
+.OrderTitle > a {
+	color : black;
+}
+	
+.container > h2{
+	float : left;
+}
+	
+.container > form{
+	margin-bottom : 15px;
+}
+	
+textarea{
+	resize : none;
+}
+	
+.modal {
+	overflow-y:auto;
+}

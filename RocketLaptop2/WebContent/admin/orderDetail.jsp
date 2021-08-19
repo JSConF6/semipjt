@@ -3,8 +3,11 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<head>
-		<jsp:include page="header.jsp" />
+		<jsp:include page="../main/header.jsp" />
+		<jsp:include page="AdminNav.jsp" />
 		<title>RocketLaptop - 주문 상세</title>
+		<link href="css/admin/adminNav.css" type="text/css" rel="stylesheet">
+		<script src="js/order/orderDetail.js" type="text/javascript"></script>
 		<style>
 			hr, footer{
 				clear : both;
@@ -29,14 +32,14 @@
 	</head>
 	<body>
 		<input type="hidden" value="-1" class="search_field">
-		<jsp:include page="headernav.jsp" />
 		<fmt:formatNumber var="order_totalprice" pattern="###,###,###" value="${o.order_totalprice}"/>
 		<div class="container text-center">
 			<h1 class="mt-3 mb-3">주문 상세</h1>
-			<table class="table table-striped table-bordered text-center mb-5">
+			<table class="table table-striped table-bordered text-center mb-3">
 				<thead>
 					<tr>
 						<th>주문 번호</th>
+						<td>아이디</td>
 						<th>수령인</th>
 						<th>수령인 연락처</th>
 						<th>주소</th>
@@ -49,6 +52,7 @@
 				<tbody>
 					<tr>
 						<td>${o.order_num}</td>
+						<td>${o.user_id}</td>
 						<td>${o.order_name}</td>
 						<td>${o.order_phone}</td>
 						<td>(${o.user_address1}) ${o.user_address2} ${o.user_address3}</td>
@@ -59,6 +63,13 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="text-right mb-3">
+				<input type="hidden" value="${o.order_num}" class="order_num">
+				<input type="hidden" value="${o.user_id}" class="order_user_id">
+				<button type="button" class="btn btn-danger deliverybtn1">배송중</button>
+				<button type="button" class="btn btn-success deliverybtn2">배송완료</button>
+				<a type="button" class="btn btn-primary" href="OrderList.ad">목록</a>
+			</div>
 			<c:set var="index" value="1" />
 			<c:forEach var="ol" items="${orderlist}">
 				<fmt:formatNumber var="product_price" pattern="###,###,###" value="${ol.product_price}"/>
@@ -66,7 +77,7 @@
 				<c:if test="${index % 2 != 0}">
 					<div class="float-left mb-5 product">
 						<img class="float-left" src="${'LaptopImgUpload/'}${ol.product_image}" width="200px" height="197px">
-						<p>상품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="MainProductDetail.ma?product_code=${ol.product_code}">${ol.product_name}</a></span></p>
+						<p>상품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${ol.product_name}</span></p>
 						<p>가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${product_price}원</span></p>
 						<p>구입 수량&nbsp;&nbsp;<span>${ol.order_de_count}개</span></p>
 						<p>최종 가격&nbsp;&nbsp;<span>${product_totalprice}원</span></p>
@@ -75,7 +86,7 @@
 				<c:if test="${index % 2 == 0}">
 					<div class="float-right mb-5 product">
 						<img class="float-left" src="${'LaptopImgUpload/'}${ol.product_image}" width="200px" height="197px">
-						<p>상품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><a href="MainProductDetail.ma?product_code=${ol.product_code}">${ol.product_name}</a></span></p>
+						<p>상품명&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${ol.product_name}</span></p>
 						<p>가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>${product_price}원</span></p>
 						<p>구입 수량&nbsp;&nbsp;<span>${ol.order_de_count}개</span></p>
 						<p>최종 가격&nbsp;&nbsp;<span>${product_totalprice}원</span></p>
@@ -83,8 +94,33 @@
 				</c:if>
 				<c:set var="index" value="${index + 1}"/>
 			</c:forEach>
+			
+			<!-- 오류 모달창 -->
+			<div class="modal hide fade" id="DeliveryStatusErrorModal">
+				<div class="modal-dialog modal-sm modal-dialog-centered">
+					<div class="modal-content">
+			      
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<h4 class="modal-title">배송상태 변경 실패</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+			        
+						<!-- Modal body -->
+						<div class="modal-body">
+						  <h2>배송 상태 변경실패</h2>
+						</div>
+			        
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+						</div>
+			        
+					</div>
+				</div>
+			</div>
 		</div>
 		<hr>
-		<jsp:include page="footer.jsp" />
+		<jsp:include page="../main/footer.jsp" />
 	</body>
 </html>
