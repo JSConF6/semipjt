@@ -91,6 +91,54 @@ public class MainFrontController extends HttpServlet {
 			case "/MainNoticeDetail.ma":
 				action = new MainNoticeDetailAction();
 				break;
+			case "/QnaList.ma":
+				action = new QnaListAction();
+				break;
+			case "/QnaDetail.ma":
+				action = new QnaDetailAction();
+				break;
+			case "/QnaWrite.ma":
+				action = new QnaWriteAction();
+				break;
+			case "/QnaAddAction.ma":
+				action = new QnaAddAction();
+				break;
+			case "/QnaDetailAction.ma":
+				action = new QnaDetailAction();
+				break;	
+			case "/QnaReplyView.ma":
+				action = new QnaReplyView();
+				break;	
+			case "/QnaReplyAction.ma":
+				action = new QnaReplyAction();
+				break;	
+			case "/QnaModifyView.ma":
+				action = new QnaModifyView();
+				break;
+			case "/QnaModifyAction.ma":
+				action = new QnaModifyAction();
+				break;
+			case "/QnaDeleteAction.ma":
+				action = new QnaDeleteAction();
+				break;
+			case "/QnaFileDown.ma":
+				action = new QnaFileDownAction();
+				break;	
+			case "/CommentAdd.ma":
+				action = new CommentAdd();
+				break;
+			case "/CommentList.ma":
+				action = new CommentList();
+				break;
+			case "/CommentDelete.ma":
+				action = new CommentDelete();
+				break;
+			case "/CommentUpdate.ma":
+				action = new CommentUpdate();
+				break;
+			case "/CommentReply.ma":
+				action = new CommentReply();
+				break;	
 			case "/MainCartView.ma":
 				action = new MainCartView();
 				break;

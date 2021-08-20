@@ -112,7 +112,7 @@
 			<a class="nav-link" href="MainNoticeList.ma">공지사항</a>
 	 	 </li>
 	  	<li class="nav-item">
-			<a class="nav-link" href="#">문의사항</a>
+			<a class="nav-link" href="QnaList.ma">문의사항</a>
 	 	</li>
 	</ul>
 </nav>
