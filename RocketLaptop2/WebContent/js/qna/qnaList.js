@@ -61,7 +61,7 @@ function ajax(sdata) {
 							}
 							
 							output += "<td><div>" + blank + img
-							output += '<a href="QnaDetailAction.ma?num'+item.qna_num + '">'
+							output += '<a href="QnaDetailAction.ma?num='+item.qna_num + '">'
 							output += item.qna_subject.replace(/</g,'&lt;').replace(/>/g,'&gt;')
 									  + '</a></div></td>'
 							output += '<td><div>' + item.qna_name+'</div></td>'		  

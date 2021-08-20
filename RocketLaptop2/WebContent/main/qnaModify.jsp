@@ -2,13 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
- <title>MVC 게시판 </title>
+ <title>RocketLaptop - 문의사항</title>
  <jsp:include page="header.jsp" /> 
  <script src="js/qna/qnaModifyform.js"></script>	<!-- <======================= 경로 확인하기  --> 
  <style>
- 	.container{width:60%}
- 	h1{font-size:1.5rem; text-align:center; color:#1a92b9}
+ 	.container{width:45%; margin-bottom : 50px;}
+ 	h1{font-size:1.5rem; text-align:center; margin-top : 20px; font-size : 40px;}
  	#qna_upfile{display:none}
+ 	textarea{resize : none}
  </style>
 </head>
 <body>
@@ -18,7 +19,7 @@
   <form action="QnaModifyAction.ma" method="post" name="qna_modifyform"
   		enctype="multipart/form-data"> <%-- <================= reply와는 다르게 파일첨부 있으므로 --%>
   	<input type="hidden" name="qna_num" value="${qnadata.qna_num}">
-  	<h1>MVC 게시판 - 수정</h1>		
+  	<h1>RocketLaptop - 문의사항 수정</h1>		
   	<div class="form-group">
   	<label for="qna_name">글쓴이</label> <input type="text"  
   		   class="form-control" value="${qnadata.qna_name}" readOnly >
@@ -55,12 +56,15 @@
   		   class="form-control"  placeholder="Enter qna_pass" value="">
   	</div>	
 	
-	<div class="form-group">
+	<div class="form-group text-right">
 	<button type=submit class="btn btn-primary">수정</button>
 	<button type=reset  class="btn btn-danger" 
 		   onClick="history.go(-1)">취소</button>
 	</div>
   </form>
 </div>  <%--class="container" end --%>
+
+<hr>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

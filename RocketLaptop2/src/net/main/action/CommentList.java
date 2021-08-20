@@ -29,7 +29,7 @@ public class CommentList implements Action {
 					JsonArray jarray = dao.getCommentList(comment_qna_num, state);
 					object.addProperty("listcount", listcount);
 					JsonElement je = new Gson().toJsonTree(jarray);
-					object.add("boardlist", je);
+					object.add("qnalist", je);
 					
 					response.setContentType("text/html;charset=utf-8");
 					PrintWriter out = response.getWriter();

@@ -2,23 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
- <title>MVC 게시판 </title>
+ <title>RocketLaptop - 문의사항 </title>
  <jsp:include page="header.jsp" /> 
  <script src="js/qna/qnaReply.js"></script> <!-- <==========================================================경로 확인하기  -->
  <style>
- 	h1{font-size:1.5rem; text-align:center; color:#1a92b9}
+ 	h1{font-size:1.5rem; text-align:center; font-size : 35px; margin-top : 20px;}
  	label{font-weight:bold}
- 	.container{width:60%}
+ 	.container{width:45%}
+ 	textarea {resize : none}
  </style>
 </head>
 <body>
+<input type="hidden" value="-1" class="search_field">
 <jsp:include page="headernav.jsp" />
 <div class="container">
   <form action="QnaReplyAction.ma" method="post" name="qnaform">
   	<input type="hidden" name="qna_re_ref" value="${qnadata.qna_re_ref}">
   	<input type="hidden" name="qna_re_lev" value="${qnadata.qna_re_lev}">
   	<input type="hidden" name="qna_re_seq" value="${qnadata.qna_re_seq}">
-  	<h1>MVC 게시판-Reply</h1>		
+  	<h1>RocketLaptop - 문의사항 답변</h1>		
   	<div class="form-group">
   	<label for="qna_name">글쓴이</label>
   	<input name="qna_name" id="qna_name" 
@@ -41,7 +43,7 @@
   		   type="password"   class="form-control" >
   	</div>	
 	
-	<div class="form-group">
+	<div class="form-group text-right">
 	<input type=submit class="btn btn-primary" value="등록">
 	<input type=button class="btn btn-danger" value="취소"
 		   onClick="history.go(-1)">

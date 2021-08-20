@@ -2,9 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
- <title>MVC 게시판 - view</title>
+ <title>RocketLaptop - 문의사항</title>
  <jsp:include page="header.jsp"/>
-<script src="js/view.js"></script>
+<script src="js/qna/qnaView.js"></script>
 <link rel="stylesheet" href="css/qna/view.css"> 
 <script>
 	$(function(){
@@ -29,11 +29,12 @@
 </style>
 </head>
 <body>
+<input type="hidden" value="-1" class='search_field'>
 <jsp:include page="headernav.jsp" />
  <input type="hidden" id="loginid" value="${user_id}" name="loginid">
  <div class="container">
   <table class="table">
-  	<tr><th colspan="2">MVC 게시판-view페이지</th></tr>
+  	<tr><th colspan="2"><h1>RocketLaptop - 문의사항 상세</h1></th></tr>
   	<tr>
   		<td><div>글쓴이</div></td>
   		<td><div>${qnadata.qna_name}</div></td>
@@ -68,7 +69,7 @@
 				<button class="btn btn-primary">답변</button>
 			</a>
 
-		<c:if test="${qnadata.qna_name == id || id == 'admin'}">
+		<c:if test="${qnadata.qna_name == user_id || user_id == 'admin'}">
 			<a href="QnaModifyView.ma?num=${qnadata.qna_num}">
 				<button class="btn btn-info">수정</button>
 			</a>
@@ -140,5 +141,8 @@
 	 	 </div> <!-- CommentWriter end -->
  	 </div><!-- CommentBox end -->
   </div><!-- class="container" -->
+  
+  <hr>
+  <jsp:include page="footer.jsp" />
 </body>
 </html>

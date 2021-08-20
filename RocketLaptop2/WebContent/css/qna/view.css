@@ -1,4 +1,4 @@
-.container{width:80%}
+.container{width:50%; margin-bottom : 50px;}
 body>div>table>tbody>tr:nth-child(1) {
 	text-align: center
 }
@@ -36,7 +36,7 @@ body>div>table>tbody tr:last-child {
 	width: 60%
 }
 
-/* Å©±â Á¶Àý °íÁ¤*/
+/* Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 textarea.form-control {
 	resize: none
 }
@@ -232,7 +232,7 @@ textarea.comment_inbox_text {
 }
 
 button, textarea {
-	font-family: Apple SD Gothic Neo, ¸¼Àº °íµñ, Malgun Gothic, µ¸¿ò, dotum,
+	font-family: Apple SD Gothic Neo, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, Malgun Gothic, ï¿½ï¿½ï¿½ï¿½, dotum,
 		sans-serif;
 }
 

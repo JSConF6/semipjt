@@ -2,21 +2,23 @@
 <html>
 <head>
  <jsp:include page="header.jsp" /> 
- <script src="js/main/qnaWriteform.js"></script> 
+ <script src="js/qna/qnaWriteform.js"></script> 
  <style>
- 	h1{font-size:1.5rem; text-align:center; color:#1a92b9}
- 	.container{width:60%}
+ 	h1{font-size:1.5rem; text-align:center; margin-top : 20px;}
+ 	.container{width:45%; margin-bottom : 50px;}
  	label{font-weight:bold}
  	#qna_upfile{display:none}
- 	img{width:20px;}
+ 	.fileimg{width:20px;}
+ 	textarea{resize : none;}
  </style>
 </head>
 <body>
+<input type="hidden" value="-1" class="search_field">
 <jsp:include page="headernav.jsp" />
 <div class="container">
   <form action="QnaAddAction.ma" method="post" enctype="multipart/form-data"
   		name="qnaform">
-  	<h1>MVC 게시판-write 페이지</h1>		
+  	<h1 style="font-size : 40px;">RocketLaptop - 문의사항 글쓰기</h1>		
   	<div class="form-group">
   	<label for="qna_name">글쓴이</label>
   	<input name="qna_name" id="qna_name" value="${user_id}" readOnly
@@ -40,16 +42,18 @@
   	<div class="form-group">
   	<label for="qna_file">파일 첨부</label>
   	<label for="upfile">
-  		<img src="image/attach.png" alt="파일첨부">
+  		<img src="image/attach.png" alt="파일첨부" class="fileimg">
   	</label>
   	<input type="file" id="qna_upfile"  name="qna_file">
   	<span id="qna_filevalue"></span>
   	</div>	
-	<div class="form-group">
+	<div class="form-group text-right">
 	<button type=submit class="btn btn-primary">등록</button>
-	<button type=reset class="btn btn-danger">취소</button>
+	<a class="btn btn-danger" href="javascript:history.back();">취소</a>
 	</div>
   </form>
-</div>  
+</div>
+<hr>
+<jsp:include page="footer.jsp" />
 </body>
 </html>

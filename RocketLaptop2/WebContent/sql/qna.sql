@@ -1,4 +1,5 @@
 drop table qna cascade constraints;
+
 CREATE TABLE QNA(
 	QNA_NUM			NUMBER, 		--글 번호
 	QNA_NAME		VARCHAR2(30),	--작성자

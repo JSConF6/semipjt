@@ -2,21 +2,21 @@ $(document).ready(function(){
 	//submit 버튼 클릭할 때 이벤트 부분
 	$("form").submit(function() {
 		
-		if ($.trim($("input").eq(1).val()) == "") {
+		if ($.trim($("#qna_pass").val()) == "") {
 			alert("비밀번호를 입력하세요");
-			$("input:eq(1)").focus();
+			$("#qna_pass").focus();
 			return false;
 		}
 	
-		if ($.trim($("input").eq(2).val()) == "") {
+		if ($.trim($("#qna_subject").val()) == "") {
 			alert("제목을 입력하세요");
-			$("input:eq(2)").focus();
+			$("#qna_subject").focus();
 			return false;
 		}
 
-		if ($.trim($("textarea").val()) == "") {
+		if ($.trim($("#qna_content").val()) == "") {
 			alert("내용을 입력하세요");
-			$("textarea").focus();
+			$("#qna_content").focus();
 			return false;
 		}
 		/*

@@ -16,11 +16,12 @@
    body > div > table > thead > tr:nth-child(2) > th:nth-child(5){width:11%}
  </style>
  <script src="js/qna/qnaList.js"></script>
-<title>MVC 게시판</title>
+<title>RocketLaptop - 문의사항</title>
 </head>
 <body>
+	<input type="hidden" value="-1" class="search_field">
 	<jsp:include page="headernav.jsp" />
-	<div class="container">
+	<div class="container" style="margin-bottom : 130px;">
 		<div class='intro_message'>
        	      <p>&nbsp;<img src="image/qna.jpg" class="txc-image" width="1110" height="200" style="clear: none; float: none;" /></p></div>
 		<%-- 게시글이 있는 경우--%>
