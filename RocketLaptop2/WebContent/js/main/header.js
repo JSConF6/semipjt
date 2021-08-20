@@ -98,6 +98,7 @@ $(function(){
 					$('#update_user_password').val(data.user_password);
 					$('#update_user_name').val(data.user_name);
 					$('#update_user_birthdate').val(data.user_birthdate);
+					 console.log(data.user_gender);
 					$("input[name=update_user_gender][value="+data.user_gender+"]").prop("checked",true);
 					$('#update_user_email').val(data.user_email);
 					$('#update_user_phone').val(data.user_phone);
