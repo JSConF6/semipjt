@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.carousel-inner img {
+	width : 100%;
+	height : 100%;
+}
+
+.card{
+	border : 1px solid midnightblue;
+}
+
+.card-img-top{
+	border-bottom : 1px solid midnightblue;
+}
+
+.card-body{
+	border-bottom : 1px solid midnightblue;
+}
+
+.row > .col > .card > .card-body > p{
+	margin-bottom : 0px;
+}
+
+.row > .col > .card > .card-body{
+	font-size : 20px;
+}
+
+#bestProductMain > .row > .col > .card > .card-body{
+	height : 170px;
+}
+
+#newProductMain > .row > .col > .card > .card-body{
+	height : 155px;
+}

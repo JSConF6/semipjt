@@ -1,6 +1,5 @@
 package net.member.action;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,7 +19,7 @@ public class MemberUpdateProcessAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		ActionForward forward = new ActionForward();
 		String realFolder ="";
 		
 		//WebContent 아래에 꼭 폴더 생성하세요
@@ -59,33 +58,36 @@ public class MemberUpdateProcessAction implements Action {
 			m.setUser_address2(user_address2);
 			
 			
-			//String check = multi.getParameter("check");
-			//System.out.println("check" + check);
-			//if(check != null) {
-				//m.setUser_memberfile(check);
-			//}else {
-			
-			String user_memberfile = multi.getFilesystemName("update_user_memberfile");
-			m.setUser_memberfile(user_memberfile);
-			//}
+			String check = multi.getParameter("check");
+			System.out.println("check = " + check);
+			if(check != null) {
+				m.setUser_memberfile(check);
+			}else {
+				String user_memberfile = multi.getFilesystemName("update_user_memberfile");
+				m.setUser_memberfile(user_memberfile);
+			}
 			MemberDAO mdao = new MemberDAO();
 			int result = mdao.memberUpdate(m);
 			
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
 			if (result == 1) { // 삽입이 된 경우
-				out.println("alert('회원정보가 수정되었습니다.');");
-			} else if (result == -1) {
-				out.println("alert('회원 정보 수정에 실패했습니다.');");
-				//out.println("history.back()");// 비밀번호를 제외한 다른 데이터는 유지되어 있습니다.
-			}
-			out.println("location.href='main.ma';");
-			out.println("</script>");
-			out.close();
-			return null;
+				forward.setRedirect(false);
+				request.setAttribute("maintitle", "회원 정보 수정");
+				request.setAttribute("title", "회원 정보 수정");
+				request.setAttribute("body", "회원 정보가 수정되었습니다.");
+				request.setAttribute("path", "main.ma");
+				forward.setPath("Modal/SuccessModal.jsp");
+				return forward;
+			} 
+			
+			forward.setRedirect(false);
+			request.setAttribute("maintitle", "회원 정보 수정");
+			request.setAttribute("title", "회원 정보 수정");
+			request.setAttribute("body", "회원 정보 수정 실패");
+			request.setAttribute("path", "main.ma");
+			forward.setPath("Modal/SuccessModal.jsp");
+			return forward;
+			
 		} catch (IOException ex) {
-			ActionForward forward = new ActionForward();
 			forward.setPath("error/error.jsp");
 			request.setAttribute("message", "회원정보수정 페이지 접근 실패입니다.");
 			forward.setRedirect(false);

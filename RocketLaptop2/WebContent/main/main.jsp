@@ -4,13 +4,8 @@
 	<head>
 		<jsp:include page="header.jsp" />
 		<title>RocketLaptop</title>
+		<link href="css/main/main.css" type="text/css" rel="stylesheet">
 		<script type="text/javascript" src="js/main/main.js"></script>
-		<style>
-			.carousel-inner img {
-		   		width: 100%;
-		   		height: 100%;
-		  	}
-		</style>
 	</head>
 	<body>
 		<input type="hidden" value="-1" class="search_field">
@@ -64,6 +59,8 @@
 		<div class="container mb-5" id="newProductMain">
 			<h3>새로운 상품</h3>
 		</div>
+		
+		<hr>
 		<jsp:include page="footer.jsp" />
 		
 		<!-- 오류 모달창 -->

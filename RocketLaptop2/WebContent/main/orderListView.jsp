@@ -5,9 +5,11 @@
 	<head>
 		<jsp:include page="header.jsp" />
 		<title>RocketLaptop - 주문 목록</title>
+		<style>
+			.gray{color : gray;}
+		</style>
 	</head>
 	<body>
-		<input type="hidden" value="-1" class="search_field">
 		<jsp:include page="headernav.jsp" />
 		<div class="container text-center">
 			<h1 class="mt-3 mb-3">주문 목록</h1>
@@ -39,6 +41,45 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
+				<ul class="pagination justify-content-center">
+					<c:if test="${page <= 1 }">
+						<li class="page-item">
+							<a class="page-link gray">이전&nbsp;</a>
+						</li>
+					</c:if>
+					<c:if test="${page > 1 }">
+						<li class="page-item">
+							<a href="OrderListView.ma?page=${page-1}&search_field=${search_field}&user_id=${param.user_id}" class="page-link">이전&nbsp;</a>
+						</li>
+					</c:if>
+					
+					<c:forEach var="a" begin="${startpage}" end="${endpage}">
+						<c:if test="${a == page }">
+							<li class="page-item " >
+					   			<a class="page-link gray">${a}</a>
+							</li>
+						</c:if>
+						<c:if test="${a != page }">
+				    		<li class="page-item">
+					   			<a href="OrderListView.ma?page=${a}&search_field=${search_field}&user_id=${param.user_id}" 
+					      		class="page-link">${a}</a>
+				    		</li>	
+						</c:if>
+					</c:forEach>
+					
+				    <c:if test="${page >= maxpage }">
+						<li class="page-item">
+				   			<a class="page-link gray">&nbsp;다음</a> 
+						</li>
+					</c:if>
+					<c:if test="${page < maxpage }">
+						<li class="page-item">
+							<a href="OrderListView.ma?page=${page+1}&search_field=${search_field}&user_id=${param.user_id}" 
+				   				class="page-link">&nbsp;다음</a>
+						</li>	
+					</c:if>
+				</ul>
 			</c:if>
 		</div>
 		<c:if test="${listcount == 0}">

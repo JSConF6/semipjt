@@ -97,7 +97,7 @@
 <!--  로그인  모달 기능 구현 소스 _ 향후 배경 색상 검토 할 것!! -->
 <!-- LoginModal -->
 <div class="modal hide fade" id="loginModal" role="dialog">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-dialog-centered">
     
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -195,26 +195,17 @@
 						<span class="glyphicon glyphicon-paperclip"></span> 프로필사진<br>
 						<label for="user_memberfile"><img src="image/attach.png" width="20px"></label> 
 						<span id="filename">${memberinfo.user_memberfile}</span>
-
-						<%-- memberinfo.memberfile의 값이 없으면 기본 사진을 보여줍니다.
-							값이 존재하면 memberupload 폴더에 존재하는 파일명으로 경로를 설정합니다. --%>
 						<span id="showImage">
-							<c:if test='${empty memberinfo.user_memberfile}'>
-								<c:set var='src' value='image/profile.png'/>
-							</c:if>
-							<c:if test='${!empty memberinfo.user_memberfile}'>
-								<c:set var='src' value='${"memberupload/"}${memberinfo.user_memberfile}'/>
-							</c:if>
-							<%-- 위에서 memberinfo.memberfile의 값이 있는 경우와 없는 경우에 따라 src 속성값이 달라집니다. --%>	
+							<c:set var='src' value='image/profile.png'/>
 							<img src="${src}" id="filenameSrc" width="20px" alt="profile">
 						</span>
 						<input type="file" name="user_memberfile" id="user_memberfile" maxLength="20" accept="image/*">
 					</div>
 					<div> 
-						<ul class="pagination justify-content-center ">
-						<li><button type="submit" class="btn btn-primary btn-lg">가입완료</button></li>
-			    		<li><button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">가입취소</button></li>
-			    		</ul>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary btn-lg">가입완료</button>
+			    			<button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">가입취소</button>
+			    		</div>
 					</div> 
 		  		</form>
 			</div>
@@ -300,12 +291,10 @@
 						<input type="file"  name="update_user_memberfile" id="update_user_memberfile" maxLength="20" accept="image/*">
 					</div>
 					<!-- justify-content-center : 가운데 정렬 -->		
-						<div> 
-							<ul class="pagination justify-content-center ">
-								<li><button type="submit" class="btn btn-primary btn-lg">수정완료</button></li>
-					    		<li><button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">수정취소</button></li>
-					    		<li><a data-toggle="modal" href="#myModal2" class="btn btn-danger btn-lg">회원탈퇴</a></li>				
-				    		</ul>
+						<div class="text-center"> 
+							<button type="submit" class="btn btn-primary btn-lg">수정완료</button>
+					    	<button type="button" class="btn btn-secondary btn-lg" data-dismiss="modal">수정취소</button>
+					    	<button type="button" class="btn btn-danger btn-lg membersecbtn">회원탈퇴</button>			
 						</div> 
 		  		</form>
 			</div>
@@ -343,8 +332,8 @@
 
 
 <!-- 회원탈퇴  modal -->
-    <div class="modal" id="myModal2" aria-hidden="true" style="display: none; z-index: 1180;">
-    	<div class="modal-dialog">
+    <div class="modal" id="myModal2" aria-hidden="true">
+    	<div class="modal-dialog modal-dialog-centered" style="width: 340px;">
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">회원탈퇴 최종확인</h4>
@@ -363,6 +352,32 @@
           </div>
         </div>
     </div>
+    
+    <!-- 회원 탈퇴 확인 모달창 -->
+<div class="modal hide fade" id="memberSecConfirmModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">회원 탈퇴</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body">
+			  <h3>정말 탈퇴하시겠습니까??</h3>
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary memSecConbtn">탈퇴</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
 
 
 <!-- 비밀번호 찾기 확인 모달창 -->

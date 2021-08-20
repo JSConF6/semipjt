@@ -29,8 +29,15 @@ $(function(){
 		$("#signup_modal").modal();
 	});
 	
+	// 회원가입 모달
 	$("#signup").click(function(){
 		$("#signup_modal").modal();
+	});
+	
+	// 회원탈퇴 모달
+	$('.membersecbtn').click(function(){
+		$("#updateMember_modal").modal('hide');
+		$("#myModal2").modal('show');
 	});
 	 
 	// -----------------------------------  회원탈퇴 유효성 --------------------------------
@@ -43,32 +50,40 @@ $(function(){
 					  console.log("ajax2"+data.user_password);
 					  	  // 패스워드 입력 확인
 					  if($('#checkPassword').val() == ""){
-						  alert("패스워드를 입력해 주세요.");
-						  $('#checkPassword').focus();
-						  return;
+						$('#ErrorModal').modal('show');
+						$('#ErrorModal-Title').text("회원탈퇴 유효성");
+						$('#ErrorModal-body').html("<h3>패스워드를 입력해 주세요.</h3>");
+						return;
 					  }else if($('#checkPassword').val() !=  data.user_password){
-						  alert("비밀번호가 일치하지 않습니다.");
-						  return;
+						$('#ErrorModal').modal('show');
+						$('#ErrorModal-Title').text("회원탈퇴 유효성");
+						$('#ErrorModal-body').html("<h4>비밀번호가 일치하지 않습니다.</h4>");
+						$('#checkPassword').val('');
+						return;
 					  }else{
 						  // 탈퇴
-						  var result = confirm("정말 탈퇴 하시겠습니까?");
-						  if(result){
+						  $('#memberSecConfirmModal').modal('show');
+						  $('#memberDeleteform').append("<input type='hidden' value='" + data.user_id + "'name='user_id'>");
+						  $('.memSecConbtn').click(function(){							  
 							  $('#memberDeleteform').submit();
-						  	  }
+						  });
 					  }
 				  },
 				  error: function(){
-								alert("서버 에러");
+					alert("서버 에러");
 				  }
 		  });// ajax end
 	  });// ('#secession').click end
 
+	// 회원 수정 모달
 	$("#updateMember").click(function(){
 		var user_id = $('.headernavid').val();
 		if(user_id == ''){
-			$('#headerNavErrorModal').modal('show');
-			$('#headerNavErrorModal-Title').text('마이페이지');
-			$('#headerNavErrorModal-body').html('<h3>로그인 후 이용해주세요.</h3>');
+			$('#MyPageErrorModal').modal('show');
+			$('.MyPageErrorBtn').click(function(){
+				$('#MyPageErrorModal').modal('hide');
+				$('#loginModal').modal('show');
+			});
 		}else{
 			//정보가져오는 url ajax로 가져오기
 			$.ajax({
@@ -97,7 +112,7 @@ $(function(){
 					}
 				}
 			})
-			$("#updateMember_modal").modal();  
+			$("#updateMember_modal").modal('show');  
 		}
 	});
 	  
@@ -175,9 +190,8 @@ $(function(){
 		}
 			
 	});
-	  
+	
 	$('#user_memberfile').change(function(event){
-		var check = 0;
 		var inputfile = $(this).val().split('\\');
 		var filename=inputfile[inputfile.length - 1];
 		var pattern = /(gif|jpg|jpeg|png)$/i;//플래그 i는 대소문자 구분없는 검색
@@ -190,13 +204,11 @@ $(function(){
 			//읽어온 결과는 reader객체의 result 속성에 저장됩니다.
 			//event.target.files[0] : 선택한 그림의 파일객체에서 첫번째 객체를 가져옵니다.
 			reader.readAsDataURL(event.target.files[0]);
-			check++;
 			reader.onload = function(event) {//읽기에 성공했을 때 실행되는 이벤트 핸들러
 				$('#filenameSrc').attr('src',event.target.result);
 			};
 		}else{
 			alert('확장자는 gif, jpg, jpeg, png가 가능합니다.');
-			check=0;
 		}
 	})//$('input[type=file]').change() end
 	  
@@ -326,11 +338,17 @@ $(function(){
 			$('#update_user_phone').val('');
 			return false;
 		}
+		
+		if(check == 0){
+			value = $('#update_filename').text();
+			html = "<input type='text' value='" + value + "' name='check'>";
+			$(this).append(html);
+		}
 			
 	});
 	  
+	var check = 0;
 	$('#update_user_memberfile').change(function(event){
-		var check = 0;
 		var inputfile = $(this).val().split('\\');
 		var filename=inputfile[inputfile.length - 1];
 		var pattern = /(gif|jpg|jpeg|png)$/i;//플래그 i는 대소문자 구분없는 검색

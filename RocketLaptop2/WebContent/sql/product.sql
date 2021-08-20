@@ -51,6 +51,19 @@ from (select rownum rnum, p.*
 	  )
 where rnum >= 1 and rnum <= 10;
 
+--
+select *
+from (select rownum rnum, p.*
+	  from (select p.product_code, p.category_code, c.category_name, p.product_name,
+	  		p.product_price, p.product_details, p.product_status,
+	  		p.product_image, p.product_sales, p.product_date
+	  		from product p, category c
+	  		where p.category_code = c.category_code
+	  		order by product_code asc) p
+	  where category_name like '%SAMSUNG%'
+	  )
+where rnum >= 1 and rnum <= 6;
+
 -- 상품 상세정보 쿼리
 select p.*
 from (select p.product_code, p.category_code, c.category_name, p.product_name,
@@ -75,7 +88,7 @@ where rnum >= 1 and rnum <= 3;
 select *
 from (select rownum rnum, p.*
 	  from (select p.product_code, p.category_code, c.category_name, p.product_name,
-	  		p.product_price, p.product_details, p.product_stock, p.product_status,
+	  		p.product_price, p.product_details, p.product_status,
 	  		p.product_image, p.product_sales, p.product_date
 	  		from product p, category c
 	  		where p.category_code = c.category_code
@@ -125,6 +138,22 @@ where product_code = 'A00006';
 update PRODUCT
 set product_sales = 8
 where product_code = 'A00008';
+
+update PRODUCT
+set product_sales = 8
+where product_code = 'A00009';
+
+update PRODUCT
+set product_sales = 8
+where product_code = 'A00010';
+
+update PRODUCT
+set product_sales = 8
+where product_code = 'A00011';
+
+update PRODUCT
+set product_sales = 8
+where product_code = 'A00012';
 
 delete PRODUCT;
 

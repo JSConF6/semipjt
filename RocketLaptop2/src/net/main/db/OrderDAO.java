@@ -26,14 +26,16 @@ private DataSource ds;
 		}
 	}
 
-	public int orderInsert(Order order) {
+	public int orderInsert(Order order, String cartNumArr) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = "insert into order_tb (order_num, user_id, order_name, "
 				   + "user_address1, user_address2, user_address3, order_phone, "
 				   + "order_totalprice, order_payment) "
 				   + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
+		List<OrderDetail> OrderDeList = new ArrayList<OrderDetail>();
 		int result = 0;
 		try{
 			con = ds.getConnection();
@@ -56,17 +58,123 @@ private DataSource ds;
 				+ "(order_de_num, order_num, product_code, order_de_count) "
 				+ "select order_detail_seq.nextval, ?, product_code, order_de_count "
 				+ "from cart "
-				+ "where user_id = ?";
+				+ "where user_id = ?"
+				+ "and cart_num in (" + cartNumArr + ")";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, order.getOrder_num());
 			pstmt.setString(2, order.getUser_id());
 			pstmt.executeUpdate();
 			pstmt.close();
 			
+			sql = "select *"
+				+ "from order_detail "
+				+ "where order_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, order.getOrder_num());
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				OrderDetail orderDetail = new OrderDetail();
+				orderDetail.setProduct_code(rs.getString("product_code"));
+				orderDetail.setOrder_de_count(rs.getInt("order_de_count"));
+				OrderDeList.add(orderDetail);
+			}
+			pstmt.close();
+			
+			sql = "update product "
+				+ "set product_sales = product_sales + ? "
+				+ "where product_code = ?";
+			for(OrderDetail od : OrderDeList) {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, od.getOrder_de_count());
+				pstmt.setString(2, od.getProduct_code());
+				pstmt.executeUpdate();
+				pstmt.close();
+			}
+			
 			sql = "delete cart "
-				+ "where user_id = ?";
+				+ "where user_id = ?"
+				+ "and cart_num in (" + cartNumArr + ")";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, order.getUser_id());
+			result = pstmt.executeUpdate();
+			if(result == 0) {
+				con.rollback();
+			}else {
+				con.commit();
+			}
+			
+		}catch(Exception ex) {
+			System.out.println("orderInsert() 에러 : " + ex);
+			if(con != null) {
+				try{
+					con.rollback();
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.setAutoCommit(true);
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return result;
+	} // orderInsert() end
+	
+	public int orderInsert(Order order, String product_code, int order_de_count) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "insert into order_tb (order_num, user_id, order_name, "
+				   + "user_address1, user_address2, user_address3, order_phone, "
+				   + "order_totalprice, order_payment) "
+				   + "values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		int result = 0;
+		try{
+			con = ds.getConnection();
+			
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, order.getOrder_num());
+			pstmt.setString(2, order.getUser_id());
+			pstmt.setString(3, order.getOrder_name());
+			pstmt.setString(4,  order.getUser_address1());
+			pstmt.setString(5,  order.getUser_address2());
+			pstmt.setString(6,  order.getUser_address3());
+			pstmt.setString(7,  order.getOrder_phone());
+			pstmt.setInt(8,  order.getOrder_totalprice());
+			pstmt.setString(9, order.getOrder_payment());
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			sql = "insert into order_detail "
+				+ "(order_de_num, order_num, product_code, order_de_count) "
+				+ "values(order_detail_seq.nextval, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, order.getOrder_num());
+			pstmt.setString(2, product_code);
+			pstmt.setInt(3, order_de_count);
+			result = pstmt.executeUpdate();
+			
+			sql = "update product "
+				+ "set product_sales = product_sales + ? "
+				+ "where product_code = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order_de_count);
+			pstmt.setString(2, product_code);
 			result = pstmt.executeUpdate();
 			if(result == 0) {
 				con.rollback();
@@ -119,6 +227,74 @@ private DataSource ds;
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Order order = new Order();
+				order.setOrder_num(rs.getString("order_num"));
+				order.setOrder_name(rs.getString("order_name"));
+				order.setUser_address1(rs.getString("user_address1"));
+				order.setUser_address2(rs.getString("user_address2"));
+				order.setUser_address3(rs.getString("user_address3"));
+				order.setOrder_phone(rs.getString("order_phone"));
+				order.setOrder_totalprice(rs.getInt("order_totalprice"));
+				order.setOrder_payment(rs.getString("order_payment"));
+				order.setOrder_delivery(rs.getString("order_delivery"));
+				list.add(order);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getOrderList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	} // getOrderList() end
+	
+	public List<Order> getOrderList(String user_id, int page, int limit) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * " 
+					+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, "
+					+	  		  "order_phone, order_totalprice, order_payment, order_delivery, order_date " 
+					+	   "from order_tb " 
+					+	   "where user_id = ? " 
+					+	   "order by order_date asc)" 
+					+"where rnum >= ? and rnum <= ?";
+		
+		List<Order> list = new ArrayList<Order>();
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -816,6 +992,6 @@ private DataSource ds;
 			}
 		}
 		return result;
-	}
+	} // orderDeliveryUpdate() end
 	
 }

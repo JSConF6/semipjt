@@ -46,10 +46,52 @@ $(function(){
 		}
 	});
 	
+	function cartSum(){
+		var sum = 0;
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){
+				sum += parseInt($(list[i]).val());
+			}
+		}
+		$('.orderPrice').text("주문 가격 : " + Number(sum).toLocaleString('en') + "원");
+		$('input[name="pricesum"]').val(sum);
+	}
+	
+	$('input[name="RowCheck"]').click(function(){
+		cartSum();
+	});
+	
 	// 주문 부분
 	$('.orderbtn').click(function(){
-		$('#OrderInfoModal').modal('show');
-		
+		var valueArr = new Array();
+		var user_id = $('.checkUser_id').val();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0){
+			$("#ErrorModal").modal('show');
+			$('#ErrorModal-Title').text('상품 주문');
+			$("#ErrorModal-body").html("<span style='font-size : 23px;'>주문 하실 상품을 선택해주세요.</span>");
+		}else{			
+			$('#OrderInfoModal').modal('show');
+		}
+	});
+	
+	$("#orderFrombtn").click(function(){
+		var valueArr = new Array();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){
+				valueArr.push($(list[i]).attr("data-cartNum"));
+			}
+		}
+		console.log(valueArr);
+		$('input[name="cartNumArr"]').val(valueArr);
+		$('#OrderForm').submit();
 	});
 	
 	// 다음 우편 검색 API
@@ -96,6 +138,7 @@ $(function(){
 		var chk_listArr = $('input[name="RowCheck"]');
 		for(var i = 0; i < chk_listArr.length; i++){
 			chk_listArr[i].checked = this.checked;
+			cartSum();
 		}
 	});
 	
@@ -113,7 +156,7 @@ $(function(){
 		 var list = $("input[name='RowCheck']");
 		 for(var i = 0; i < list.length; i++){
 			 if(list[i].checked){
-				 valueArr.push(list[i].value);
+				 valueArr.push($(list[i]).attr('data-cartNum'));
 			 }
 		 }
 		 if(valueArr.length == 0){
@@ -169,7 +212,7 @@ $(function(){
 	}
 	
 	$('.cartdelbtn').click(function(){
-		var cart_num = $(this).attr('data-cartNum');
+		var cart_num = $(this).val();
 		cartDelete(cart_num);
 	});
 });

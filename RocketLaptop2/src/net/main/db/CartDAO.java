@@ -262,6 +262,81 @@ public class CartDAO {
 		}
 		return result;
 	} // CartSelectionDelete() end
+
+	public List<CartList> getCartList(String user_id, String[] cartValues) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select c.cart_num, c.user_id, c.product_code, c.order_de_count, " 
+					+"c.adddate, p.product_name, p.product_price, p.product_image " 
+					+"from cart c, product p "
+					+"where c.product_code = p.product_code "
+					+"and c.user_id = ? ";
+		
+		String cartvalues = "and c.cart_num in (";
+		for(int i = 0; i < cartValues.length; i++) {
+			cartvalues += cartValues[i];
+			if(i != cartValues.length - 1) {
+				cartvalues += ", ";
+			}
+		}
+		cartvalues += ")";
+		
+		sql += cartvalues;
+		
+		System.out.println(sql);
+		
+		List<CartList> list = new ArrayList<CartList>();
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			rs = pstmt.executeQuery();
+			
+			// DB에서 가져온 데이터를 VO객체에 담습니다.
+			while(rs.next()) {
+				CartList cartlist = new CartList();
+				cartlist.setCart_num(rs.getInt("cart_num"));
+				cartlist.setProduct_code(rs.getString("product_code"));
+				cartlist.setUser_id(rs.getString("user_id"));
+				cartlist.setOrder_de_count(rs.getInt("order_de_count"));
+				cartlist.setAdddate(rs.getString("adddate"));
+				cartlist.setProduct_name(rs.getString("product_name"));
+				cartlist.setProduct_price(rs.getInt("product_price"));
+				cartlist.setProduct_image(rs.getString("product_image"));
+				list.add(cartlist);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getCartList() 에러 : " + ex);
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try{
+					con.close();
+				}catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
 	
 	
 }

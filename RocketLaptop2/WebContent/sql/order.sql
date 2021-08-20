@@ -30,6 +30,15 @@ from order_tb o, order_detail d
 where o.order_num = d.order_num
 and o.user_id = 'admin';
 
+--
+select *
+from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3,
+	  		 order_phone, order_totalprice, order_payment, order_delivery, order_date
+	  from order_tb o
+	  where o.user_id = 'java2'
+	  order by o.order_date asc)
+where rnum >= 1 and rnum <= 5;
+
 -- 특정 id의 주문상세보기 검색 쿼리
 select o.order_num, o.user_id, o.order_name, o.user_address1, o.user_address2, o.user_address3,
 	   o.order_phone, o.order_totalprice, o.order_payment, o.order_delivery, o.order_date,
@@ -81,5 +90,7 @@ and p.product_code = d.product_code;
 select *
 from ORDER_DETAIL
 where order_num = '210819_975349';
+
+delete order_tb;
 
 DROP TABLE ORDER_TB;

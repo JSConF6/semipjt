@@ -20,8 +20,8 @@ public class MainNoticeListAction implements Action {
 		List<Notice> noticelist = new ArrayList<Notice>();
 		
 		
-		int page = 1; // 보여줄 page
-		int limit = 10; // 한 페이지에 보여줄 공지사항 목록의 수
+		int page = 1;
+		int limit = 10;
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
@@ -50,15 +50,12 @@ public class MainNoticeListAction implements Action {
 		request.setAttribute("page", page);
 		request.setAttribute("maxpage", maxpage);
 			
-		// 현재 페이지에 표시할 첫 페이지 수
 		request.setAttribute("startpage", startpage);
 			
-		// 현재 페이지에 표시할 끝 페이지 수
 		request.setAttribute("endpage", endpage);
 			
 		request.setAttribute("listcount", listcount);
 			
-		// 해당 페이지의 공지사항 목록을 갖고 있는 리스트
 		request.setAttribute("noticelist", noticelist);
 		request.setAttribute("limit", limit);
 		ActionForward forward = new ActionForward();

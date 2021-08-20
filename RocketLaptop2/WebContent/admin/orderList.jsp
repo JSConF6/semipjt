@@ -11,7 +11,7 @@
 		<link href="css/order/orderList.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="container text-center OrderMain">
+		<div class="container text-center OrderBodyDiv">
 			<c:if test="${user_id == 'admin' }">
 				<h1 class="OrderTitle"><a href="OrderList.ad">주문 목록</a></h1>
 				<form action="OrderList.ad" method="post">
@@ -36,7 +36,7 @@
 					</select>
 				</div>
 				<c:if test="${listcount > 0 }">
-					<table class="table table-striped table-bordered text-center OrderTable">
+					<table class="table table-striped table-bordered text-center OrderBodyTable">
 						<thead>
 							<tr>
 								<th>주문 번호</th>

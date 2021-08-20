@@ -21,7 +21,7 @@ public class MainCartAction implements Action {
 		String product_code = request.getParameter("product_code");
 		int order_de_count = Integer.parseInt(request.getParameter("order_de_count"));
 		
-		int checkid = 0;
+		int check = 0;
 		boolean result = false;
 		
 		if(!user_id.equals("")) {
@@ -30,14 +30,14 @@ public class MainCartAction implements Action {
 			cart.setOrder_de_count(order_de_count);
 			result = cdao.cartInsert(cart);
 			if(result == true) {
-				checkid = 1;
+				check = 1; // 장바구니 담기 성공
 			}else {
-				checkid = -1;
+				check = -1; // 장바구니 담기 실패 0이면 로그인 안하고 장바구니 담았을때
 			}
 		}
 		
 		response.setContentType("text/html;charset=UTF-8");
-		response.getWriter().print(checkid);
+		response.getWriter().print(check);
 		return null;
 	}
 

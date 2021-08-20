@@ -1,12 +1,13 @@
 $(function(){
-	function SetProduct(Img, Name, Content, info, href){
+	function SetProduct(Img, Name, Category, Price, info, href){
 		var output = "<div class='col'>" +
 					 	"<div class='card h-100'>" +
 					 		"<img src='LaptopImgUpload/" + Img + "' class='card-img-top' alt='...' height='60%'>" +
 					 		"<div class='card-body'>" +
-					 			"<h5 class='card-title'>" + Name + "</h5>" +
-					 			"<p class='card-text'>" + Content + "</p>" +
-					 			"<p class='card-text'>" + info + "</p>" +
+					 			"<p class='card-title'><span>노트북 이름&nbsp;&nbsp;:&nbsp;&nbsp;" + Name + "</span></p>" +
+					 			"<p class='card-text'><span>상품 브랜드&nbsp;&nbsp;:&nbsp;&nbsp;" + Category + "</span></p>" +
+					 			"<p class='card-text'><span>노트북 가격&nbsp;&nbsp;:&nbsp;&nbsp;" + Price + "원</span></p>" +
+					 			"<p class='card-text'><span>" + info + "</span></p>" +
 					 		"</div>" +
 					 		"<div class='card-footer text-center'>" +
 					 			"<a href='" + href + "'>상품 상세보기</a>" +
@@ -24,13 +25,17 @@ $(function(){
 			dataType : 'json',
 			cache : false,
 			success : function(data){
+				console.log(data)
 				$('#bestProductMain > #bestProduct').remove();
 				$('#newProductMain > #newProduct').remove();
 				var bestoutput = "<div class='row row-cols-1 row-cols-md-3 g-4' id='bestProduct'>";
 				if(data.bestlist.length != 0){
 					$(data.bestlist).each(function(index, item){
+						var price = Number(this.product_price).toLocaleString('en');
 						bestoutput += SetProduct(this.product_image, this.product_name,
-											 this.product_details, "상품 판매량 : " + this.product_sales, 'MainProductDetail.ma?product_code=' + this.product_code);
+											 this.category_name, price,
+											 "상품 판매량&nbsp;&nbsp;:&nbsp;&nbsp;" + this.product_sales + "개", 
+											 'MainProductDetail.ma?product_code=' + this.product_code);
 					});
 					bestoutput += "</div>";
 				}else{					
@@ -41,8 +46,11 @@ $(function(){
 				var newoutput = "<div class='row row-cols-1 row-cols-md-3 g-4' id='newProduct'>";
 				if(data.newlist.length != 0){
 					$(data.newlist).each(function(index, item){
+						var price = Number(this.product_price).toLocaleString('en');
 						newoutput += SetProduct(this.product_image, this.product_name,
-											 this.product_details, "상품 등록 날짜 : " + this.product_date, 'MainProductDetail.ma?product_code=' + this.product_code);
+											 this.category_name, price,
+											 "상품 등록일&nbsp;&nbsp;:&nbsp;&nbsp;" + this.product_date, 
+											 'MainProductDetail.ma?product_code=' + this.product_code);
 					});
 					newoutput += "</div>";
 				}else{					

@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.admin.db.Product;
 import net.admin.db.ProductDAO;
 
-public class MainCategoryListAction implements Action {
+public class MainAllProductListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ActionForward forward = new ActionForward();
+		List<Product> allproductlist = new ArrayList<Product>();
 		ProductDAO pdao = new ProductDAO();
-		List<Product> categoryproductlist = new ArrayList<Product>();
 		
 		int page = 1;
 		int limit = 6;
@@ -30,10 +31,8 @@ public class MainCategoryListAction implements Action {
 		int listcount = 0;
 		int index = -1;
 		
-		String search_field = "category_name";
-		String category_name = request.getParameter("category_name");
-		listcount = pdao.getProductListCount(search_field, category_name);
-		categoryproductlist = pdao.getProductList(search_field, category_name, page, limit);
+		listcount = pdao.getProductListCount();
+		allproductlist = pdao.getAllProductList(page, limit);
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수  = " + maxpage);
@@ -58,13 +57,12 @@ public class MainCategoryListAction implements Action {
 			
 		request.setAttribute("listcount", listcount);
 			
-		request.setAttribute("categoryproductlist", categoryproductlist);
+		request.setAttribute("allproductlist", allproductlist);
+		request.setAttribute("limit", limit);
 		request.setAttribute("search_field", index);
-		request.setAttribute("category_name", category_name);
-		ActionForward forward = new ActionForward();
+		
 		forward.setRedirect(false);
-			
-		forward.setPath("main/mainCategoryProductListView.jsp");
+		forward.setPath("main/mainAllProductView.jsp");
 		return forward;
 	}
 

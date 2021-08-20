@@ -4,26 +4,25 @@
 <html>
 	<head>
 		<jsp:include page="header.jsp" />
-		<title>RocketLaptop - 베스트 상품</title>
-		<link href="css/main/mainBestProductView.css" type="text/css" rel="stylesheet">
+		<title>RocketLaptop - 전체상품</title>
+		<link href="css/main/mainAllProductView.css" type="text/css" rel="stylesheet">
 	</head>
 	<body>
 		<jsp:include page="headernav.jsp" />
-		<div class="container"><h2 class="text-left mt-3">RocketLaptop 베스트 상품</h2></div>
+		<div class="container"><h2 class="text-left mt-3">RocketLaptop 전체 상품</h2></div>
 		<div class="container">
 			<c:if test="${listcount > 0 }">
-				<c:forEach var="b" items="${bestlist}">
-					<fmt:formatNumber var="product_price" pattern="###,###,###" value="${b.product_price}" />
+				<c:forEach var="a" items="${allproductlist}">
+					<fmt:formatNumber var="product_price" pattern="###,###,###" value="${a.product_price}" />
 					<div class="productItems">
-						<span style="font-size:20px;"><c:out value="${index}"/></span>
-						<a href="MainProductDetail.ma?product_code=${b.product_code}"><img width="100%" height="100%" src="${'LaptopImgUpload/'}${b.product_image}"></a>
+						<a href="MainProductDetail.ma?product_code=${a.product_code}"><img width="100%" height="100%" src="${'LaptopImgUpload/'}${a.product_image}"></a>
 						<div style="font-size : 20px">
-							<p class="text-center"><a href="MainProductDetail.ma?product_code=${b.product_code}"><span>${b.product_name}</span></a></p>
-							<p><span>상품 브랜드&nbsp;&nbsp;:&nbsp;&nbsp;${b.category_name }</span></p>
+							<p class="text-center"><a href="MainProductDetail.ma?product_code=${a.product_code}"><span>${a.product_name}</span></a></p>
+							<p><span>상품 브랜드&nbsp;&nbsp;:&nbsp;&nbsp;${a.category_name}</span></p>
 							<p><span>노트북 가격&nbsp;&nbsp;:&nbsp;&nbsp;${product_price } 원</span></p>
-							<p><span>노트북 상태&nbsp;&nbsp;:&nbsp;&nbsp;${b.product_status}</span></p>
-							<p><span>상품 판매량&nbsp;&nbsp;:&nbsp;&nbsp;${b.product_sales}개</span></p>
-							<p><span>상품 등록일&nbsp;&nbsp;:&nbsp;&nbsp;${b.product_date }</span></p>
+							<p><span>노트북 상태&nbsp;&nbsp;:&nbsp;&nbsp;${a.product_status}</span></p>
+							<p><span>상품 판매량&nbsp;&nbsp;:&nbsp;&nbsp;${a.product_sales}</span></p>
+							<p><span>상품 등록일&nbsp;&nbsp;:&nbsp;&nbsp;${a.product_date }</span></p>
 						</div>
 					</div>
 				</c:forEach>
@@ -37,7 +36,7 @@
 						</c:if>
 						<c:if test="${page > 1 }">
 							<li class="page-item">
-								<a href="MainBestProductList.ma?page=${page-1}&search_field=${search_field}" class="page-link">이전&nbsp;</a>
+								<a href="MainAllProductList.ma?page=${page-1}&search_field=${search_field}" class="page-link">이전&nbsp;</a>
 							</li>
 						</c:if>
 						
@@ -49,7 +48,7 @@
 							</c:if>
 							<c:if test="${a != page }">
 					    		<li class="page-item">
-						   			<a href="MainBestProductList.ma?page=${a}&search_field=${search_field}" 
+						   			<a href="MainAllProductList.ma?page=${a}&search_field=${search_field}" 
 						      		class="page-link">${a}</a>
 					    		</li>	
 							</c:if>
@@ -62,7 +61,7 @@
 						</c:if>
 						<c:if test="${page < maxpage }">
 								<li class="page-item">
-								<a href="MainBestProductList.ma?page=${page+1}&search_field=${search_field}" 
+								<a href="MainAllProductList.ma?page=${page+1}&search_field=${search_field}" 
 					   				class="page-link">&nbsp;다음</a>
 								</li>	
 						</c:if>
@@ -71,7 +70,7 @@
 			</c:if>
 		</div>
 		<c:if test="${listcount == 0}">
-			<h1 class="text-center">베스트 상품이 없습니다.</h1>
+			<h1 class="text-center">등록된 상품이 없습니다.</h1>
 		</c:if>
 		<hr>
 		<jsp:include page="footer.jsp" />

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.main.db.Order;
 import net.main.db.OrderDAO;
 
-public class OrderAction implements Action {
+public class MainOrderAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +33,8 @@ public class OrderAction implements Action {
 		}
 		
 		order_num = order_num + "_" + subNum;
+		String product_code = request.getParameter("product_code");
+		int order_de_count = Integer.parseInt(request.getParameter("order_de_count"));
 		String order_name = request.getParameter("order_name");
 		String order_phone = request.getParameter("order_phone");
 		String user_address1 = request.getParameter("order_address1");
@@ -41,7 +43,6 @@ public class OrderAction implements Action {
 		String order_payment = request.getParameter("order_payment");
 		String user_id = request.getParameter("user_id");
 		int order_totalprice = Integer.parseInt(request.getParameter("pricesum"));
-		String cartNumArr = request.getParameter("cartNumArr");
 		
 		order.setOrder_num(order_num);
 		order.setUser_id(user_id);
@@ -53,14 +54,14 @@ public class OrderAction implements Action {
 		order.setUser_address3(user_address3);
 		order.setOrder_payment(order_payment);
 		
-		int result = odao.orderInsert(order, cartNumArr);
+		int result = odao.orderInsert(order, product_code, order_de_count);
 		if(result == 0) {
 			System.out.println("주문 실패");
 			forward.setRedirect(false);
 			request.setAttribute("maintitle", "상품 주문");
 			request.setAttribute("title", "상품 주문");
 			request.setAttribute("body", "주문에 실패했습니다.");
-			request.setAttribute("path", "MainCartView.ma?user_id=" + user_id);
+			request.setAttribute("path", "MainProductDetail.ma?product_code=" + product_code);
 			forward.setPath("Modal/OrderModal.jsp");
 			return forward;
 		}

@@ -46,7 +46,7 @@
 
 	#headersearch{
 		height:  70px;
-		margin-left: 165px;
+		margin-left: 280px;
 	}
 </style>
 <nav class="navbar navbar-expand-sm bg-white navbar-dark pt-3 justify-content-center" id="headersearch">
@@ -99,6 +99,9 @@
 		  	</div>
 		</li>
 		
+		<li class="nav-item">
+			<a class="nav-link" href="MainAllProductList.ma">전체 상품</a>
+	  	</li>
 	  	<li class="nav-item">
 			<a class="nav-link" href="MainNewProductList.ma">새로운 상품</a>
 	  	</li>
@@ -113,6 +116,31 @@
 	 	</li>
 	</ul>
 </nav>
+
+<!-- 마이페이지 클릭했을때 로그인 안되있을떄 오류 모달창 -->
+<div class="modal hide fade" id="MyPageErrorModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">마이페이지</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body">
+			  <h3>로그인 후 이용해주세요.</h3>
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary MyPageErrorBtn">확인</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
 
 <!-- 오류 모달창 -->
 <div class="modal hide fade" id="headerNavErrorModal">

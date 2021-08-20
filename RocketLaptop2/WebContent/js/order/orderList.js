@@ -27,23 +27,22 @@ function ajax(sdata){
 		success : function(data){
 			console.log(data);
 			$('#order_delivery').val(data.delivery);
-			$('.OrderMain').find('h2').text("주문건수  : " + data.listcount);
+			$('.OrderBodyDiv').find('h2').text("주문건수  : " + data.listcount);
 			
 			if(data.listcount > 0){
 				$(".OrderBody").remove();
-				$('.OrderTable').remove();
-				$('tbody').remove();
+				$('.OrderBodyTable').remove();
 				
-				var output = "<table class='table table-striped table-bordered text-center orderTable'><thead><tr><th>주문 번호</th>" +
+				var output = "<table class='table table-striped table-bordered text-center OrderBodyTable'><thead><tr><th>주문 번호</th>" +
 							 "<th>수령인</th>" +
 							 "<th>수령인 연락처</th>" +
 							 "<th>주소</th>" +
 							 "<th>주문 가격</th>" +
 							 "<th>결제 방식</th>" +
-							 "<th>배송 상태</th></tr><tbody>";
+							 "<th>배송 상태</th></tr></thead><tbody>";
 				$(data.orderlist).each(function(index, item){
-					output += "<tr><td><a href='OrderDetailView.ma?order_num=" 
-						   + this.order_num + "user_id=" + this.user_id + "'>" + this.order_num + "</a></td>";
+					output += "<tr><td><a href='OrderDetail.ad?order_num=" 
+						   + this.order_num + "&user_id=" + this.user_id + "'>" + this.order_num + "</a></td>";
 					output += "<td>" + this.order_name + "</td>";
 					output += "<td>" + this.order_phone + "</td>";
 					output += "<td>(" + this.user_address1 + ") " + this.user_address2 + " " + this.user_address3 + "</td>";
@@ -53,7 +52,7 @@ function ajax(sdata){
 					output += "</tr>";
 				})
 				output += "</tbody></table>";
-				$('.OrderMain').append(output);
+				$('.OrderBodyDiv').append(output);
 				
 				$(".pagination").remove();
 				output = '<ul class="pagination justify-content-center">';
@@ -82,15 +81,17 @@ function ajax(sdata){
 				output += setPaging(href, digit);
 				output += '</ul>';
 				
-				$('.OrderMain').append(output);
+				$('.OrderBodyDiv').append(output);
 			}else if(data.listcount == 0){
 				output = '';
-				$(".OrderTable").remove();
+				$(".OrderBodyTable").remove();
 				$(".pagination").remove();
 				$(".OrderBody").remove();
-				if(data.listcount == 0 && data.search_word == ''){
-					output += '<h1 class="OrderBody">주문목록이 없습니다.</h1>';
-					$('.orderMain').append(output);
+				if(data.listcount == 0){
+					var order_delivery_num = $('#order_delivery').val();
+					var message = ['배송 준비중인 상품이 없습니다.', '배송 중인 상품이 없습니다.', '배송 완료된 상품이 없습니다.'];
+					output += '<h1 class="OrderBody">' + message[order_delivery_num] + '</h1>';
+					$('.OrderBodyDiv').append(output);
 				}
 			}
 		} // $.ajax end

@@ -51,7 +51,7 @@
 					</c:if>
 					<c:if test="${page > 1 }">
 						<li class="page-item">
-							<a href="MainNoticeList.ma?page=${page-1}&search_field=${search_field}&search_word=${search_word}" class="page-link">이전&nbsp;</a>
+							<a href="MainNoticeList.ma?page=${page-1}" class="page-link">이전&nbsp;</a>
 						</li>
 					</c:if>
 					
@@ -63,7 +63,7 @@
 						</c:if>
 						<c:if test="${a != page }">
 				    		<li class="page-item">
-					   			<a href="MainNoticeList.ma?page=${a}&search_field=${search_field}&search_word=${search_word}" 
+					   			<a href="MainNoticeList.ma?page=${a}" 
 					      		class="page-link">${a}</a>
 				    		</li>	
 						</c:if>
@@ -76,7 +76,7 @@
 					</c:if>
 					<c:if test="${page < maxpage }">
 			  			<li class="page-item">
-							<a href="MainNoticeList.ma?page=${page+1}&search_field=${search_field}&search_word=${search_word}" 
+							<a href="MainNoticeList.ma?page=${page+1}" 
 				   				class="page-link">&nbsp;다음</a>
 			  			</li>	
 					</c:if>

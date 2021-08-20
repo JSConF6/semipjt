@@ -33,12 +33,12 @@ values(6, 'A00001', 'admin', 1);
 insert into cart (cart_num, product_code, user_id, cart_stock)
 values(7, 'A00001', 'admin', 2);
 
-select c.cart_num, c.user_id, c.product_code, c.cart_stock,
+select c.cart_num, c.user_id, c.product_code, c.order_de_count,
 	   c.adddate, p.product_name, p.product_price, p.product_image
 from cart c, product p
 where c.product_code = p.product_code
-and c.user_id = 'admin'
-order by c.cart_num;
+and c.user_id = 'java2'
+and c.cart_num in (16);
 
 delete CART
 where cart_num in(6, 7)

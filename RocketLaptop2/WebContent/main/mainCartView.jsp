@@ -11,7 +11,7 @@
 		<input type="hidden" value="-1" class="search_field">
 		<input type="hidden" value="${user_id}" class="checkUser_id">
 		<jsp:include page="headernav.jsp"/>
-		<div class="container mt-4"><h1>장바구니</h1></div>
+		<div class="container mt-4 text-center"><h1>장바구니</h1></div>
 		<div class="container" style="margin-bottom : 50px;">
 			<c:if test="${listcount > 0}">
 				<table class="table table-striped text-center">
@@ -27,26 +27,24 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:set var="pricesum" value="0"/>
 						<c:forEach var="c" items="${cartlist}">
 							<c:set var="src" value="${'LaptopImgUpload/'}${c.product_image}"/>
 							<tr>
-								<td class="align-middle"><input name="RowCheck" type="checkbox" value="${c.cart_num}"></td>
+								<td class="align-middle"><input name="RowCheck" type="checkbox" value="${c.product_price * c.order_de_count}" data-cartNum="${c.cart_num}"></td>
 								<td class="align-middle"><img src="${src}" width="80px" height="80px"></td>
 								<td class="align-middle"><a href="MainProductDetail.ma?product_code=${c.product_code}">${c.product_name}</a></td>
-								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price}"/></td>
+								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price}"/>원</td>
 								<td class="align-middle">
 									<input class="text-center" type="number" value="${c.order_de_count}" readOnly style="width:40px;">
 								</td>
-								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price * c.order_de_count}"/></td>
-								<td class="align-middle"><button class="btn btn-danger cartdelbtn" data-cartNum="${c.cart_num}">삭제</button></td>
+								<td class="align-middle"><fmt:formatNumber pattern="###,###,###" value="${c.product_price * c.order_de_count}"/>원</td>
+								<td class="align-middle"><button class="btn btn-danger cartdelbtn" value="${c.cart_num}">삭제</button></td>
 							</tr>
-							<c:set var="pricesum" value="${pricesum + (c.product_price * c.order_de_count)}"/>
 						</c:forEach>
 					</tbody>
 				</table>
 				<div class="text-right"><button class="btn btn-danger float-left" id="selectionDelete">선택 삭제</button>
-				<span style="font-size : 30px;">주문 가격 : <fmt:formatNumber pattern="###,###,###" value="${pricesum}"/></span></div>
+				<span style="font-size : 30px;" class="orderPrice">주문 가격 : 0원</span></div>
 				<div class="text-right"><button class="btn btn-primary orderbtn" style="font-size: 20px; width: 100px;">주문</button></div>
 			</c:if>
 		</div>
@@ -91,7 +89,9 @@
 			        <div class="modal-body">
 		          		<form action="OrderAction.ma" id="OrderForm" method="post" name="OrderFrom">
 		          			<input type="hidden" value="${user_id}" name="user_id">
-		          			<input type="hidden" value="${pricesum}" name="pricesum">
+		          			<input type="hidden" value="" name="pricesum">
+		          			<input type="hidden" value="" name="cartNumArr">
+		          			
 							<!-- 수령인 -->
 							<div class="form-group text-left">
 				      			<label for="order_name">수령인</label>
@@ -152,7 +152,7 @@
 						   
 							<!-- 버튼 -->
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary">주문</button>
+								<button type="button" class="btn btn-primary" id="orderFrombtn">주문</button>
 								<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 							</div>
 						</form>
@@ -161,8 +161,8 @@
 			</div>
 		</div>
 		
-		<!-- 장바구니 삭제 모달창 -->
-		<div class="modal hide fade" id="CartDeleteModal">
+		<!-- 장바구니 선택삭제 에러 모달창 -->
+		<div class="modal hide fade" id="CartSelectionDeleteFailModal">
 			<div class="modal-dialog modal-sm modal-dialog-centered">
 				<div class="modal-content">
 		      
@@ -173,12 +173,11 @@
 		        
 					<!-- Modal body -->
 					<div class="modal-body">
-		          		<h5>선택하신 상품을 삭제하시겠습니까?</h5>
+		          		<h3>장바구니 삭제 실패</h3>
 					</div>
 		        
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" id="cartmodaldelbtn">삭제</button>
 						<button type="button" class="btn btn-primary" data-dismiss="modal">취소</button>
 					</div>
 		        

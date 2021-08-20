@@ -21,6 +21,55 @@ $(function(){
 		}
 	});
 	
+	// 다음 우편 검색 API
+	$('#postsearchbtn').click(function(){
+		Postcode();
+	});
+	
+	function Postcode(){
+		new daum.Postcode({
+			oncomplete: function(data) {
+				
+				var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+				var extraRoadAddr = ''; // 참고 항목 변수
+				
+				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+					extraRoadAddr += data.bname;
+				}
+				
+				if (data.buildingName !== '' && data.apartment === 'Y') {
+					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+				}
+				
+				if (extraRoadAddr !== '') {
+					extraRoadAddr = ' (' + extraRoadAddr + ')';
+				}
+				
+				if(fullRoadAddr !== ''){
+					fullRoadAddr += extraRoadAddr;
+				}
+				
+				
+				$('#order_address1').val(data.zonecode);
+				$('#order_address2').val(fullRoadAddr);
+				
+			}
+		}).open();
+	}
+	
+	// 바로 구매 버튼 클릭시
+	$('#buybtn').click(function(){
+		var order_de_count = $(".order_de_count").val();
+		var price = $(".price").val();
+		var pricesum = price * order_de_count;
+		$('#MainOrderInfoModal').modal('show');
+		$('input[name="order_de_count"]').remove();
+		$('input[name="pricesum"]').remove();
+		$('#OrderForm').append('<input type="hidden" value="' + order_de_count + '"name="order_de_count">');
+		$('#OrderForm').append('<input type="hidden" value="' + pricesum + '"name="pricesum">');
+	});
+	
+	// 장바구니 담기 버튼 클릭시
 	$('#cartbtn').click(function(){
 		var user_id = $('.checkid').val();
 		var product_code = $('.product_code').val();

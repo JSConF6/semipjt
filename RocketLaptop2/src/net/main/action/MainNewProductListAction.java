@@ -29,14 +29,41 @@ public class MainNewProductListAction implements Action {
 		cal.add(Calendar.DATE, 1);
 		String Tomorrow = sdf.format(cal.getTime());
 		
+		int page = 1;
+		int limit = 6;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		System.out.println("넘어온 페이지 = " + page);
+		System.out.println("넘어온 limit = " + limit);
+		
 		int listcount = 0;
 		int index = -1;
-
-		int limit = pdao.newProductListCount(Today, Tomorrow);
 		
 		listcount = pdao.newProductListCount(Today, Tomorrow);
-		newlist = pdao.newProductList(Today, Tomorrow);
+		newlist = pdao.newProductList(Today, Tomorrow, page, limit);
 		
+		int maxpage = (listcount + limit - 1) / limit;
+		System.out.println("총 페이지수  = " + maxpage);
+		
+		int startpage = ((page - 1) / 10) * 10 + 1;
+		System.out.println("현재 페이지에 보여줄 시작 페이지 수 = " + startpage);
+		
+		
+		int endpage = startpage + 10 - 1;
+		System.out.println("현재 페이지에 보여줄 마지막 페이지 수 = " + endpage);
+		
+		if(endpage > maxpage) {
+			endpage = maxpage;
+		}
+		
+		request.setAttribute("page", page);
+		request.setAttribute("maxpage", maxpage);
+			
+		request.setAttribute("startpage", startpage);
+			
+		request.setAttribute("endpage", endpage);
+			
 		request.setAttribute("listcount", listcount);
 			
 		// 해당 페이지의 상품 목록을 갖고 있는 리스트

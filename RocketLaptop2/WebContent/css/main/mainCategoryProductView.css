@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.gray{color : gray;}
+.gray{color:gray;}
 
 .container{
 	display : flex;
@@ -10,7 +10,7 @@
 .productItems{
 	width : 315px;
 	height : 300px;
-	margin-bottom : 260px;	
+	margin-bottom : 250px;
 	margin-right : 55px;
 }
 

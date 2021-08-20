@@ -24,6 +24,8 @@ insert into order_detail (order_de_num, order_num, product_code, cart_stock)
 	select order_detail_seq.nextval, '210818_118103', product_code, cart_stock
 	from cart
 	where user_id = 'admin';
+	
+delete order_detail;
 
 drop table order_detail;
 
