@@ -121,6 +121,7 @@ public class CommentDAO {
 			sort="desc";
 		}
 		
+
 		String sql = "select comm.num, comm.user_id, comm.content, comm.reg_date, comm.comment_re_lev, "
 				   + 		"comm.comment_re_seq, comm.comment_re_ref, member.user_memberfile "
 				   + "from comm inner join member "
@@ -128,6 +129,7 @@ public class CommentDAO {
 				   + "where comm.comment_qna_num = ? "
 				   + "order by comm.comment_re_ref " + sort + ", "
 				   + "comm.comment_re_seq asc";
+
 		
 		JsonArray array = new JsonArray();
 		try {

@@ -538,7 +538,5 @@ public class QnaDAO {
 		return result_check;
 	}// qnaDelete()메서드 end
 
-	// 조회수 업데이트 - 글번호에 해당하는 조회수를 1 증가합니다.
-
-
+	
 }// QnaDAO class end

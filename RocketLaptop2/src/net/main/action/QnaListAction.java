@@ -37,11 +37,14 @@ public class QnaListAction implements Action {
 		}
 		System.out.println("넘어온 limit =" + limit);
 		
-		//총 리스트 수를 받아옵니다.
+
+  		//총 리스트 수를 받아옵니다.
 		int listcount = qdao.getQnaListCount();
 		
 		//리스트를 받아옵니다.
 		qnalist = qdao.getQnaList(page, limit);
+		
+
 		/*
 		 * 총 페이지 수 
 		 = (DB에 저장된 총 리스트의 수 + 한 페이지에서 보여주는 리스트의 수 -1)/ 한페이지에서 보여주는  리스트의 수
@@ -52,6 +55,8 @@ public class QnaListAction implements Action {
 		 	예3) DB에 저장된 총 리스트의 수가 (11~20) 이면  총 페이지수는 2페이지
 		 	예4) DB에 저장된 총 리스트의 수가 (21~30) 이면  총 페이지수는 3페이지
 		 */
+		
+
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지 수=" + maxpage);
 	
