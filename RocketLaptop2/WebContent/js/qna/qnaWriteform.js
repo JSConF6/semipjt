@@ -1,6 +1,8 @@
 $(document).ready(function(){
 	//submit 버튼 클릭할 때 이벤트 부분
+
 	$("#writeForm").submit(function() {
+
 		
 		if ($.trim($("#qna_pass").val()) == "") {
 			$('#qnaWriteErrorModal').modal('show');
