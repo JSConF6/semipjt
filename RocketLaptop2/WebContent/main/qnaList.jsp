@@ -142,8 +142,9 @@
 		<c:if test="${listcount == 0 }">
 			<font size=5>등록된 글이 없습니다.</font>
 		</c:if>
-
-		<button type="button" class="btn btn-primary float-right writebtn">글 쓰 기</button>
+		<c:if test="${!empty user_id}">
+			<button type="button" class="btn btn-primary float-right writebtn">글 쓰 기</button>
+		</c:if>
 	</div>
 		<hr>
 		<jsp:include page="footer.jsp" />
