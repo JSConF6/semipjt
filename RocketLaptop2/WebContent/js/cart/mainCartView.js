@@ -56,6 +56,7 @@ $(function(){
 		}
 		$('.orderPrice').text("주문 가격 : " + Number(sum).toLocaleString('en') + "원");
 		$('input[name="pricesum"]').val(sum);
+		$('.total_price').text(Number(sum).toLocaleString('en') + "원");
 	}
 	
 	$('input[name="RowCheck"]').click(function(){

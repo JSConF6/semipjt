@@ -67,6 +67,7 @@ $(function(){
 		$('input[name="pricesum"]').remove();
 		$('#OrderForm').append('<input type="hidden" value="' + order_de_count + '"name="order_de_count">');
 		$('#OrderForm').append('<input type="hidden" value="' + pricesum + '"name="pricesum">');
+		$('.total_price').text(Number(pricesum).toLocaleString('en') + "원");
 	});
 	
 	// 장바구니 담기 버튼 클릭시

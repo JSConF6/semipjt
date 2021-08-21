@@ -149,6 +149,11 @@
 									</label>
 								</div>
 				    		</div>
+				    		
+				    		<!-- 총 결제 금액 -->
+				    		<div class="form-group text-left">
+				      			<p style="font-size : 30px;" class="text-center">총 결제 금액 : <span style="font-size : 30px;" class="total_price"></span></p>
+				    		</div>
 						   
 							<!-- 버튼 -->
 							<div class="text-right">

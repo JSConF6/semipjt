@@ -50,9 +50,10 @@
 						<tbody>
 							<c:forEach var="m" items="${memberlist}">
 							<c:set var="birthdate" value="${m.user_birthdate}"/>
+							<c:set var="src" value="${'memberupload/'}${m.user_memberfile }"/>
 							<c:set var="birthdate" value="${fn:substring(birthdate, 0, 4)}-${fn:substring(birthdate, 4, 6)}-${fn:substring(birthdate, 6, 8)}" /> 
 								<tr>
-									<td><img src="image/among us.png" style="width : 70px;"></td>
+									<td><img src="${src}" style="width : 70px;"></td>
 									<td class="align-middle">${m.user_id}</td>
 									<td class="align-middle"><a href="MemberDetail.ad?user_id=${m.user_id}">${m.user_name}</a></td>
 									<td class="align-middle">${birthdate}</td>

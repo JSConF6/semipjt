@@ -21,7 +21,7 @@ public class MainNoticeListAction implements Action {
 		
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 5;
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
