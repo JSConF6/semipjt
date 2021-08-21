@@ -18,7 +18,9 @@
 <jsp:include page="headernav.jsp" />
 <div class="container">
   <form action="QnaAddAction.ma" method="post" enctype="multipart/form-data"
+
   		name="qnaform" id="writeForm">
+
   	<h1 style="font-size : 40px;">RocketLaptop - 문의사항 글쓰기</h1>		
   	<div class="form-group">
   	<label for="qna_name">글쓴이</label>
