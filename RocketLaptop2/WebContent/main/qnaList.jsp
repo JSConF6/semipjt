@@ -90,7 +90,7 @@
                              			<fmt:parseNumber var="chg_dttm_N" value="${chg_dttm.time}" integerOnly="true"></fmt:parseNumber>
                               			<fmt:parseNumber value="${chg_dttm_N / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
                                  		<c:if test="${today - chgDttm le 1}">
-                                    		<i><img src="image/icon_new.jpg" alt=""/></i>   
+                                    		<i><img src="image/icon_new.gif" alt=""/></i>   
                                   		</c:if> 
 
 									</a>

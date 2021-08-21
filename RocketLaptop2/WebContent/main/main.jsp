@@ -27,7 +27,7 @@
 						</div>   
 					</div>
 					<div class="carousel-item">
-						<img src="image/banner.png" alt="Chicago" width="1100" height="500">
+						<img src="image/banner1.jpg" alt="Chicago" width="1100" height="500">
 						<div class="carousel-caption">
 							<h3>Chicago</h3>
 							<p>Thank you, Chicago!</p>
