@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="header.jsp" />
@@ -19,6 +22,7 @@
 <title>RocketLaptop - 문의사항</title>
 </head>
 <body>
+
 	<input type="hidden" value="-1" class="search_field">
 	<jsp:include page="headernav.jsp" />
 	<div class="container" style="margin-bottom : 130px;">
@@ -28,7 +32,6 @@
 		<c:if test="${listcount > 0 }">
 			<div class="rows">
 				<span>줄보기</span>
-				<%-- <==========================추가 됨 --%>
 				<select class="fomr-control" id="viewcount">
 					<option value="1">1</option>
 					<option value="3">3</option>
@@ -37,7 +40,6 @@
 					<option value="10" selected>10</option>
 				</select>
 			</div>
-
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -82,6 +84,12 @@
 
 									<a href="QnaDetailAction.ma?num=${b.qna_num}"> <c:out
 											value="${b.qna_subject}" /> <%-- ${b.board_subject} --%> <%-- escapeXml="true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
+										<%-- <fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
+										<fmt:parseDate value="${b.qna_date}" var="chg_dttm" pattern="yyyy-MM-dd"/>
+										<fmt:parseNumber value="${b.qna_date / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
+											<c:if test="${today - chgDttm le 1}">
+												<i><img src="image/icon_new.gif" alt="" /></i>	
+										    </c:if>     진섭 수정 해준 부분!!!--%>
 									</a>
 								</div>
 							</td>
@@ -132,7 +140,7 @@
 			<font size=5>등록된 글이 없습니다.</font>
 		</c:if>
 
-		<button type="button" class="btn btn-info float-right writebtn">글 쓰 기</button>
+		<button type="button" class="btn btn-primary float-right writebtn">글 쓰 기</button>
 	</div>
 		<hr>
 		<jsp:include page="footer.jsp" />

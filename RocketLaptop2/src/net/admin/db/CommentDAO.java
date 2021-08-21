@@ -34,7 +34,7 @@ public class CommentDAO {
 			ResultSet rs =null;
 			int x = 0;
 			String sql = "select count(*) "
-					   + " from comm where comment_board_num = ?";
+					   + " from comm where comment_qna_num = ?";
 			try {
 				con = ds.getConnection();
 				pstmt = con.prepareStatement(sql);
@@ -123,7 +123,7 @@ public class CommentDAO {
 		
 		String sql="select num, comm.user_id, content, reg_date, comment_re_lev, "
 				+ "	comment_re_seq, "
-				+ "	comment_re_ref, member.memberfile "
+				+ "	comment_re_ref, member.user_memberfile "
 				+ "	from comm join member "
 				+ "	on comm.user_id=member.user_id "
 				+ "	where comment_qna_num = ? "

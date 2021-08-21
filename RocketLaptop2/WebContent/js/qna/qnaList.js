@@ -124,3 +124,7 @@ $(function(){
 			location.href="QnaWrite.ma";
 		})
 })
+
+
+
+

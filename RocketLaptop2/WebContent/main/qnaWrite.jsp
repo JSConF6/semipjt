@@ -22,17 +22,17 @@
   	<div class="form-group">
   	<label for="qna_name">글쓴이</label>
   	<input name="qna_name" id="qna_name" value="${user_id}" readOnly
-  		   type="text" 	class="form-control" placeholder="Enter qna_name">
+  		   type="text" 	class="form-control" placeholder="작성자명을 입력하세요">
   	</div>	
   	<div class="form-group">
   	<label for="qna_pass">비밀번호</label>
   	<input name="qna_pass" id="qna_pass" type="password" maxlength="30"
-  		   class="form-control" placeholder="Enter qna_pass">
+  		   class="form-control" placeholder="비밀번호를 입력하세요">
   	</div>	
   	<div class="form-group">
   	<label for="qna_subject">제목</label>
   	<input name="qna_subject" id="qna_subject" type="text" maxlength="100"
-  		   class="form-control" placeholder="Enter qna_subject">
+  		   class="form-control" placeholder="제목을 작성하세요">
   	</div>	
   	<div class="form-group">
   	<label for="qna_content">내용</label>
