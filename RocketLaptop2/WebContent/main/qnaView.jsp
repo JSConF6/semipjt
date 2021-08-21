@@ -5,18 +5,7 @@
  <title>RocketLaptop - 문의사항</title>
  <jsp:include page="header.jsp"/>
 <script src="js/qna/qnaView.js"></script>
-<link rel="stylesheet" href="css/qna/view.css"> 
-<script>
-	$(function(){
-		$("form").submit(function(){
-			if($("#qna_pass").val() =='') {
-				alert("비밀번호를 입력하세요");
-				$("#qna_pass").focus();
-				return false;
-			}
-		})
-	})
-</script>
+<link rel="stylesheet" href="css/qna/view.css">
 <style>
 	tr:nth-child(1) {text-align:center}
 	tr:nth-child(1) {width: 20%}
@@ -30,8 +19,8 @@
 </head>
 <body>
 <input type="hidden" value="-1" class='search_field'>
-<jsp:include page="headernav.jsp" />
  <input type="hidden" id="loginid" value="${user_id}" name="loginid">
+<jsp:include page="headernav.jsp" />
  <div class="container">
   <table class="table">
   	<tr><th colspan="2"><h1>RocketLaptop - 문의사항 상세</h1></th></tr>
@@ -54,7 +43,7 @@
   		<td><div>첨부파일</div></td>
   		<c:if test="${!empty qnadata.qna_file}"><%--파일 첨부한 경우 --%>
   		<td><img src="image/down.png" width="10px">
-  			<a href="QnaFileDown.ma?filename=${qnadata.qna_file}">
+  			<a href="QnaFileDown.ma?qna_filename=${qnadata.qna_file}">
   			${qnadata.qna_file}</a></td>	
   		</c:if>
   		<c:if test="${empty qnadata.qna_file}"><%-- 파일 첨부하지 않은 경우 --%>
@@ -89,11 +78,15 @@
  
  	<%-- modal 시작 --%>
  	<div class="modal" id="myModal">
-  	 <div class="modal-dialog">
+  	 <div class="modal-dialog modal-sm modal-dialog-centered">
  	  <div class="modal-content">
+ 	  	<div class="modal-header" style="padding-bottom : 0px;">
+			<h4 class="modal-title">비밀번호 입력</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		</div>
  	   <%-- Modal body --%>
- 	   <div class="modal-body">
- 	   	<form name="deleteForm" action="QnaDeleteAction.ma" method="post">
+ 	   <div class="modal-body" style="padding-bottom : 0px; ">
+ 	   	<form name="deleteForm" class="deleteForm" action="QnaDeleteAction.ma" method="post">
  	   		<%--http://localhost:8088/Board/BoardDetailAction.bo?num=22
  	   		    주소를 보면 num을 파라미터로 넘기고 있습니다.
  	   		    이 값을 가져와서 ${param.num}를 사용
@@ -102,13 +95,14 @@
  	   		<input type="hidden" name="num" value="${param.num}"
  	   			id="comment_qna_num">
  	   		<div class="form-group">
- 	   			<label for="pwd">비밀번호</label>
  	   			<input  type="password"
  	   					class="form-control" placeholder="Enter password"
  	   					name="qna_pass" id="qna_pass">
  	   			</div>
- 	   			<button type="submit" class="btn btn-primary">전송</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button> 	   	
+ 	   			<div class="text-right">
+ 	   				<button type="submit" class="btn btn-primary">전송</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+				</div> 	   	
  	   	</form>  
  	    </div><!-- class="modal-body" -->
  	   </div><!-- class="modal-content" -->
@@ -140,6 +134,57 @@
 	 	 	</div>
 	 	 </div> <!-- CommentWriter end -->
  	 </div><!-- CommentBox end -->
+ 	 
+ 	 <!-- 댓글 삭제 확인 모달창 -->
+	<div class="modal hide fade" id="ReplyDelModal">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+	      
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">문의사항 상세</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	        
+				<!-- Modal body -->
+				<div class="modal-body">
+				  <h3>정말 삭제하시겠습니까??</h3>
+				</div>
+	        
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" id="replyDelBtn">삭제</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal">취소</button>
+				</div>
+	        
+			</div>
+		</div>
+	</div>
+ 	 
+ 	 <!-- 오류 모달창 -->
+	<div class="modal hide fade" id="qnaViewErrorModal">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+	      
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" id="qnaViewErrorModal-Title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	        
+				<!-- Modal body -->
+				<div class="modal-body" id="qnaViewErrorModal-body">
+				  
+				</div>
+	        
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+	        
+			</div>
+		</div>
+	</div>
   </div><!-- class="container" -->
   
   <hr>

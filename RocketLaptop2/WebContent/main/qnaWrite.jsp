@@ -2,6 +2,7 @@
 <html>
 <head>
  <jsp:include page="header.jsp" /> 
+ <title>RocketLaptop - 문의사항</title>
  <script src="js/qna/qnaWriteform.js"></script> 
  <style>
  	h1{font-size:1.5rem; text-align:center; margin-top : 20px;}
@@ -41,7 +42,7 @@
   	</div>	
   	<div class="form-group">
   	<label for="qna_file">파일 첨부</label>
-  	<label for="upfile">
+  	<label for="qna_upfile">
   		<img src="image/attach.png" alt="파일첨부" class="fileimg">
   	</label>
   	<input type="file" id="qna_upfile"  name="qna_file">
@@ -52,6 +53,31 @@
 	<a class="btn btn-danger" href="javascript:history.back();">취소</a>
 	</div>
   </form>
+  
+  <!-- 오류 모달창 -->
+	<div class="modal hide fade" id="qnaWriteErrorModal">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+	      
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" id="qnaWriteErrorModal-Title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	        
+				<!-- Modal body -->
+				<div class="modal-body" id="qnaWriteErrorModal-body">
+				  
+				</div>
+	        
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+	        
+			</div>
+		</div>
+	</div>
 </div>
 <hr>
 <jsp:include page="footer.jsp" />

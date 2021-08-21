@@ -1,7 +1,6 @@
 package net.main.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -50,14 +49,9 @@ public class QnaModifyAction implements Action {
 			
 			// 비밀번호가 다른 경우
 			if (usercheck == false) {
-				response.setContentType("text/html;charset=utf-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('비밀번호가 다릅니다.');");
-				out.println("history.back();");
-				out.println("</script>");
-				out.close();
-				return null;
+				forward.setRedirect(false);
+				forward.setPath("Modal/QnaModal.jsp");
+				return forward;
 			}
 			
 			// 비밀번호가 일치하는 경우 수정 내용을 설정합니다.
@@ -72,7 +66,7 @@ public class QnaModifyAction implements Action {
 				qnadata.setQna_file(check);
 			} else { //파일 첨부로 파일 선택한 경우
 				// 업로드된 파일의 시스템 상에 업로드된 실제 파일명을 얻어 옵니다.
-				String filename = multi.getFilesystemName("board_file");
+				String filename = multi.getFilesystemName("qna_file");
 				qnadata.setQna_file(filename);
 			}
 			

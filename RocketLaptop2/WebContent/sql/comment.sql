@@ -17,14 +17,24 @@ drop sequence comm_seq;
 -- 시퀀스를 생성합니다
 create sequence comm_seq;
 
-select * from comm;
+select * 
+from comm;
+
 delete comm;
 
 --member에 있는 memberfile까지 조회해 봅시다
 select comm.*, member.user_memberfile
 from comm inner join member
 on comm.user_id=member.user_id
-where comment_qna_num = 21
+where comment_qna_num = 2
 order by comment_re_ref desc,
 comment_re_seq asc;
+
+select comm.num, comm.user_id, comm.content, comm.reg_date, comm.comment_re_lev,
+	   comm.comment_re_seq, comm.comment_re_ref, member.user_memberfile
+from comm inner join member
+	 on comm.user_id = member.user_id
+where comm.comment_qna_num = 2
+order by comm.comment_re_ref desc,
+comm.comment_re_seq asc;
 

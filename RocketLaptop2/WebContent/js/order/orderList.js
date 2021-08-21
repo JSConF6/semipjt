@@ -39,8 +39,12 @@ function ajax(sdata){
 							 "<th>주소</th>" +
 							 "<th>주문 가격</th>" +
 							 "<th>결제 방식</th>" +
-							 "<th>배송 상태</th></tr></thead><tbody>";
+							 "<th>배송 상태</th>" +
+							 "<th>결제일</th>" +
+							 "</tr></thead><tbody>";
 				$(data.orderlist).each(function(index, item){
+					var date = this.order_date;
+					var order_date = date.substring(0, 4) + date.substring(4,6) + date.substring(6, 10);
 					output += "<tr><td><a href='OrderDetail.ad?order_num=" 
 						   + this.order_num + "&user_id=" + this.user_id + "'>" + this.order_num + "</a></td>";
 					output += "<td>" + this.order_name + "</td>";
@@ -49,6 +53,7 @@ function ajax(sdata){
 					output += "<td>" + Number(this.order_totalprice).toLocaleString('en') + "원</td>";
 					output += "<td>" + this.order_payment + "</td>";
 					output += "<td>" + this.order_delivery + "</td>";
+					output += "<td>" + order_date + "</td>";
 					output += "</tr>";
 				})
 				output += "</tbody></table>";

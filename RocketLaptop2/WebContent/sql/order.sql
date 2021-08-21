@@ -32,11 +32,13 @@ and o.user_id = 'admin';
 
 --
 select *
-from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3,
-	  		 order_phone, order_totalprice, order_payment, order_delivery, order_date
-	  from order_tb o
-	  where o.user_id = 'java2'
-	  order by o.order_date asc)
+from (select rownum rnum, o.*
+	  from (select order_num, user_id, order_name, user_address1, user_address2, user_address3,
+	  		 	   order_phone, order_totalprice, order_payment, order_delivery, order_date
+	  		from order_tb
+	  		where user_id = 'java2'
+	  		order by order_date desc) o
+	  )
 where rnum >= 1 and rnum <= 5;
 
 -- 특정 id의 주문상세보기 검색 쿼리

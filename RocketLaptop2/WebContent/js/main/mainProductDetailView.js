@@ -61,7 +61,7 @@ $(function(){
 	$('#buybtn').click(function(){
 		var order_de_count = $(".order_de_count").val();
 		var price = $(".price").val();
-		var pricesum = price * order_de_count;
+		var pricesum = parseInt(price * order_de_count);
 		$('#MainOrderInfoModal').modal('show');
 		$('input[name="order_de_count"]').remove();
 		$('input[name="pricesum"]').remove();

@@ -121,14 +121,15 @@ public class CommentDAO {
 			sort="desc";
 		}
 		
-		String sql="select num, comm.user_id, content, reg_date, comment_re_lev, "
-				+ "	comment_re_seq, "
-				+ "	comment_re_ref, member.user_memberfile "
-				+ "	from comm join member "
-				+ "	on comm.user_id=member.user_id "
-				+ "	where comment_qna_num = ? "
-				+ "	order by comment_re_ref " + sort + ", "
-				+ "	comment_re_seq asc";
+
+		String sql = "select comm.num, comm.user_id, comm.content, comm.reg_date, comm.comment_re_lev, "
+				   + 		"comm.comment_re_seq, comm.comment_re_ref, member.user_memberfile "
+				   + "from comm inner join member "
+				   + 	  "on comm.user_id = member.user_id "
+				   + "where comm.comment_qna_num = ? "
+				   + "order by comm.comment_re_ref " + sort + ", "
+				   + "comm.comment_re_seq asc";
+
 		
 		JsonArray array = new JsonArray();
 		try {
@@ -139,14 +140,14 @@ public class CommentDAO {
 			
 			while (rs.next()) {
 				JsonObject object = new JsonObject();
-				object.addProperty("num", rs.getInt(1));
-				object.addProperty("user_id", rs.getString(2));
-				object.addProperty("content", rs.getString(3));
-				object.addProperty("reg_date", rs.getString(4));
-				object.addProperty("comment_re_lev", rs.getInt(5));
-				object.addProperty("comment_re_seq", rs.getInt(6));
-				object.addProperty("comment_re_ref", rs.getInt(7));
-				object.addProperty("user_memberfile", rs.getString(8));
+				object.addProperty("num", rs.getInt("num"));
+				object.addProperty("user_id", rs.getString("user_id"));
+				object.addProperty("content", rs.getString("content"));
+				object.addProperty("reg_date", rs.getString("reg_date"));
+				object.addProperty("comment_re_lev", rs.getInt("comment_re_lev"));
+				object.addProperty("comment_re_seq", rs.getInt("comment_re_seq"));
+				object.addProperty("comment_re_ref", rs.getInt("comment_re_ref"));
+				object.addProperty("user_memberfile", rs.getString("user_memberfile"));
 				array.add(object);
 			}
 		} catch (Exception ex) {

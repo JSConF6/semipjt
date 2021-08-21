@@ -14,6 +14,7 @@
 </head>
 <body>
 <%--게시판 수정 --%>
+<input type="hidden" value="-1" class="search_field">
 <jsp:include page="headernav.jsp" />
 <div class="container">
   <form action="QnaModifyAction.ma" method="post" name="qna_modifyform"
@@ -62,6 +63,31 @@
 		   onClick="history.go(-1)">취소</button>
 	</div>
   </form>
+  
+  <!-- 오류 모달창 -->
+	<div class="modal hide fade" id="qnaModifyErrorModal">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+	      
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" id="qnaModifyErrorModal-Title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	        
+				<!-- Modal body -->
+				<div class="modal-body" id="qnaModifyErrorModal-body">
+				  
+				</div>
+	        
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+	        
+			</div>
+		</div>
+	</div>
 </div>  <%--class="container" end --%>
 
 <hr>

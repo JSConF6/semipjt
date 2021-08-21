@@ -12,12 +12,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.admin.db.CommentDAO;
+
 public class CommentList implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-			net.admin.db.CommentDAO dao = new net.admin.db.CommentDAO();
+					CommentDAO dao = new CommentDAO();
 					
 					int comment_qna_num =
 							Integer.parseInt(request.getParameter("comment_qna_num"));

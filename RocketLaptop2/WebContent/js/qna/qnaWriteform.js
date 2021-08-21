@@ -3,20 +3,23 @@ $(document).ready(function(){
 	$("form").submit(function() {
 		
 		if ($.trim($("#qna_pass").val()) == "") {
-			alert("비밀번호를 입력하세요");
-			$("#qna_pass").focus();
+			$('#qnaWriteErrorModal').modal('show');
+			$('#qnaWriteErrorModal-Title').text('문의사항 글쓰기');
+			$('#qnaWriteErrorModal-body').html('<h3>비밀번호를 입력하세요.</h3>');
 			return false;
 		}
 	
 		if ($.trim($("#qna_subject").val()) == "") {
-			alert("제목을 입력하세요");
-			$("#qna_subject").focus();
+			$('#qnaWriteErrorModal').modal('show');
+			$('#qnaWriteErrorModal-Title').text('문의사항 글쓰기');
+			$('#qnaWriteErrorModal-body').html('<h2>제목을 입력하세요.</h2>');
 			return false;
 		}
 
 		if ($.trim($("#qna_content").val()) == "") {
-			alert("내용을 입력하세요");
-			$("#qna_content").focus();
+			$('#qnaWriteErrorModal').modal('show');
+			$('#qnaWriteErrorModal-Title').text('문의사항 글쓰기');
+			$('#qnaWriteErrorModal-body').html('<h2>내용을 입력하세요.</h2>');
 			return false;
 		}
 		/*

@@ -11,12 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.member.action.MemberDeleteAction;
 import net.member.action.MemberIdCheckAction;
-import net.member.action.MemberInfoAction;
 import net.member.action.MemberJoinProcessAction;
 import net.member.action.MemberLoginAction;
 import net.member.action.MemberLoginProcessAction;
 import net.member.action.MemberLogoutAction;
-import net.member.action.MemberSearchAction;
 import net.member.action.MemberUpdateAction;
 import net.member.action.MemberUpdateProcessAction;
 
@@ -180,12 +178,6 @@ public class MainFrontController extends HttpServlet {
 				break;
 			case "/memberDelete.ma":						
 				action = new MemberDeleteAction();
-				break;
-			case "/memberList.ma":
-				action = new MemberSearchAction();
-				break;
-			case "/memberInfo.ma":
-				action = new MemberInfoAction();
 				break;
 		} // switch end
 		
