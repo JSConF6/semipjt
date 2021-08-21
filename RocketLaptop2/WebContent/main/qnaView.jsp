@@ -54,9 +54,11 @@
 
 	<tr>
 		<td colspan="2" class="center">
-			<a href="QnaReplyView.ma?num=${qnadata.qna_num}">
-				<button class="btn btn-primary">답변</button>
-			</a>
+			<c:if test="${!empty user_id}">
+				<a href="QnaReplyView.ma?num=${qnadata.qna_num}">
+					<button class="btn btn-primary">답변</button>
+				</a>
+			</c:if>
 
 		<c:if test="${qnadata.qna_name == user_id || user_id == 'admin'}">
 			<a href="QnaModifyView.ma?num=${qnadata.qna_num}">
