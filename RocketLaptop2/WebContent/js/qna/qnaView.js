@@ -39,7 +39,7 @@ function getList(state){
 						}
 						
 						//선택한 파일이 나타날지 기본 그림이 나타날지 결정합니다.
-						var profile=this.memberfile;
+						var profile=this.user_memberfile;
 						var src='image/profile.png';
 						if(profile){
 							src='memberupload/'+profile;

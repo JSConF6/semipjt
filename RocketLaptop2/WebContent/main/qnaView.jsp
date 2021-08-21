@@ -111,6 +111,7 @@
  	  </div><!-- class="modal-dialog" -->
  	 </div><!-- class="modal" -->
  	 
+ 	 <c:if test='${!empty user_id}'>
  	 <div class="CommentBox">
  	 	<div class="comment_option">
  	 		<h3 class="comment_title">
@@ -136,6 +137,7 @@
 	 	 	</div>
 	 	 </div> <!-- CommentWriter end -->
  	 </div><!-- CommentBox end -->
+ 	 </c:if>
  	 
  	 <!-- 댓글 삭제 확인 모달창 -->
 	<div class="modal hide fade" id="ReplyDelModal">
