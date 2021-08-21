@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 	<head>
 		<jsp:include page="header.jsp" />
@@ -24,11 +25,14 @@
 							<th>주문 가격</th>
 							<th>결제 방식</th>
 							<th>배송 상태</th>
+							<th>결제일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="o" items="${orderlist}">
 							<fmt:formatNumber var="order_totalprice" pattern="###,###,###" value="${o.order_totalprice}"/>
+							<c:set var="order_date" value="${o.order_date}"/>
+							<c:set var="order_date" value="${fn:substring(order_date, 0, 4)}${fn:substring(order_date, 4, 6)}${fn:substring(order_date, 6, 10)}" />
 							<tr>
 								<td><a href="OrderDetailView.ma?order_num=${o.order_num}&user_id=${param.user_id}">${o.order_num}</a></td>
 								<td>${o.order_name}</td>
@@ -37,6 +41,7 @@
 								<td>${order_totalprice}원</td>
 								<td>${o.order_payment}</td>
 								<td>${o.order_delivery}</td>
+								<td>${order_date}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

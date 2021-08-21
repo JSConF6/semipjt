@@ -4,7 +4,7 @@ function getList(state){
 		$.ajax({
 			type:"post",
 			url:"CommentList.ma",
-			data : {"comment_qna_num" : $("#comment_qna_num").val() , 
+			data : {comment_qna_num : $("#comment_qna_num").val() , 
 				    state:state},
 			dataType:"json",
 			success:function(rdata){
@@ -51,7 +51,7 @@ function getList(state){
 							   + '    <div class="comment_box">'
 							   + '      <div class="comment_nick_box">'
 							   + '            <div class="comment_nick_info">'
-							   + '               <div class="comment_nickname">' + this.id  + '</div>'
+							   + '               <div class="comment_nickname">' + this.user_id  + '</div>'
 							   + '            </div>' //comment_nick_info                  
 							   + '       </div>'  // comment_nick_box
 							   + '     </div>'   //comment_box
@@ -64,14 +64,14 @@ function getList(state){
 							   + '      <span class="comment_info_date">' + this.reg_date + '</span>';
 						if(lev<2){ //답글쓰기는 답글의 답글까지만 사용하도록 합니다.
 						   	  output += '  <a href="javascript:replyform(' + this.num +',' 
-						   	         + lev + ',' + this.comment_re_seq +',' 
+						   	         + this.comment_re_lev + ',' + this.comment_re_seq +',' 
 						   	         + this.comment_re_ref +')"  class="comment_info_button">답글쓰기</a>'
 						      }
 						output += '   </div>' //comment_info_box;
 							   
 						//글쓴이가 로그인한 경우 나타나는 더보기입니다.
                         //수정과 삭제 기능이 있습니다.							
-					    if($("#loginid").val()==this.id){  
+					    if($("#loginid").val()==this.user_id){  
 						 output +=  '<div class="comment_tool">'
 							   + '    <div title="더보기" class="comment_tool_button">'
 							   + '       <div>&#46;&#46;&#46;</div>' 
@@ -109,7 +109,7 @@ function updateForm(num){//num : 수정할 댓글 글번호
 	//선택한 내용을 구합니다.
 	var content=$('#'+num).find('.text_comment').text();
 	
-	var selector = '#'+num + '.comment_area'
+	var selector = '#'+num + '>.comment_area'
 	$(selector).hide(); //selector 영역 숨겨요-수정에서 취소를 선택하면 보여줄 예정입니다.
 	
 	//$('.comment_list+.CommentWriter').clone() : 기본 글쓰기 영역 복사합니다.
@@ -136,10 +136,9 @@ function updateForm(num){//num : 수정할 댓글 글번호
 
 //더보기 -> 삭제 클릭한 경우 실행하는 함수
 function del(num){//num : 댓글번호
-	if(!confirm('정말 삭제하시겠습니까')){
-		return;
-	}
-	
+	$('#ReplyDelModal').modal('show');
+	$('#replyDelBtn').click(function(){
+		$('#ReplyDelModal').modal('hide');
 		$.ajax({
 			url:'CommentDelete.ma',
 			data:{num:num},
@@ -149,6 +148,7 @@ function del(num){//num : 댓글번호
 				}
 			}
 		})
+	});
 }//function(del) end
 
 //답글 달기 폼
@@ -188,7 +188,9 @@ function replyform(num,lev,seq,ref){
 		selector.next().find('.btn_register').addClass('reply').text('답글완료')
 				.attr('data-ref',ref).attr('data-lev',lev).attr('data-seq',seq);
 	}else{
-		alert('다른 작업 완료 후 선택하세요')
+		$('#qnaViewErrorModal').modal('show');
+		$('#qnaViewErrorModal-Title').text("문의사항 상세");
+		$('#qnaViewErrorModal-body').html("<h4>다른 작업 완료 후 선택하세요</h4>");
 	}
 }//function(replyform) end
 
@@ -196,11 +198,12 @@ $(function(){
 	option=1;
 	getList(option);	//처음 로드 될때는 등록순 정렬
 	
-	$("form").submit(function(){
+	$(".deleteForm").submit(function(){
 		if($("#qna_pass").val() == '') {
-			alert("비밀번호를 입력하세요");
-			$("#qna_pass").focus();
-			return false;
+			$('#qnaViewErrorModal').modal('show');
+			$('#qnaViewErrorModal-Title').text("문의사항 상세");
+			$('#qnaViewErrorModal-body').html("<h3>비밀번호를 입력하세요</h3>");
+			return;
 		}
 	})// form
 	
@@ -213,14 +216,16 @@ $(function(){
 	$('ul+.CommentWriter .btn_register').click(function(){
 		var content=$('.comment_inbox_text').val();
 		if(!content){//내용없이 등록 클릭한 경우
-			alert("댓글을 입력하세요");
-			return;
+			$('#qnaViewErrorModal').modal('show');
+			$('#qnaViewErrorModal-Title').text("문의사항 상세");
+			$('#qnaViewErrorModal-body').html("<h3>댓글을 입력하세요</h3>");
+			return false;
 		}
 		
 		$.ajax({
 			url : 'CommentAdd.ma', //원문 등록
 			data : {
-				id : $("#loginid").val(),
+				user_id : $('#loginid').val(),
 				content : content,
 				comment_qna_num : $("#comment_qna_num").val(),
 				comment_re_lev : 0, //원문인 경우 comment_re_seq는 0,
@@ -254,7 +259,9 @@ $(function(){
 			}
 		}else{
 			//답글쓰기 폼이나 수정 폼이 열려 있는 상황에서 더보기를 클릭한 경우
-			alert('작업 완료 후 선택해 주세요')
+			$('#qnaViewErrorModal').modal('show');
+			$('#qnaViewErrorModal-Title').text("문의사항 상세");
+			$('#qnaViewErrorModal-body').html("<h4>작업 완료 후 선택 해 주세요</h4>");
 		}
 	})//'.comment_tool_button' click end
 	
@@ -272,7 +279,9 @@ $(function(){
 		
 		var content = $(this).parent().parent().find('textarea').val();
 		if(!content){
-			alert('수정할 내용을 입력하세요');
+			$('#qnaViewErrorModal').modal('show');
+			$('#qnaViewErrorModal-Title').text("문의사항 상세");
+			$('#qnaViewErrorModal-body').html("<h4>수정할 내용을 입력하세요</h4>");
 			return
 		}
 		$.ajax({
@@ -290,6 +299,7 @@ $(function(){
 	$('.CommentBox').on('click','.update_cancel',function(){
 		//댓글 번호를 구합니다.
 		var num= $(this).next().attr('data-id');
+		console.log(num)
 		var selector='#' +num;
 		
 		//selector의 후손 중 .CommentWriter 영역 삭제합니다.
@@ -302,12 +312,21 @@ $(function(){
 		$(selector + '>.comment_area').css('display','block');
 	})//수정 후 취소 버튼을 클릭한 경우
 	
+	// 답글달기 후 취소 버튼 클릭 시
+	$('.CommentBox').on('click','.reply_cancel',function(){
+		$(' .CommentItem-form').remove();
+		
+		$('.comment_list+.CommentWriter').show();
+	})
+	
 	//답글 달기 -> 답글완료 클릭한 경우
 	$('.CommentBox').on('click','.reply',function(){
 		
 		var content=$(this).parent().parent().find('.comment_inbox_text').val();
 		if(!content){
-			alert('답변 내용을 입력하세요');
+			$('#qnaViewErrorModal').modal('show');
+			$('#qnaViewErrorModal-Title').text("문의사항 상세");
+			$('#qnaViewErrorModal-body').html("<h3>답변 내용을 입력하세요</h3>");
 			return
 		}
 		
@@ -317,7 +336,7 @@ $(function(){
 		$.ajax({
 			url : 'CommentReply.ma',
 			data : {
-				id : $("#loginid").val(),
+				user_id : $("#loginid").val(),
 				content : content,
 				comment_qna_num : $("#comment_qna_num").val(),
 				comment_re_lev : $(this).attr('data-lev'),

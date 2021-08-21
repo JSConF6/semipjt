@@ -1,7 +1,6 @@
 package net.main.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +13,7 @@ public class QnaDeleteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		ActionForward forward = new ActionForward();
 		boolean result=false;
 		boolean usercheck=false;
 		
@@ -26,14 +26,9 @@ public class QnaDeleteAction implements Action {
 		
 		//비밀번호 일치하지 않는 경우
 		if(usercheck==false) {
-			response.setContentType("text/html;charset=utf-8");
-			PrintWriter out=response.getWriter();
-			out.println("<script>");
-			out.println("alert('비밀번호가 다릅니다.');");
-			out.println("history.back();");
-			out.println("</script>");
-			out.close();
-			return null;
+			forward.setRedirect(false);
+			forward.setPath("Modal/QnaModal.jsp");
+			return forward;
 		}
 	
 		// 비밀번호 일치하는 경우 삭제 처리합니다.
@@ -42,7 +37,6 @@ public class QnaDeleteAction implements Action {
 		//삭제처리 실패한 경우
 		if(result==false) {
 			System.out.println("게시판 삭제 실패");
-			ActionForward forward = new ActionForward();
 			forward.setRedirect(false);
 			request.setAttribute("message", "데이터를 삭제하지 못했습니다.");
 			forward.setPath("error/error.jsp");
@@ -50,13 +44,8 @@ public class QnaDeleteAction implements Action {
 		}
 		// 삭제처리 성공의 경우 - 글 목록 보기 요청을 전송하는 부분입니다.
 		System.out.println("게시판 삭제 성공");
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out=response.getWriter();
-		out.println("<script>");
-		out.println("alert('삭제 되었습니다.');");
-		out.println("location.href='QnaList.ma';");
-		out.println("</script>");
-		out.close();
-		return null;
+		forward.setRedirect(false);
+		forward.setPath("Modal/QnaDeleteModal.jsp");
+		return forward;
 	}
 }

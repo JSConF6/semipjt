@@ -49,6 +49,31 @@
 		   onClick="history.go(-1)">
 	</div>
   </form>
+  
+  <!-- 오류 모달창 -->
+	<div class="modal hide fade" id="qnaReplyErrorModal">
+		<div class="modal-dialog modal-sm modal-dialog-centered">
+			<div class="modal-content">
+	      
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" id="qnaReplyErrorModal-Title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+	        
+				<!-- Modal body -->
+				<div class="modal-body" id="qnaReplyErrorModal-body">
+				  
+				</div>
+	        
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+	        
+			</div>
+		</div>
+	</div>
 </div>  
 </body>
 </html>

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <html>
 <head>
 <jsp:include page="header.jsp" />
@@ -82,6 +83,14 @@
 
 									<a href="QnaDetailAction.ma?num=${b.qna_num}"> <c:out
 											value="${b.qna_subject}" /> <%-- ${b.board_subject} --%> <%-- escapeXml="true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
+                             			<c:set var="now" value="<%= new java.util.Date() %>" />
+										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
+                             			<fmt:parseDate value="${b.qna_date}" var="chg_dttm" pattern="yyyy-MM-dd"/>
+                             			<fmt:parseNumber var="chg_dttm_N" value="${chg_dttm.time}" integerOnly="true"></fmt:parseNumber>
+                              			<fmt:parseNumber value="${chg_dttm_N / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
+                                 		<c:if test="${today - chgDttm le 1}">
+                                    		<i><img src="image/icon_new.jpg" alt=""/></i>   
+                                  		</c:if> 
 									</a>
 								</div>
 							</td>

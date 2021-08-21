@@ -77,7 +77,7 @@ public class QnaBean {
 		return qna_date;
 	}
 	public void setQna_date(String qna_date) {
-		this.qna_date = qna_date;
+		this.qna_date = qna_date.substring(0, 10);
 	}
 
 	

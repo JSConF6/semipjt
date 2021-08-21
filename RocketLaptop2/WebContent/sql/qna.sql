@@ -16,3 +16,7 @@ CREATE TABLE QNA(
 );
 
 select * from qna;
+
+update qna
+set qna_date = TO_DATE('2021-08-19 12:00:00', 'YYYY-MM-DD HH:MI:SS')
+where qna_num = 4;

@@ -168,6 +168,7 @@ private DataSource ds;
 			pstmt.setString(2, product_code);
 			pstmt.setInt(3, order_de_count);
 			result = pstmt.executeUpdate();
+			pstmt.close();
 			
 			sql = "update product "
 				+ "set product_sales = product_sales + ? "
@@ -279,11 +280,13 @@ private DataSource ds;
 		ResultSet rs = null;
 		
 		String sql = "select * " 
-					+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, "
-					+	  		  "order_phone, order_totalprice, order_payment, order_delivery, order_date " 
-					+	   "from order_tb " 
-					+	   "where user_id = ? " 
-					+	   "order by order_date asc)" 
+					+"from (select rownum rnum, o.* "
+					+ 	   "from (select order_num, user_id, order_name, user_address1, user_address2, user_address3, "
+					+	  		        "order_phone, order_totalprice, order_payment, order_delivery, order_date " 
+					+	         "from order_tb " 
+					+	         "where user_id = ? " 
+					+	         "order by order_date desc) o "
+					+ 	  ") " 
 					+"where rnum >= ? and rnum <= ?";
 		
 		List<Order> list = new ArrayList<Order>();
@@ -308,6 +311,7 @@ private DataSource ds;
 				order.setOrder_totalprice(rs.getInt("order_totalprice"));
 				order.setOrder_payment(rs.getString("order_payment"));
 				order.setOrder_delivery(rs.getString("order_delivery"));
+				order.setOrder_date(rs.getString("order_date"));
 				list.add(order);
 			}
 		}catch(Exception ex) {
@@ -640,10 +644,12 @@ private DataSource ds;
 		ResultSet rs = null;
 		
 		String sql = "select * "
-					+"from (select rownum rnum, order_num, user_id, order_name, user_address1, user_address2, user_address3, " 
-					+	  		  "order_phone, order_totalprice, order_payment, order_delivery, order_date "
-					+	 "from order_tb "
-					+	 "order by order_date desc) "
+					+"from (select rownum rnum, o.* "
+					+ 	   "from (select order_num, user_id, order_name, user_address1, user_address2, user_address3, " 
+					+	  		  	    "order_phone, order_totalprice, order_payment, order_delivery, order_date "
+					+	 		 "from order_tb "
+					+	 		 "order by order_date desc) o "
+					+ 	  ") "
 					+"where rnum >= ? and rnum <= ?";
 		
 		List<Order> list = new ArrayList<Order>();
