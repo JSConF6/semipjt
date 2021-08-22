@@ -162,6 +162,31 @@
 			</div>
 		</div>
 		
+		<!-- 주문 정보 입력 오류 모달창 -->
+		<div class="modal hide fade" id="DetailOrderInfoErrorModal">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content">
+		      
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title" id="DetailOrderInfoErrorModal-Title"></h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+		        
+					<!-- Modal body -->
+					<div class="modal-body" id="DetailOrderInfoErrorModal-body">
+					  
+					</div>
+		        
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+					</div>
+		        
+				</div>
+			</div>
+		</div>
+		
 		<!-- 장바구니 담기 오류 모달창 -->
 		<div class="modal hide fade" id="CartErrorModal">
 			<div class="modal-dialog modal-sm modal-dialog-centered">

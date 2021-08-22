@@ -123,6 +123,16 @@ $(function(){
 		$(this).val($(this).val().replace(/[^A-Z]/g, ""));
 	});
 	
+	$('.categoryForm').submit(function(){
+		if($('#category_AddName').val() == ''){
+			$('#ProductErrorModal').modal('show');
+			$('#ProductErrorModal-Title').text("상품 등록");
+			$('#ProductErrorModal-body').html("<h4>카테고리 명을 입력해주세요</h4>");
+			return false;
+		}
+	});
+	
+	
 	
 	// Modal창 안에 상품등록 폼이 submit할때 유효성 검사
 	$('#productAddFrom').submit(function(){

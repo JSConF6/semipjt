@@ -314,7 +314,7 @@
 				        
 					        <!-- Modal body -->
 					        <div class="modal-body text-left">
-				          		<form action="CategoryDelete.ad" method="post" name="categorydelform" class="categoryForm">
+				          		<form action="CategoryDelete.ad" method="post" name="categorydelform" class="categorydelForm">
 				          			
 				          			<!-- 카테고리 -->
 				    				<div class="form-group text-left">

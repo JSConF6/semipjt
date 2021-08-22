@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<c:if test="${user_id == 'admin' }">
-			<div id="showImage"><img src="image/among us.png" width="100%" height="100%"></div>
+			<div id="showImage"><img src="${'memberupload/'}${m.user_memberfile}" width="100%" height="100%"></div>
 			<div id="DetailDiv" class="mt-2">
 				<h1>회원정보 상세페이지</h1>
 				

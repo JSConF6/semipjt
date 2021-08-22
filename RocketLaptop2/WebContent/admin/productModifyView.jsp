@@ -10,7 +10,7 @@
 	<body>
 		<c:if test="${user_id == 'admin' }">
 			<input type="hidden" value="${p.product_status }" class="product_status">
-			<div id="ProsuctShowImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
+			<div id="ProductShowImage"><img src="${'LaptopImgUpload/'}${p.product_image}" width="100%" height="100%"></div>
 			<div id="ModifyDiv" class="mt-2">
 				<h1>상품 수정</h1>
 				<form action="ProductModifyAction.ad" id="productModifyFrom" method="post" name="productModifyForm" enctype="multipart/form-data">

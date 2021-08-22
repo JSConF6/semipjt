@@ -26,7 +26,11 @@
 			}
 			
 			.product > p > span{
-				font-size : 25px;
+				font-size : 20px;
+			}
+			
+			.table{
+				width : 102%;
 			}
 		</style>
 	</head>
@@ -39,7 +43,6 @@
 				<thead>
 					<tr>
 						<th>주문 번호</th>
-						<td>아이디</td>
 						<th>수령인</th>
 						<th>수령인 연락처</th>
 						<th>주소</th>
@@ -52,7 +55,6 @@
 				<tbody>
 					<tr>
 						<td>${o.order_num}</td>
-						<td>${o.user_id}</td>
 						<td>${o.order_name}</td>
 						<td>${o.order_phone}</td>
 						<td>(${o.user_address1}) ${o.user_address2} ${o.user_address3}</td>

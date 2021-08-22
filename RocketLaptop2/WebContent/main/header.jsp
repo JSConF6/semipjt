@@ -19,6 +19,7 @@
 	 #nav-top{
 		height: 40px;
 		font-size: 25px;
+		padding-right : 5px;
 	 }
 
 	.navbar-dark .navbar-nav .nav-link {

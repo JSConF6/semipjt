@@ -46,7 +46,8 @@
 
 	#headersearch{
 		height:  70px;
-		margin-left: 280px;
+		margin-left: 120px;
+		padding-left : 88px;
 	}
 </style>
 <nav class="navbar navbar-expand-sm bg-white navbar-dark pt-3 justify-content-center" id="headersearch">

@@ -23,7 +23,11 @@
 			}
 			
 			.product > p > span{
-				font-size : 25px;
+				font-size : 20px;
+			}
+			
+			.table{
+				width : 102%;
 			}
 		</style>
 	</head>

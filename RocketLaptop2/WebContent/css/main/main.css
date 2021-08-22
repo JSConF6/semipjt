@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
-.carousel-inner img {
-	width : 100%;
-	height : 100%;
+.jumbotron{
+	background : no-repeat center/100% url('../../image/RocketLaptopBanner.png');
+	height : 370px;
 }
 
 .card{
