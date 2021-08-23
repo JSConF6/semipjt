@@ -50,7 +50,12 @@
 						<tbody>
 							<c:forEach var="m" items="${memberlist}">
 							<c:set var="birthdate" value="${m.user_birthdate}"/>
-							<c:set var="src" value="${'memberupload/'}${m.user_memberfile }"/>
+							<c:if test="${m.user_memberfile eq 'profile.png'}">
+								<c:set var="src" value="${'image/'}${m.user_memberfile }"/>
+							</c:if>
+							<c:if test="${m.user_memberfile ne 'profile.png'}">
+								<c:set var="src" value="${'memberupload/'}${m.user_memberfile }"/>
+							</c:if>
 							<c:set var="birthdate" value="${fn:substring(birthdate, 0, 4)}-${fn:substring(birthdate, 4, 6)}-${fn:substring(birthdate, 6, 8)}" /> 
 								<tr>
 									<td><img src="${src}" style="width : 70px;"></td>

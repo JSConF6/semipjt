@@ -59,7 +59,13 @@ public class MemberJoinProcessAction implements Action {
 			m.setUser_address2(user_address2);
 
 			String user_memberfile = multi.getFilesystemName("user_memberfile");
-			m.setUser_memberfile(user_memberfile);
+			if(user_memberfile != null) {
+				System.out.println(user_memberfile);
+				m.setUser_memberfile(user_memberfile);
+			}else {
+				System.out.println(user_memberfile);
+				m.setUser_memberfile("profile.png");
+			}
 			
 			MemberDAO mdao = new MemberDAO();
 			int result = mdao.memberInsert(m);

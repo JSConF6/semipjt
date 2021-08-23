@@ -34,6 +34,10 @@ values('spring', 1234, '스프링', 19970101, '여자', 'spring@naver.com', '010
 insert into member
 values('vue', 1234, '뷰', 19960101, '남자', 'vue@naver.com', '010-1111-1111', '001199', '서울 종로구', 'product.png', sysdate);
 
+update MEMBER
+set user_memberfile = 'profile.png'
+where user_memberfile is null;
+
 select *
 from MEMBER;
 

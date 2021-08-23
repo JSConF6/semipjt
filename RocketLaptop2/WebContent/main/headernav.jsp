@@ -18,6 +18,10 @@
 		margin-left: 10px;
 	}
 	
+	#headersearch > .navbar-nav > li > a{
+		cursor : pointer;
+	}
+	
 	select{
 		color : #495057;
 		background-color : #fff;
@@ -71,21 +75,21 @@
 				<a class="nav-link fonticon text-dark" href="NoticeList.ad"><i class="fas fa-user fa-2x" style="padding-left : 24px;"></i><br>관리자페이지</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fontiocn text-dark" href="OrderListView.ma?user_id=${user_id}"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
+				<a class="nav-link fontiocn text-dark" id="orderList"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
 			</li>
 			<li>
-				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
+				<a class="nav-link fontiocn text-dark" id="cartList"><i class="fas fa-shopping-cart fa-2x"></i><br>장바구니</a>
 			</li>
 		</c:if>
 		<c:if test="${user_id != 'admin' || empty user_id}">
 			<li class="nav-item">
-				<a class="nav-link fonticon text-dark" id="updateMember" style="cursor : pointer;"><i class="fas fa-user fa-2x" style="padding-left : 18px;"></i><br>마이페이지</a>
+				<a class="nav-link fonticon text-dark" id="updateMember"><i class="fas fa-user fa-2x" style="padding-left : 18px;"></i><br>마이페이지</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fontiocn text-dark" href="OrderListView.ma?user_id=${user_id}"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
+				<a class="nav-link fontiocn text-dark" id="orderList"><i class="fas fa-laptop-code fa-2x" style="padding-left : 4px;"></i><br>주문목록</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link fontiocn text-dark" href="MainCartView.ma?user_id=${user_id}"><i class="fas fa-shopping-cart fa-2x" style="padding-left : 2px;"></i><br>장바구니</a>
+				<a class="nav-link fontiocn text-dark" id="cartList"><i class="fas fa-shopping-cart fa-2x" style="padding-left : 2px;"></i><br>장바구니</a>
 			</li>
 		</c:if>
 	</ul>
@@ -118,7 +122,7 @@
 	</ul>
 </nav>
 
-<!-- 마이페이지 클릭했을때 로그인 안되있을떄 오류 모달창 -->
+<!-- 마이페이지 클릭했을때 로그인 안되어있으면 나오는 오류 모달창 -->
 <div class="modal hide fade" id="MyPageErrorModal">
 	<div class="modal-dialog modal-sm modal-dialog-centered">
 		<div class="modal-content">
@@ -137,6 +141,56 @@
 			<!-- Modal footer -->
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary MyPageErrorBtn">확인</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
+
+<!-- 주문목록 클릭했을떄 로그인 안되어있으면 나오는 오류 모달창 -->
+<div class="modal hide fade" id="OrderListErrorModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">주문목록</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body">
+			  <h3>로그인 후 이용해주세요.</h3>
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary OrderListErrorBtn">확인</button>
+			</div>
+        
+		</div>
+	</div>
+</div>
+
+<!-- 장바구니 클릭했을때 로그인 안되어있으면 나오는 오류 모달창 -->
+<div class="modal hide fade" id="CartListErrorModal">
+	<div class="modal-dialog modal-sm modal-dialog-centered">
+		<div class="modal-content">
+      
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">장바구니</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+        
+			<!-- Modal body -->
+			<div class="modal-body">
+			  <h3>로그인 후 이용해주세요.</h3>
+			</div>
+        
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary CartListErrorBtn">확인</button>
 			</div>
         
 		</div>

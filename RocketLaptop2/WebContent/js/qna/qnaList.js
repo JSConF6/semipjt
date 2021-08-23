@@ -39,6 +39,16 @@ function ajax(sdata) {
 		dataType : "json",
 		cache : false,
 		success : function(data) {
+			var qnaIndex = new Array();
+			var today = new Array();
+			var chgDttm = new Array();
+			
+			$(data.qnalist).each(function(index, item){
+				qnaIndex.push($('.' + index).val());
+				today.push($('.today_' + qnaIndex[index]).val());
+				chgDttm.push($('.chgDttm_' + qnaIndex[index]).val());
+			});
+			
 			$("#viewcount").val(data.limit);
 			$("table").find("font").text("글 개수 : " + data.listcount);
 			
@@ -47,8 +57,10 @@ function ajax(sdata) {
 				var num = data.listcount - (data.page - 1) * data.limit;
 				console.log(num)
 				var output = "<tbody>";
+				
 				$(data.qnalist).each(
 						function(index,item){
+							console.log(chgDttm)
 							output += '<tr><td>' + (num--) + '</td>'
 							blank_count = item.qna_re_lev * 2 + 1;
 							blank = '&nbsp;';
@@ -62,8 +74,14 @@ function ajax(sdata) {
 							
 							output += "<td><div>" + blank + img
 							output += '<a href="QnaDetailAction.ma?num='+item.qna_num + '">'
-							output += item.qna_subject.replace(/</g,'&lt;').replace(/>/g,'&gt;')
-									  + '</a></div></td>'
+							output += item.qna_subject.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+							output += "<input type='hidden' value='" + today[index] + "' class='today_" + index +"'>" ; 
+							output += "<input type='hidden' value='" + chgDttm[index] + "' class='chgDttm_" + index +"'>" ; 
+							output += "<input type='hidden' value='" + qnaIndex[index] + "' class='" + qnaIndex[index] +"'>" ; 
+							if(today[index] - chgDttm[index] <= 1){
+								output += '<i><img src="image/icon_new.gif" alt=""/></i>';
+							}
+							output += '</a></div></td>'
 							output += '<td><div>' + item.qna_name+'</div></td>'		  
 							output += '<td><div>' + item.qna_date+'</div></td>'		  
 							output += '<td><div>' + item.qna_readcount

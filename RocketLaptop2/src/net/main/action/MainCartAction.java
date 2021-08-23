@@ -24,16 +24,12 @@ public class MainCartAction implements Action {
 		int check = 0;
 		boolean result = false;
 		
-		if(!user_id.equals("")) {
-			cart.setUser_id(user_id);
-			cart.setProduct_code(product_code);
-			cart.setOrder_de_count(order_de_count);
-			result = cdao.cartInsert(cart);
-			if(result == true) {
-				check = 1; // 장바구니 담기 성공
-			}else {
-				check = -1; // 장바구니 담기 실패 0이면 로그인 안하고 장바구니 담았을때
-			}
+		cart.setUser_id(user_id);
+		cart.setProduct_code(product_code);
+		cart.setOrder_de_count(order_de_count);
+		result = cdao.cartInsert(cart);
+		if(result == true) {
+			check = 1; // 장바구니 담기 성공
 		}
 		
 		response.setContentType("text/html;charset=UTF-8");

@@ -74,6 +74,34 @@ $(function(){
 				  }
 		  });// ajax end
 	  });// ('#secession').click end
+	  
+	  // 주문 목록
+	  $('#orderList').click(function(){
+		  var user_id = $('.headernavid').val();
+		  if(user_id == ''){
+			  $('#OrderListErrorModal').modal('show');
+			  $('.OrderListErrorBtn').click(function(){
+				  $('#OrderListErrorModal').modal('hide');
+				  $('#loginModal').modal('show');
+			  });
+		  }else{
+			  location.href="OrderListView.ma?user_id=" + user_id;
+		  }
+	  });
+	  
+	  // 장바구니
+	  $('#cartList').click(function(){
+		  var user_id = $('.headernavid').val();
+		  if(user_id == ''){
+			  $('#CartListErrorModal').modal('show');
+			  $('.CartListErrorBtn').click(function(){
+				  $('#CartListErrorModal').modal('hide');
+				  $('#loginModal').modal('show');
+			  });
+		  }else{
+			  location.href="MainCartView.ma?user_id=" + user_id;
+		  }
+	  });
 
 	// 회원 수정 모달
 	$("#updateMember").click(function(){
@@ -104,7 +132,8 @@ $(function(){
 					$('#update_user_phone').val(data.user_phone);
 					$('#update_user_address1').val(data.user_address1);
 					$('#update_user_address2').val(data.user_address2);
-					if(data.user_memberfile == ''){
+					console.log(data.user_memberfile)
+					if(data.user_memberfile == 'profile.png'){
 						$('#update_filename').text(data.user_memberfile);
 						$('#update_filenameSrc').attr('src', 'image/profile.png');
 					}else{

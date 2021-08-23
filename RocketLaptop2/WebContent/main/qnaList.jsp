@@ -54,6 +54,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:set var="index" value="0"/>
 					<c:set var="num" value="${listcount-(page-1)*limit}" />
 					<c:forEach var="b" items="${qnalist}">
 						<tr>
@@ -83,12 +84,17 @@
 
 									<a href="QnaDetailAction.ma?num=${b.qna_num}"> <c:out
 											value="${b.qna_subject}" /> <%-- ${b.board_subject} --%> <%-- escapeXml="true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
-
+										
                              			<c:set var="now" value="<%= new java.util.Date() %>" />
 										<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="today"></fmt:parseNumber>
                              			<fmt:parseDate value="${b.qna_date}" var="chg_dttm" pattern="yyyy-MM-dd"/>
                              			<fmt:parseNumber var="chg_dttm_N" value="${chg_dttm.time}" integerOnly="true"></fmt:parseNumber>
                               			<fmt:parseNumber value="${chg_dttm_N / (1000*60*60*24)}" integerOnly="true" var="chgDttm"></fmt:parseNumber>
+                              			<input type="hidden" value="${today}" class="today_${index}">
+                              			<input type="hidden" value="${chgDttm}" class="chgDttm_${index}">
+                              			<input type="hidden" value="${index}" class="${index}">
+                              			<c:set var="index" value="${index + 1}" />
+                              			
                                  		<c:if test="${today - chgDttm le 1}">
                                     		<i><img src="image/icon_new.gif" alt=""/></i>   
                                   		</c:if> 

@@ -155,7 +155,7 @@
 		        
 					<!-- Modal footer -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+						<button type="button" class="btn btn-primary productOrderErrorBtn">확인</button>
 					</div>
 		        
 				</div>
@@ -201,6 +201,31 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 					  <h4>로그인 후 담아주세요.</h4>
+					</div>
+		        
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="cartErrorBtn">확인</button>
+					</div>
+		        
+				</div>
+			</div>
+		</div>
+		
+		<!-- 장바구니 담기 실패 오류 모달창 -->
+		<div class="modal hide fade" id="CartAddErrorModal">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content">
+		      
+					<!-- Modal Header -->
+					<div class="modal-header">
+						<h4 class="modal-title">장바구니 담기</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+		        
+					<!-- Modal body -->
+					<div class="modal-body">
+					  <h4>장바구니 담기 실패했습니다.</h4>
 					</div>
 		        
 					<!-- Modal footer -->

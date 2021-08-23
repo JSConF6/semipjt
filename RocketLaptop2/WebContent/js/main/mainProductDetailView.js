@@ -65,6 +65,10 @@ $(function(){
 		var user_id = $('.checkid').val();
 		if(user_id == ''){
 			$('#productOrderModal').modal('show');
+			$(".productOrderErrorBtn").click(function(){
+				$('#productOrderModal').modal('hide');
+				$('#loginModal').modal('show');
+			});
 			return false;
 		}
 		$('#MainOrderInfoModal').modal('show');
@@ -126,6 +130,14 @@ $(function(){
 	$('#cartbtn').click(function(){
 		var user_id = $('.checkid').val();
 		var product_code = $('.product_code').val();
+		if(user_id == ''){
+			$('#CartErrorModal').modal('show');
+			$("#cartErrorBtn").click(function(){
+				$('#CartErrorModal').modal('hide');
+				$('#loginModal').modal('show');
+			});
+			return false;
+		}
 		$('#CartModal').modal('show');
 		$('#addbtn').click(function(){
 			$('#CartModal').modal('hide');
@@ -142,16 +154,8 @@ $(function(){
 						$('#CartAddConfirmModal').modal('show');
 						$('.CartAddConfirmModal_body').html("<h3>장바구니에 담았습니다.</h3>");
 						$(".order_de_count").val('1');
-					}
-					
-					if(data == -1){
-						$('#CartAddConfirmModal').modal('show');
-						$('.CartAddConfirmModal_body').html("<h4>장바구니 담기에 실패했습니다.</h4>");
-					}
-					
-					if(data == 0){
-						$('#CartErrorModal').modal('show');
-						$(".order_de_count").val('1');
+					}else{
+						$('#CartAddErrorModal').modal('show');
 					}
 				}
 			});
